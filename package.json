@@ -1,0 +1,48 @@
+{
+  "name": "next",
+  "version": "0.0.1",
+  "description": "The next generation blogging platform.",
+  "main": "server.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/vesparny/next"
+  },
+  "keywords": [
+    "react",
+    "browserify",
+    "blog",
+    "isomorphic"
+  ],
+  "author": "Alessandro Arnodo",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/vesparny/next/issues"
+  },
+  "homepage": "https://github.com/vesparny/next",
+  "dependencies": {
+    "express": "~4.9.5",
+    "marked": "~0.3.2",
+    "react": "~0.11.2",
+    "body-parser": "~1.9.0",
+    "mongoose": "~3.8.16",
+    "lodash": "~2.4.1",
+    "node-jsx": "~0.11.0",
+    "superagent": "^0.18.2"
+  },
+  "devDependencies": {
+    "del": "^0.1.3",
+    "gulp": "^3.8.8",
+    "gulp-changed": "~1.0.0",
+    "gulp-csso": "^0.2.9",
+    "gulp-sass": "^0.7.3",
+    "gulp-uglify": "~1.0.1",
+    "reactify": "^0.14.0",
+    "vinyl-buffer": "^1.0.0",
+    "vinyl-source-stream": "^0.1.1",
+    "watchify": "^1.0.2",
+    "gulp-load-plugins": "~0.6.0",
+    "browserify": "~5.12.0",
+    "gulp-nodemon": "~1.0.4",
+    "run-sequence": "~0.3.7"
+  }
+}
