@@ -29,6 +29,7 @@
     "mongoose": "~3.8.16",
     "node-jsx": "~0.11.0",
     "react": "~0.11.2",
+    "react-router": "^0.7.0",
     "superagent": "^0.18.2"
   },
   "devDependencies": {

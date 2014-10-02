@@ -74,3 +74,6 @@ $RECYCLE.BIN/
 
 ## Directory-based project format:
 .idea/
+
+#app specific
+public/

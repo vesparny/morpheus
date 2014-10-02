@@ -10,8 +10,8 @@ var del = require('del');
 var watchify = require('watchify');
 var runSequence = require('run-sequence');
 var config = {
-  appJsx: './app/components/app.jsx',
-  scss: './app/assets/scss/main.scss',
+  app: './client/app.js',
+  scss: './client/assets/scss/main.scss',
   bundle: 'bundle.js',
   distJs: './public/js',
   distCss: './public/css'
@@ -22,23 +22,25 @@ gulp.task('clean', function(cb) {
 });
 
 gulp.task('browserify', function() {
-  browserify(config.appJsx)
+  browserify(config.app)
     .transform(reactify)
     .bundle()
     .pipe(source(config.bundle))
     .pipe(buffer())
-    //.pipe($.uglify())
+    .pipe($.uglify())
     .pipe(gulp.dest(config.distJs));
 });
 
 gulp.task('watchify', function() {
-  var bundler = watchify(browserify(config.appJsx, watchify.args));
+  var bundler = watchify(browserify(config.app, watchify.args));
 
   function rebundle() {
     return bundler
       .bundle()
       .on('error', $.notify.onError())
       .pipe(source(config.bundle))
+      .pipe(buffer())
+      .pipe($.uglify())
       .pipe(gulp.dest(config.distJs));
   }
 
