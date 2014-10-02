@@ -7,10 +7,10 @@ var source = require('vinyl-source-stream');
 var buffer = require('vinyl-buffer');
 var reactify = require('reactify');
 var del = require('del');
+var watchify = require('watchify');
 var runSequence = require('run-sequence');
 var config = {
-  jsx: './app/components/**/*.jsx',
-  mainjsx: './app/components/app.jsx',
+  appJsx: './app/components/app.jsx',
   scss: './app/assets/scss/main.scss',
   bundle: 'bundle.js',
   distJs: './public/js',
@@ -22,13 +22,29 @@ gulp.task('clean', function(cb) {
 });
 
 gulp.task('browserify', function() {
-  browserify(config.mainjsx)
+  browserify(config.appJsx)
     .transform(reactify)
     .bundle()
     .pipe(source(config.bundle))
     .pipe(buffer())
-    .pipe($.uglify())
+    //.pipe($.uglify())
     .pipe(gulp.dest(config.distJs));
+});
+
+gulp.task('watchify', function() {
+  var bundler = watchify(browserify(config.appJsx, watchify.args));
+
+  function rebundle() {
+    return bundler
+      .bundle()
+      .on('error', $.notify.onError())
+      .pipe(source(config.bundle))
+      .pipe(gulp.dest(config.distJs));
+  }
+
+  bundler.transform(reactify)
+    .on('update', rebundle);
+  return rebundle();
 });
 
 gulp.task('styles', function() {
@@ -37,25 +53,24 @@ gulp.task('styles', function() {
     .pipe($.sass({
       errLogToConsole: true
     }))
-    .pipe($.csso())
+    //.pipe($.csso())
     .pipe(gulp.dest(config.distCss));
 });
 
 gulp.task('watchers', function() {
   gulp.watch(config.scss, ['styles']);
-  gulp.watch(config.jsx, ['browserify']);
 });
 
 
 gulp.task('watch', ['clean'], function(cb) {
-  runSequence('styles', 'browserify', "server", 'watchers', cb);
+  runSequence('styles', 'watchify', "server", 'watchers', cb);
 });
 
 gulp.task('server', function() {
   $.nodemon({
-    script: 'server.js',
-    ext: 'js'
-  })
+      script: 'server.js',
+      ext: 'js'
+    })
     .on('restart', function() {
       console.log('restarted!');
     });
