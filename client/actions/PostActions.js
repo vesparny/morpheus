@@ -11,6 +11,12 @@ module.exports = {
       data: rawPosts
     });
   },
+  receiveSingle: function(rawSingle) {
+    NextAppDispatcher.handleServerAction({
+      type: ActionTypes.GET_SINGLE_SUCCESS,
+      data: rawSingle
+    });
+  },
   getAllPosts: function() {
     var that = this;
     NextAppDispatcher.handleServerAction({
@@ -18,6 +24,17 @@ module.exports = {
     });
     api.get("/posts").then(function(res){
       that.receiveAllPosts(res.body);
+    }, function(err){
+      console.log("error",err);
+    });
+  },
+  getSingle: function(slug) {
+    var that = this;
+    NextAppDispatcher.handleServerAction({
+      type: ActionTypes.GET_SINGLE
+    });
+    api.get("/posts/"+slug).then(function(res){
+      that.receiveSingle(res.body);
     }, function(err){
       console.log("error",err);
     });

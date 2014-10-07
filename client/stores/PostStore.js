@@ -7,11 +7,17 @@ var ActionTypes = NextAppConstants.ActionTypes;
 var CHANGE_EVENT = 'change';
 
 var _posts = [];
+var _single;
 
 function _addPosts(rawPosts) {
+  _posts = [];
   rawPosts.forEach(function(post) {
     _posts.push(post);
   });
+}
+
+function _setSingle(rawSingle) {
+  _single = rawSingle;
 }
 
 var PostStore = merge(EventEmitter.prototype, {
@@ -34,6 +40,10 @@ var PostStore = merge(EventEmitter.prototype, {
 
   getAll: function() {
     return _posts;
+  },
+
+  getSingle: function() {
+    return _single;
   }
 
 });
@@ -45,10 +55,14 @@ PostStore.dispatchToken = NextAppDispatcher.register(function(payload) {
     case ActionTypes.GET_POST_SUCCESS:
       _addPosts(action.data);
       PostStore.emitChange();
+    case ActionTypes.GET_SINGLE_SUCCESS:
+      _setSingle(action.data);
+      PostStore.emitChange();
       break;
 
       default:
       }
     });
+
 
     module.exports = PostStore;

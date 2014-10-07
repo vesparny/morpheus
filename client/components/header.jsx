@@ -2,10 +2,10 @@ var React = require('react');
 
 var Header = React.createClass({
   render: function() {
+    var className = "site-footer clearfix";
     return (
-      <div>
-        header
-      </div>
+      <header className={className}>
+      </header>
     );
   }
 });

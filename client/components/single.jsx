@@ -1,24 +1,48 @@
+/** @jsx React.DOM */
+
+'use strict';
+
 var React = require('react');
-var ReactPropTypes = React.PropTypes;
-var TodoActions = require('../actions/PostActions');
+var PostListElement = require('./postListElement.jsx');
+var PostActions = require('../actions/PostActions');
+var PostStore = require('../stores/PostStore');
+var storeWatchMixin = require('../mixins/StoreWatchMixin');
+var Aside = require('./aside.jsx');
 
 var Single = React.createClass({
+  mixins: [storeWatchMixin([PostStore])],
 
-  propTypes: {
-   post: ReactPropTypes.object.isRequired
+  getState: function() {
+    return {
+      single: PostStore.getSingle()
+    };
   },
 
-  getInitialState: function() {
-    return {};
+  componentDidMount: function() {
+    console.log(this.props.params.slug);
+    PostActions.getSingle(this.props.params.slug);
   },
 
   render: function() {
-    var post = this.props.post || {};
+    var posts = [];
 
+    if(!this.state.single){
+      return <div>Loading ... </div>
+    }
     return (
-      <div>
-        {post.text}
-      </div>
+    <article className="post">
+
+        <header className="post-header">
+            <h1 className="post-title">{this.state.single.title}</h1>
+            <section className="post-meta">
+                <time className="post-date" >{this.state.single.date}</time> {this.state.single.tags}
+            </section>
+        </header>
+
+        <section className="post-content" dangerouslySetInnerHTML={{__html: this.state.single.content}}></section>
+
+        <footer className="post-footer"></footer>
+        </article>
     );
   }
 });

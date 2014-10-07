@@ -12,13 +12,13 @@ var App = require('./components/app.jsx');
 
 var NotFound = require('./components/notFound.jsx');
 var PostList = require('./components/postList.jsx');
-var Single = require('./components/single.jsx');
+var Single = require('./components/Single.jsx');
 
 var appRouter = (
-  <Routes location="hash">
+  <Routes location="history">
     <Route title="Next" handler={App}>
-      <Route name="list" path="/" handler={PostList} />
-      <Route title="title" name="add" path="/single" handler={Single} />
+      <Route name="home" path="/" handler={PostList} />
+      <Route name="single" path="/:slug" handler={Single} />
       <NotFoundRoute title="Page Not Found" handler={NotFound}/>
     </Route>
   </Routes>

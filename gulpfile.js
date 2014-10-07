@@ -27,7 +27,7 @@ gulp.task('browserify', function() {
     .bundle()
     .pipe(source(config.bundle))
     .pipe(buffer())
-    .pipe($.uglify())
+    //.pipe($.uglify())
     .pipe(gulp.dest(config.distJs));
 });
 
@@ -40,7 +40,7 @@ gulp.task('watchify', function() {
       .on('error', $.notify.onError())
       .pipe(source(config.bundle))
       .pipe(buffer())
-      .pipe($.uglify())
+      //.pipe($.uglify())
       .pipe(gulp.dest(config.distJs));
   }
 

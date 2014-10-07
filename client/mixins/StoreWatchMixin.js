@@ -1,16 +1,15 @@
 var _ = require('lodash');
 
-var StoreWatchMixin = function() {
-  var storeNames = Array.prototype.slice.call(arguments, 0);
+var StoreWatchMixin = function(stores) {
   return {
     componentDidMount: function() {
-    _.each(storeNames, function(store) {
+    _.each(stores, function(store) {
         store.addChangeListener(this._setState);
       }, this);
     },
 
     componentWillUnmount: function() {
-      _.each(storeNames, function(store) {
+      _.each(stores, function(store) {
         store.removeChangeListener(this._setState);
       }, this);
     },

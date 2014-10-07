@@ -1,13 +1,15 @@
 var React = require('react');
 
-var Footer = React.createClass({
+var Header = React.createClass({
   render: function() {
+    var classString = "site-footer clearfix";
     return (
-      <div>
-        Footer
-      </div>
+      <footer className={classString}>
+         <section className="copyright"><a href="url">title</a> &copy;</section>
+         <section className="poweredby">Proudly published with <a href="https://ghost.org">Ghost</a></section>
+    </footer>
     );
   }
 });
 
-module.exports = Footer;
+module.exports = Header;
