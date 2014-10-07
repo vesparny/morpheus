@@ -27,6 +27,7 @@
     "flux": "^2.0.1",
     "front-matter": "^0.2.0",
     "glob": "^4.0.6",
+    "highlight.js": "^8.2.0",
     "lodash": "~2.4.1",
     "marked": "~0.3.2",
     "mongoose": "~3.8.16",

@@ -50,19 +50,20 @@ var PostStore = merge(EventEmitter.prototype, {
 
 PostStore.dispatchToken = NextAppDispatcher.register(function(payload) {
   var action = payload.action;
-  switch(action.type) {
+  switch (action.type) {
 
     case ActionTypes.GET_POST_SUCCESS:
       _addPosts(action.data);
       PostStore.emitChange();
+      break;
     case ActionTypes.GET_SINGLE_SUCCESS:
       _setSingle(action.data);
       PostStore.emitChange();
       break;
 
-      default:
-      }
-    });
+    default:
+  }
+});
 
 
-    module.exports = PostStore;
+module.exports = PostStore;

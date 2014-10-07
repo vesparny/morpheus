@@ -9,642 +9,409 @@ title: Opinionated AngularJS styleguide for teams
 path: 2014-07-23-opinionated-angular-js-styleguide-for-teams.md
 ---
 
-<h5>Official styleguide repo <a href="//github.com/toddmotto/angularjs-styleguide" style="text-decoration: underline;">now on GitHub</a>, all future styleguide updates will be here!</h5>
+# marked
 
+> A full-featured markdown parser and compiler, written in JavaScript. Built
+> for speed.
 
-After reading [Google's AngularJS guidelines](//google-styleguide.googlecode.com/svn/trunk/angularjs-google-style.html), I felt they were a little too incomplete and also guided towards using the Closure library. They [also state](//blog.angularjs.org/2014/02/an-angularjs-style-guide-and-best.html) _"We don't think this makes sense for all projects that use AngularJS, and we'd love to see our community of developers come up with a more general Style that's applicable to AngularJS projects large and small"_, so here goes.
+[![NPM version](https://badge.fury.io/js/marked.png)][badge]
 
-From my experience with Angular, [several talks](//speakerdeck.com/toddmotto) and working in teams, here's my opinionated styleguide for syntax, building and structuring Angular applications.
+## Install
 
-### Module definitions
+``` bash
+npm install marked --save
+```
 
-Angular modules can be declared in various ways, either stored in a variable or using the getter syntax. Use the getter syntax at all times ([angular recommended](//docs.angularjs.org/guide/module)).
+## Usage
 
-###### Bad:
-{% highlight javascript %}
-var app = angular.module('app', []);
-app.controller();
-app.factory();
-{% endhighlight %}
+Minimal usage:
 
-###### Good:
-{% highlight javascript %}
-angular
-  .module('app', [])
-  .controller()
-  .factory();
-{% endhighlight %}
+```js
+var marked = require('marked');
+console.log(marked('I am using __markdown__.'));
+// Outputs: <p>I am using <strong>markdown</strong>.</p>
+```
 
-From these modules we can pass in function references.
+Example setting options with default values:
 
-### Module method functions
-
-Angular modules have a lot of methods, such as `controller`, `factory`, `directive`, `service` and more. There are many syntaxes for these modules when it comes to dependency injection and formatting your code. Use a named function definition and pass it into the relevant module method, this aids in stack traces as functions aren't anonymous (this could be solved by naming the anonymous function but this method is far cleaner).
-
-###### Bad:
-{% highlight javascript %}
-var app = angular.module('app', []);
-app.controller('MyCtrl', function () {
-
+```js
+var marked = require('marked');
+marked.setOptions({
+  renderer: new marked.Renderer(),
+  gfm: true,
+  tables: true,
+  breaks: false,
+  pedantic: false,
+  sanitize: true,
+  smartLists: true,
+  smartypants: false
 });
-{% endhighlight %}
 
-###### Good:
-{% highlight javascript %}
-function MainCtrl () {
+console.log(marked('I am using __markdown__.'));
+```
 
-}
-angular
-  .module('app', [])
-  .controller('MainCtrl', MainCtrl);
-{% endhighlight %}
+### Browser
 
-Define a module once using `angular.module('app', [])` setter, then use the `angular.module('app')` getter elsewhere (such as other files).
+```html
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8"/>
+  <title>Marked in the browser</title>
+  <script src="lib/marked.js"></script>
+</head>
+<body>
+  <div id="content"></div>
+  <script>
+    document.getElementById('content').innerHTML =
+      marked('# Marked in browser\n\nRendered by **marked**.');
+  </script>
+</body>
+</html>
+```
 
-To avoid polluting the global namespace, wrap all your functions during _compilation/concatenation_ inside an IIFE which will produce something like this:
+## marked(markdownString [,options] [,callback])
 
-###### Best:
-{% highlight javascript %}
-(function () {
-  angular.module('app', []);
+### markdownString
 
-  // MainCtrl.js
-  function MainCtrl () {
+Type: `string`
 
+String of markdown source to be compiled.
+
+### options
+
+Type: `object`
+
+Hash of options. Can also be set using the `marked.setOptions` method as seen
+above.
+
+### callback
+
+Type: `function`
+
+Function called when the `markdownString` has been fully parsed when using
+async highlighting. If the `options` argument is omitted, this can be used as
+the second argument.
+
+## Options
+
+### highlight
+
+Type: `function`
+
+A function to highlight code blocks. The first example below uses async highlighting with
+[node-pygmentize-bundled][pygmentize], and the second is a synchronous example using
+[highlight.js][highlight]:
+
+```js
+var marked = require('marked');
+
+var markdownString = '```js\n console.log("hello"); \n```';
+
+// Async highlighting with pygmentize-bundled
+marked.setOptions({
+  highlight: function (code, lang, callback) {
+    require('pygmentize-bundled')({ lang: lang, format: 'html' }, code, function (err, result) {
+      callback(err, result.toString());
+    });
   }
+});
 
-  angular
-    .module('app')
-    .controller('MainCtrl', MainCtrl);
+// Using async version of marked
+marked(markdownString, function (err, content) {
+  if (err) throw err;
+  console.log(content);
+});
 
-  // AnotherCtrl.js
-  function AnotherCtrl () {
-
+// Synchronous highlighting with highlight.js
+marked.setOptions({
+  highlight: function (code) {
+    return require('highlight.js').highlightAuto(code).value;
   }
+});
 
-  angular
-    .module('app')
-    .controller('AnotherCtrl', AnotherCtrl);
+console.log(marked(markdownString));
+```
 
-  // and so on...
+#### highlight arguments
 
-})();
-{% endhighlight %}
+`code`
 
+Type: `string`
 
-### Controllers
+The section of code to pass to the highlighter.
 
-Controllers are classes and can use a `controllerAs` syntax or generic `controller` syntax. Use the `controllerAs` syntax always as it aids in nested scoping and controller instance reference.
+`lang`
 
-##### controllerAs DOM bindings
+Type: `string`
 
-###### Bad:
-{% highlight html %}
-<div ng-controller="MainCtrl">
-  {% raw %}{{ someObject }}{% endraw %}
-</div>
-{% endhighlight %}
+The programming language specified in the code block.
 
-###### Good:
-{% highlight html %}
-<div ng-controller="MainCtrl as main">
-  {% raw %}{{ main.someObject }}{% endraw %}
-</div>
-{% endhighlight %}
+`callback`
 
-Binding these `ng-controller` attributes couples the declarations tightly with our DOM, and also means we can only use that controller for that specific view (there are rare cases we might use the same view with different controllers). Use the router to couple the controller declarations with the relevant views by telling each `route` what controller to instantiate.
+Type: `function`
 
-###### Best:
-{% highlight html %}
-<!-- main.html -->
-<div>
-  {% raw %}{{ main.someObject }}{% endraw %}
-</div>
-<!-- main.html -->
+The callback function to call when using an async highlighter.
 
-<script>
-// ...
-function config ($routeProvider) {
-  $routeProvider
-  .when('/', {
-    templateUrl: 'views/main.html',
-    controller: 'MainCtrl',
-    controllerAs: 'main'
-  });
+### renderer
+
+Type: `object`
+Default: `new Renderer()`
+
+An object containing functions to render tokens to HTML.
+
+#### Overriding renderer methods
+
+The renderer option allows you to render tokens in a custom manor. Here is an
+example of overriding the default heading token rendering by adding an embedded anchor tag like on GitHub:
+
+```javascript
+var marked = require('marked');
+var renderer = new marked.Renderer();
+
+renderer.heading = function (text, level) {
+  var escapedText = text.toLowerCase().replace(/[^\w]+/g, '-');
+
+  return '<h' + level + '><a name="' +
+                escapedText +
+                 '" class="anchor" href="#' +
+                 escapedText +
+                 '"><span class="header-link"></span></a>' +
+                  text + '</h' + level + '>';
+},
+
+console.log(marked('# heading+', { renderer: renderer }));
+```
+This code will output the following HTML:
+```html
+<h1>
+  <a name="heading-" class="anchor" href="#heading-">
+    <span class="header-link"></span>
+  </a>
+  heading+
+</h1>
+```
+
+#### Block level renderer methods
+
+- code(*string* code, *string* language)
+- blockquote(*string* quote)
+- html(*string* html)
+- heading(*string* text, *number*  level)
+- hr()
+- list(*string* body, *boolean* ordered)
+- listitem(*string*  text)
+- paragraph(*string* text)
+- table(*string* header, *string* body)
+- tablerow(*string* content)
+- tablecell(*string* content, *object* flags)
+
+`flags` has the following properties:
+
+```js
+{
+    header: true || false,
+    align: 'center' || 'left' || 'right'
 }
-angular
-  .module('app')
-  .config(config);
-//...
-</script>
-{% endhighlight %}
-
-This avoids using `$parent` to access any parent controllers from a child controller, simple hit the `main` reference and you've got it. This could avoid things such as `$parent.$parent` calls.
-
-##### controllerAs this keyword
-
-The `controllerAs` syntax uses the `this` keyword inside controllers instead of `$scope`. When using `controllerAs`, the controller is infact _bound_ to `$scope`, there is a degree of separation.
-
-###### Bad:
-{% highlight javascript %}
-function MainCtrl ($scope) {
-  $scope.someObject = {};
-  $scope.doSomething = function () {
-
-  };
-}
-angular
-  .module('app')
-  .controller('MainCtrl', MainCtrl);
-{% endhighlight %}
-
-You can also use the `prototype` Object to create controller classes, but this becomes messy very quickly as each dependency injected provider needs a reference bound to the `constructor` Object.
-
-###### Bad and Good:
-Good for inheritance, bad (verbose) for general use.
-
-{% highlight javascript %}
-function MainCtrl ($scope) {
-  this.someObject = {};
-  this._$scope = $scope;
-}
-MainCtrl.prototype.doSomething = function () {
-  // use this._$scope
-};
-angular
-  .module('app')
-  .controller('MainCtrl', MainCtrl);
-{% endhighlight %}
+```
 
-If you're using `prototype` and don't know why, then it's bad. If you are using `prototype` to inherit from other controllers, then that's good. For general use, the `prototype` pattern can be verbose.
+#### Inline level renderer methods
 
-###### Good:
-{% highlight javascript %}
-function MainCtrl () {
-  this.someObject = {};
-  this.doSomething = function () {
+- strong(*string* text)
+- em(*string* text)
+- codespan(*string* code)
+- br()
+- del(*string* text)
+- link(*string* href, *string* title, *string* text)
+- image(*string* href, *string* title, *string* text)
 
-  };
-}
-angular
-  .module('app')
-  .controller('MainCtrl', MainCtrl);
-{% endhighlight %}
+### gfm
 
-These just show examples of Objects/functions inside Controllers, however we don't want to put logic in controllers...
+Type: `boolean`
+Default: `true`
 
-##### Avoid controller logic
+Enable [GitHub flavored markdown][gfm].
 
-Avoid writing logic in Controllers, delegate to Factories/Services.
+### tables
 
-###### Bad:
-{% highlight javascript %}
-function MainCtrl () {
-  this.doSomething = function () {
+Type: `boolean`
+Default: `true`
 
-  };
-}
-angular
-  .module('app')
-  .controller('MainCtrl', MainCtrl);
-{% endhighlight %}
+Enable GFM [tables][tables].
+This option requires the `gfm` option to be true.
 
-###### Good:
-{% highlight javascript %}
-function MainCtrl (SomeService) {
-  this.doSomething = SomeService.doSomething;
-}
-angular
-  .module('app')
-  .controller('MainCtrl', MainCtrl);
-{% endhighlight %}
+### breaks
 
-This maximises reusability, encapsulated functionality and makes testing far easier and persistent.
+Type: `boolean`
+Default: `false`
 
-### Services
-
-Services are instantiated and should be class-like also and reference the `this` keyword, keep function style consistent with everything else.
-
-###### Good:
-{% highlight javascript %}
-function SomeService () {
-  this.someMethod = function () {
-
-  };
-}
-angular
-  .module('app')
-  .service('SomeService', SomeService);
-{% endhighlight %}
+Enable GFM [line breaks][breaks].
+This option requires the `gfm` option to be true.
 
-### Factory
+### pedantic
 
-Factories give us a singleton module for creating service methods (such as communicating with a server over REST endpoints). Creating and returning a bound Object keeps controller bindings up to date and avoids pitfalls of binding primitive values.
+Type: `boolean`
+Default: `false`
 
-Important: A "factory" is in fact a pattern/implementation, and shouldn't be part of the provider's name. All factories and services should be called "services".
+Conform to obscure parts of `markdown.pl` as much as possible. Don't fix any of
+the original markdown bugs or poor behavior.
 
-###### Bad:
-{% highlight javascript %}
-function AnotherService () {
+### sanitize
 
-  var someValue = '';
+Type: `boolean`
+Default: `false`
 
-  var someMethod = function () {
+Sanitize the output. Ignore any HTML that has been input.
 
-  };
+### smartLists
 
-  return {
-    someValue: someValue,
-    someMethod: someMethod
-  };
+Type: `boolean`
+Default: `true`
 
-}
-angular
-  .module('app')
-  .factory('AnotherService', AnotherService);
-{% endhighlight %}
+Use smarter list behavior than the original markdown. May eventually be
+default with the old behavior moved into `pedantic`.
 
-###### Good:
-We create an Object with the same name inside the function. This can aid documentation as well for comment-generated docs.
+### smartypants
 
-{% highlight javascript %}
-function AnotherService () {
+Type: `boolean`
+Default: `false`
 
-  var AnotherService = {};
+Use "smart" typograhic punctuation for things like quotes and dashes.
 
-  AnotherService.someValue = '';
+## Access to lexer and parser
 
-  AnotherService.someMethod = function () {
+You also have direct access to the lexer and parser if you so desire.
 
-  };
+``` js
+var tokens = marked.lexer(text, options);
+console.log(marked.parser(tokens));
+```
 
-  return AnotherService;
-}
-angular
-  .module('app')
-  .factory('AnotherService', AnotherService);
-{% endhighlight %}
+``` js
+var lexer = new marked.Lexer(options);
+var tokens = lexer.lex(text);
+console.log(tokens);
+console.log(lexer.rules);
+```
 
-Any bindings to primitives are kept up to date, and it makes internal module namespacing a little easier, we can easily see any private methods and variables.
+## CLI
 
-### Directives
+``` bash
+$ marked -o hello.html
+hello world
+^D
+$ cat hello.html
+<p>hello world</p>
+```
 
-Any DOM manipulation should take place inside a directive, and only directives. Any code reusability should be encapsulated (behavioural and markup related) too.
+## Philosophy behind marked
 
-##### DOM manipulation
+The point of marked was to create a markdown compiler where it was possible to
+frequently parse huge chunks of markdown without having to worry about
+caching the compiled output somehow...or blocking for an unnecesarily long time.
 
-DOM manipulation should be done inside the `link` method of a directive.
+marked is very concise and still implements all markdown features. It is also
+now fully compatible with the client-side.
 
-###### Bad:
-{% highlight javascript %}
-// do not use a controller
-function MainCtrl (SomeService) {
-
-  this.makeActive = function (elem) {
-    elem.addClass('test');
-  };
-
-}
-angular
-  .module('app')
-  .controller('MainCtrl', MainCtrl);
-{% endhighlight %}
-
-###### Good:
-{% highlight javascript %}
-// use a directive
-function SomeDirective (SomeService) {
-  return {
-    restrict: 'EA',
-    template: [
-      '<a href="" class="myawesomebutton" ng-transclude>',
-        '<i class="icon-ok-sign"></i>',
-      '</a>'
-    ].join(''),
-    link: function ($scope, $element, $attrs) {
-      // DOM manipulation/events here!
-      $element.on('click', function () {
-        $(this).addClass('test');
-      });
-    }
-  };
-}
-angular
-  .module('app')
-  .directive('SomeDirective', SomeDirective);
-{% endhighlight %}
-
-Any DOM manipulation should take place inside a directive, and only directives. Any code reusability should be encapsulated (behavioural and markup related) too.
-
-##### Naming conventions
-
-Custom directives should _not_ be `ng-*` prefixed to prevent future core overrides if your directive name happens to land in Angular (such as when `ng-focus` landed, there were many custom directives called this beforehand). It also makes it more confusing to know which are core directives and which are custom.
-
-###### Bad:
-{% highlight javascript %}
-function ngFocus (SomeService) {
-
-  return {};
-
-}
-angular
-  .module('app')
-  .directive('ngFocus', ngFocus);
-{% endhighlight %}
-
-###### Good:
-{% highlight javascript %}
-function focusFire (SomeService) {
-
-  return {};
-
-}
-angular
-  .module('app')
-  .directive('focusFire', focusFire);
-{% endhighlight %}
-
-Directives are the _only_ providers that we have the first letter as lowercase, this is due to strict naming conventions in the way Angular translates `camelCase` to hyphenated, so `focusFire` will become `<input focus-fire>` when used on an element.
-
-##### Usage restriction
-
-If you need to support IE8, you'll want to avoid using the comments syntax for declaring where a directive will sit. Really, this syntax should be avoided anyway - there are no real benefits of using it - it just adds confusion of what is a comment and what isn't.
-
-###### Bad:
-These are terribly confusing.
-{% highlight html %}
-<!-- directive: my-directive -->
-<div class="my-directive"></div>
-{% endhighlight %}
-
-###### Good:
-Declarative custom elements and attributes are clearest.
-{% highlight html %}
-<my-directive></my-directive>
-<div my-directive></div>
-{% endhighlight %}
-
-You can restrict usage using the `restrict` property inside each directive's Object. Use `E` for `element`, `A` for `attribute`, `M` for `comment` (avoid) and `C` for `className` (avoid this too as it's even more confusing, but plays better with IE). You can have multiple restrictions, such as `restrict: 'EA'`.
-
-### Resolve promises in router, defer controllers
-
-After creating services, we will likely inject them into a controller, call them and bind any new data that comes in. This becomes problematic of keeping controllers tidy and resolving the right data.
-
-Thankfully, using `angular-route.js` (or a third party such as `ui-router.js`) we can use a `resolve` property to resolve the next view's promises before the page is served to us. This means our controllers are instantiated when all data is available, which means zero function calls.
-
-###### Bad:
-{% highlight javascript %}
-function MainCtrl (SomeService) {
-
-  var self = this;
-
-  // unresolved
-  self.something;
-
-  // resolved asynchronously
-  SomeService.doSomething().then(function (response) {
-    self.something = response;
-  });
-
-}
-angular
-  .module('app')
-  .controller('MainCtrl', MainCtrl);
-{% endhighlight %}
-
-###### Good:
-{% highlight javascript %}
-function config ($routeProvider) {
-  $routeProvider
-  .when('/', {
-    templateUrl: 'views/main.html',
-    resolve: {
-      doSomething: function (SomeService) {
-        return SomeService.doSomething();
-      }
-    }
-  });
-}
-angular
-  .module('app')
-  .config(config);
-{% endhighlight %}
-
-At this point, our service will internally bind the response of the promise to another Object which we can reference in our "deferred-instantiated" controller:
-
-###### Good:
-{% highlight javascript %}
-function MainCtrl (SomeService) {
-  // resolved!
-  this.something = SomeService.something;
-}
-angular
-  .module('app')
-  .controller('MainCtrl', MainCtrl);
-{% endhighlight %}
-
-We can go one better, however and create a `resolve` property on our own Controllers to couple the resolves with the Controllers and avoid logic in the router.
-
-###### Best:
-{% highlight javascript %}
-// config with resolve pointing to relevant controller
-function config ($routeProvider) {
-  $routeProvider
-  .when('/', {
-    templateUrl: 'views/main.html',
-    controller: 'MainCtrl',
-    controllerAs: 'main',
-    resolve: MainCtrl.resolve
-  });
-}
-// controller as usual
-function MainCtrl (SomeService) {
-  // resolved!
-  this.something = SomeService.something;
-}
-// create the resolved property
-MainCtrl.resolve = {
-  doSomething: function (SomeService) {
-    return SomeService.doSomething();
-  }
-};
-
-angular
-  .module('app')
-  .controller('MainCtrl', MainCtrl)
-  .config(config);
-{% endhighlight %}
-
-##### Route changes and ajax spinners
-While the routes are being resolved we want to show the user something to indicate progress. Angular will fire the `$routeChangeStart` event as we navigate away from the page, which we can show some form of loading and ajax spinner, which can then be removed on the `$routeChangeSuccess` event ([see docs](https://docs.angularjs.org/api/ngRoute/service/$route)).
-
-### Avoid $scope.$watch
-
-Using `$scope.$watch` should be avoided unless there are no others options. It's less performant than binding an expression to something like `ng-change`, a list of supported events are in the Angular docs.
-
-###### Bad:
-{% highlight html %}
-<input ng-model="myModel">
-<script>
-$scope.$watch('myModel', callback);
-</script>
-{% endhighlight %}
-
-###### Good:
-{% highlight html %}
-<input ng-model="myModel" ng-change="callback">
-<!--
-  $scope.callback = function () {
-    // go
-  };
--->
-{% endhighlight %}
-
-### Project/file structure
-
-One role, one file, rule. Separate all controllers, services/factories, directives into individual files. Don't add all controllers in one file, you will end up with a huge file that is very difficult to navigate, keeps things encapsulated and bitesize.
-
-###### Bad:
-{% highlight html %}
-|-- app.js
-|-- controllers.js
-|-- filters.js
-|-- services.js
-|-- directives.js
-{% endhighlight %}
-
-Keep naming conventions for files consistent, don't invent fancy names for things, you'll just forget them.
-
-###### Good:
-{% highlight html %}
-|-- app.js
-|-- controllers/
-|   |-- MainCtrl.js
-|   |-- AnotherCtrl.js
-|-- filters/
-|   |-- MainFilter.js
-|   |-- AnotherFilter.js
-|-- services/
-|   |-- MainService.js
-|   |-- AnotherService.js
-|-- directives/
-|   |-- MainDirective.js
-|   |-- AnotherDirective.js
-{% endhighlight %}
-
-Depending on the size of your code base, a "feature-driven" approach may be better to split into functionality chunks.
-
-###### Good:
-{% highlight html %}
-|-- app.js
-|-- dashboard/
-|   |-- DashboardService.js
-|   |-- DashboardCtrl.js
-|-- login/
-|   |-- LoginService.js
-|   |-- LoginCtrl.js
-|-- inbox/
-|   |-- InboxService.js
-|   |-- InboxCtrl.js
-{% endhighlight %}
-
-### Naming conventions and conflicts
-
-Angular provides us many Objects such as `$scope` and `$rootScope` that are prefixed with `$`. This incites they're public and can be used. We also get shipped with things such as `$$listeners`, which are available on the Object but are considered private methods.
-
-Avoid using `$` or `$$` when creating your own services/directives/providers/factories.
-
-###### Bad:
-Here we create `$$SomeService` as the definition, not the function name.
-
-{% highlight javascript %}
-function SomeService () {
-
-}
-angular
-  .module('app')
-  .factory('$$SomeService', SomeService);
-{% endhighlight %}
-
-###### Good:
-Here we create `SomeService` as the definition, _and_ the function name for consistency/stack traces.
-
-{% highlight javascript %}
-function SomeService () {
-
-}
-angular
-  .module('app')
-  .factory('SomeService', SomeService);
-{% endhighlight %}
-
-### Minification and annotation
-
-##### Annotation order
-It's considered good practice to dependency inject Angular's providers in before our own custom ones.
-
-###### Bad:
-{% highlight javascript %}
-// randomly ordered dependencies
-function SomeCtrl (MyService, $scope, AnotherService, $rootScope) {
-
-}
-{% endhighlight %}
-
-###### Good:
-{% highlight javascript %}
-// ordered Angular -> custom
-function SomeCtrl ($scope, $rootScope, MyService, AnotherService) {
-
-}
-{% endhighlight %}
-
-##### Minification methods, automate it
-Use `ng-annotate` for automated dependency injection annotation, as `ng-min` is [deprecated](https://github.com/btford/ngmin). You can find `ng-annotate` [here](https://github.com/olov/ng-annotate).
-
-With our function declarations outside of the module references, we need to use the `@ngInject` comment to explicitly tell `ng-annotate` where to inject our dependencies. This method uses `$inject` which is faster than the Array syntax.
-
-Manually specifiying the dependency injection arrays costs too much time.
-
-###### Bad:
-{% highlight javascript %}
-function SomeService ($scope) {
-
-}
-// manually declaring is time wasting
-SomeService.$inject = ['$scope'];
-angular
-  .module('app')
-  .factory('SomeService', SomeService);
-{% endhighlight %}
-
-###### Good:
-Using the `ng-annotate` keyword `@ngInject` to instruct things that need annotating:
-
-{% highlight javascript %}
-/**
- * @ngInject
- */
-function SomeService ($scope) {
-
-}
-angular
-  .module('app')
-  .factory('SomeService', SomeService);
-{% endhighlight %}
-
-Will produce:
-
-{% highlight javascript %}
-/**
- * @ngInject
- */
-function SomeService ($scope) {
-
-}
-// automated
-SomeService.$inject = ['$scope'];
-angular
-  .module('app')
-  .factory('SomeService', SomeService);
-{% endhighlight %}
+marked more or less passes the official markdown test suite in its
+entirety. This is important because a surprising number of markdown compilers
+cannot pass more than a few tests. It was very difficult to get marked as
+compliant as it is. It could have cut corners in several areas for the sake
+of performance, but did not in order to be exactly what you expect in terms
+of a markdown rendering. In fact, this is why marked could be considered at a
+disadvantage in the benchmarks above.
+
+Along with implementing every markdown feature, marked also implements [GFM
+features][gfmf].
+
+## Benchmarks
+
+node v0.8.x
+
+``` bash
+$ node test --bench
+marked completed in 3411ms.
+marked (gfm) completed in 3727ms.
+marked (pedantic) completed in 3201ms.
+robotskirt completed in 808ms.
+showdown (reuse converter) completed in 11954ms.
+showdown (new converter) completed in 17774ms.
+markdown-js completed in 17191ms.
+```
+
+__Marked is now faster than Discount, which is written in C.__
+
+For those feeling skeptical: These benchmarks run the entire markdown test suite 1000 times. The test suite tests every feature. It doesn't cater to specific aspects.
+
+### Pro level
+
+You also have direct access to the lexer and parser if you so desire.
+
+``` js
+var tokens = marked.lexer(text, options);
+console.log(marked.parser(tokens));
+```
+
+``` js
+var lexer = new marked.Lexer(options);
+var tokens = lexer.lex(text);
+console.log(tokens);
+console.log(lexer.rules);
+```
+
+``` bash
+$ node
+> require('marked').lexer('> i am using marked.')
+[ { type: 'blockquote_start' },
+  { type: 'paragraph',
+    text: 'i am using marked.' },
+  { type: 'blockquote_end' },
+  links: {} ]
+```
+
+## Running Tests & Contributing
+
+If you want to submit a pull request, make sure your changes pass the test
+suite. If you're adding a new feature, be sure to add your own test.
+
+The marked test suite is set up slightly strangely: `test/new` is for all tests
+that are not part of the original markdown.pl test suite (this is where your
+test should go if you make one). `test/original` is only for the original
+markdown.pl tests. `test/tests` houses both types of tests after they have been
+combined and moved/generated by running `node test --fix` or `marked --test
+--fix`.
+
+In other words, if you have a test to add, add it to `test/new/` and then
+regenerate the tests with `node test --fix`. Commit the result. If your test
+uses a certain feature, for example, maybe it assumes GFM is *not* enabled, you
+can add `.nogfm` to the filename. So, `my-test.text` becomes
+`my-test.nogfm.text`. You can do this with any marked option. Say you want
+line breaks and smartypants enabled, your filename should be:
+`my-test.breaks.smartypants.text`.
+
+To run the tests:
+
+``` bash
+cd marked/
+node test
+```
+
+### Contribution and License Agreement
+
+If you contribute code to this project, you are implicitly allowing your code
+to be distributed under the MIT license. You are also implicitly verifying that
+all code is your original work. `</legalese>`
+
+## License
+
+Copyright (c) 2011-2014, Christopher Jeffrey. (MIT License)
+
+See LICENSE for more info.
+
+[gfm]: https://help.github.com/articles/github-flavored-markdown
+[gfmf]: http://github.github.com/github-flavored-markdown/
+[pygmentize]: https://github.com/rvagg/node-pygmentize-bundled
+[highlight]: https://github.com/isagalaev/highlight.js
+[badge]: http://badge.fury.io/js/marked
+[tables]: https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet#wiki-tables
+[breaks]: https://help.github.com/articles/github-flavored-markdown#newlines

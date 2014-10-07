@@ -7,6 +7,11 @@ var fm = require("front-matter");
 var Promise = require('es6-promise').Promise;
 var downsize = require('downsize');
 var glob = require("glob");
+marked.setOptions({
+  highlight: function (code) {
+    return require('highlight.js').highlightAuto(code).value;
+  }
+});
 
 // configure app to use bodyParser()
 // this will let us get the data from a POST
