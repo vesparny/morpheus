@@ -31,6 +31,7 @@
     "front-matter": "^0.2.0",
     "glob": "^4.0.6",
     "highlight.js": "^8.2.0",
+    "inherits": "^2.0.1",
     "lodash": "~2.4.1",
     "marked": "~0.3.2",
     "method-override": "^2.2.0",
