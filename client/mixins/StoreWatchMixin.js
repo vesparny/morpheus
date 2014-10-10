@@ -1,17 +1,15 @@
-var _ = require('lodash');
-
 var StoreWatchMixin = function(stores) {
   return {
     componentDidMount: function() {
-    _.each(stores, function(store) {
+    stores.forEach(function(store) {
         store.addChangeListener(this._setState);
-      }, this);
+      }.bind(this));
     },
 
     componentWillUnmount: function() {
-      _.each(stores, function(store) {
+      stores.forEach(function(store) {
         store.removeChangeListener(this._setState);
-      }, this);
+      }.bind(this));
     },
 
     _setState: function() {
