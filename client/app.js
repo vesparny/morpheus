@@ -3,10 +3,26 @@
 'use strict';
 
 var React = require('react');
-var router = require('./router');
+var router = require('./router.js');
+var Aviator = require('aviator');
 
 
 //allow react dev tools work
 window.React = React;
 
-React.renderComponent(router, document.body);
+// define routes
+Aviator.setRoutes({
+  target: router,
+  '/*': 'setup',
+  '/': {
+    target: router.routes,
+    '/': 'home',
+  },
+  '/:slug': {
+    target: router.routes,
+    '/': 'single',
+  }
+});
+
+// Start routing
+Aviator.dispatch();

@@ -1,5 +1,4 @@
 /** @jsx React.DOM */
-
 var React = require("react");
 
 var Router = require("react-router");
@@ -14,14 +13,16 @@ var NotFound = require('./components/notFound.jsx');
 var PostList = require('./components/postList.jsx');
 var Single = require('./components/Single.jsx');
 
-var appRouter = (
-  <Routes location="history">
-    <Route title="Next" handler={App}>
-      <Route name="home" path="/" handler={PostList} />
-      <Route name="single" path="/:slug" handler={Single} />
-      <NotFoundRoute title="Page Not Found" handler={NotFound}/>
-    </Route>
-  </Routes>
-);
+module.exports = {
+  setup:function(){
+    var content='page-content';
+    React.render(<App content={content}/>, document.body);
+  },
+  home: function () {
+    React.render(<PostList/>, document.querySelector('.page-content')  );
+  },
+  single:function(request){
+    React.render(<Single params={{slug: request.namedParams.slug}}/>, document.querySelector('.page-content'));
+  }
 
-module.exports = appRouter;
+};

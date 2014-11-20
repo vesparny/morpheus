@@ -1,5 +1,3 @@
-/** @jsx React.DOM */
-
 'use strict';
 
 var React = require('react');
@@ -26,7 +24,7 @@ var PostList = React.createClass({
     var posts = [];
 
     if(!this.state.posts.length){
-      return <div>Loading ... </div>
+      return <div>Loading ... </div>;
     }
 
     this.state.posts.forEach(function(post, index){

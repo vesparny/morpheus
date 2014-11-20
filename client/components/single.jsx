@@ -1,5 +1,3 @@
-/** @jsx React.DOM */
-
 'use strict';
 
 var React = require('react');
@@ -19,7 +17,6 @@ var Single = React.createClass({
   },
 
   componentDidMount: function() {
-    console.log(this.props.params.slug);
     PostActions.getSingle(this.props.params.slug);
   },
 
@@ -27,7 +24,7 @@ var Single = React.createClass({
     var posts = [];
 
     if(!this.state.single){
-      return <div>Loading ... </div>
+      return <div>Loading ... </div>;
     }
     return (
     <article className="post">

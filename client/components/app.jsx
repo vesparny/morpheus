@@ -1,5 +1,3 @@
-/** @jsx React.DOM */
-
 'use strict';
 
 var React = require('react');
@@ -14,7 +12,7 @@ var App = React.createClass({
       <div className='app-wrapper'>
         <Header/>
         <div className='main-content container'>
-          {<this.props.activeRouteHandler />}
+          <div className={this.props.content}></div>
         </div>
         <Footer/>
       </div>
