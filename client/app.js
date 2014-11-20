@@ -6,9 +6,14 @@ var React = require('react');
 var router = require('./router.js');
 var Aviator = require('aviator');
 
-
-//allow react dev tools work
-window.React = React;
+/*
+if (typeof window !== 'undefined') {
+  window.React = React;
+  var container = document.getElementById("container");
+  var props = JSON.parse(document.getElementById("props").innerHTML);
+  React.renderComponent(Item(props), container);
+}
+*/
 
 // define routes
 Aviator.setRoutes({
@@ -26,3 +31,9 @@ Aviator.setRoutes({
 
 // Start routing
 Aviator.dispatch();
+//https://medium.com/react-tutorials/react-backbone-router-c00be0cf1592
+//http://bl.ocks.org/simenbrekken/9359621
+//http://www.htmlxprs.com/post/20/creating-isomorphic-apps-with-react-and-nodejs
+//http://www.princeton.edu/~crmarsh/react-ssr/
+//http://scotch.io/tutorials/javascript/build-a-real-time-twitter-stream-with-node-and-react-js
+//http://jaketrent.com/post/send-props-to-children-react/

@@ -24,5 +24,4 @@ module.exports = {
   single:function(request){
     React.render(<Single params={{slug: request.namedParams.slug}}/>, document.querySelector('.page-content'));
   }
-
 };

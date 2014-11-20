@@ -1,3 +1,5 @@
+/** @jsx React.DOM */
+
 var React = require('react');
 var TodoActions = require('../actions/PostActions');
 

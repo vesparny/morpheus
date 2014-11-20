@@ -1,3 +1,5 @@
+/** @jsx React.DOM */
+
 'use strict';
 
 var React = require('react');
@@ -10,7 +12,7 @@ var Link = React.createClass({
       e.preventDefault();
       Aviator.navigate(that.props.to);
     }
-    
+
     return (
       <a onClick={click} href={this.props.to}> asa</a>
     );

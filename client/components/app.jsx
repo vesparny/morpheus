@@ -1,12 +1,21 @@
+/** @jsx React.DOM */
+
 'use strict';
 
 var React = require('react');
 var Header = require('./header.jsx');
 var Footer = require('./footer.jsx');
 
-window.React = React;
-
 var App = React.createClass({
+
+  getInitialState: function(props){
+    return props || this.props;
+    console.log(props)
+  },
+  componentWillReceiveProps: function(newProps){
+    alert(newProps);
+    this.setState(this.getInitialState(newProps));
+  },
   render: function() {
     return (
       <div className='app-wrapper'>

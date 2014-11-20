@@ -1,7 +1,7 @@
 var StoreWatchMixin = function(stores) {
   return {
     componentDidMount: function() {
-    stores.forEach(function(store) {
+      stores.forEach(function(store) {
         store.addChangeListener(this._setState);
       }.bind(this));
     },
@@ -18,9 +18,17 @@ var StoreWatchMixin = function(stores) {
       }
     },
 
-    getInitialState: function() {
-      return this.getState();
-    }
+    getInitialState: function(props) {
+      if (props) {
+        return props;
+      } else {
+        return this.getState();
+      }
+    },
+
+    componentWillReceiveProps: function(newProps, oldProps) {
+      this.setState(this.getInitialState(newProps));
+    },
   };
 };
 module.exports = StoreWatchMixin;
