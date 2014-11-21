@@ -1,10 +1,6 @@
 /** @jsx React.DOM */
 var React = require("react");
-
-var Router = require("react-router");
-var Routes = Router.Routes;
-var Route = Router.Route;
-var NotFoundRoute = Router.NotFoundRoute;
+var Router = require('director').Router;
 
 // Handlers
 var App = require('./components/app.jsx');
@@ -12,31 +8,38 @@ var App = require('./components/app.jsx');
 var NotFound = require('./components/notFound.jsx');
 var PostList = require('./components/postList.jsx');
 var Single = require('./components/Single.jsx');
+var router = new Router();
+function getInitialData(route) {
+  var el = document.getElementById("initial-data");
+  var data = {
+      route : route,
+      state:[],
+  };
+  if (el) {
+    data = JSON.parse(el.innerHTML);
+    el.parentNode.removeChild(el);
+  }
+  data.router = router;
+  return data;
+}
 
-module.exports = {
-  setup:function(){
-    /*
-    var content='page-content';
-    React.render(<App content={content}/>, document.body);
-    */
-  },
+var routes = {
   home: function () {
-    /*
-    if (typeof window !== 'undefined') {
-      window.React = React;
-      var container = document.getElementById("container");
-      var props = JSON.parse(document.getElementById("props").innerHTML);
-      React.renderComponent(Item(props), container);
-    }
-    */
-   if (typeof window !== 'undefined') {
-     window.React = React;
-     var props = JSON.parse(document.getElementById("initial-state").innerHTML);
-     React.render(<App data={props}/>, document.getElementById('react-app'));
-   }
-
+    var data = getInitialData('home');
+    React.render(<App data={data}/>, document.getElementById('app'));
   },
-  single:function(request){
-    React.render(<Single params={{slug: request.namedParams.slug}}/>, document.querySelector('.page-content'));
+  single:function(slug){
+    var data = getInitialData('single');
+    data.params={slug:slug};
+    React.render(<App data={data}/>, document.getElementById('app'));
   }
 };
+
+router.configure({
+  html5history: true
+});
+
+router.on('/', routes.home);
+router.on('/:slug', routes.single);
+
+module.exports = router;

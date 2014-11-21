@@ -18,8 +18,30 @@ var Single = React.createClass({
     };
   },
 
+  getInitialState: function(props) {
+    return {
+      single:this.props.single
+    };
+    if (props) {
+      return props;
+    } else {
+      return this.getState();
+    }
+  },
+
+  componentWillReceiveProps: function(newProps, oldProps) {
+    console.log("all,l,lsasa", newProps);
+    this.setState(this.getInitialState(newProps));
+  },
+
+
+
+
+
   componentDidMount: function() {
-    PostActions.getSingle(this.props.params.slug);
+    if(!this.state.single){
+      PostActions.getSingle(this.props.params.slug);
+    }
   },
 
   render: function() {

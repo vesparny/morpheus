@@ -21,7 +21,6 @@ var PostList = React.createClass({
   },
 
 getInitialState: function(props) {
-  console.log(arguments);
   return {
     posts:this.props.posts
   };
@@ -33,6 +32,7 @@ getInitialState: function(props) {
 },
 
   componentWillReceiveProps: function(newProps, oldProps) {
+    console.log('newProps')
     console.log("all,l,lsasa", arguments);
     this.setState(this.getInitialState(newProps));
   },
@@ -40,20 +40,17 @@ getInitialState: function(props) {
     if(!this.state.posts.length){
       PostActions.getAllPosts();
     }
-
   },
 
   render: function() {
     var posts = [];
-    console.log("render");
-
     if(!this.state.posts.length){
       return <div>Loading ... </div>;
     }
 
     this.state.posts.forEach(function(post, index){
-      posts.push(<PostListElement key={index} post={post} />);
-    });
+      posts.push(<PostListElement key={index} post={post} router={this.props.router}/>);
+    }.bind(this));
 
     return (
       <div className='post-container'>

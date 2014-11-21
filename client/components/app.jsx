@@ -3,21 +3,22 @@
 'use strict';
 
 var React = require('react');
-var Header = require('./header.jsx');
-var Footer = require('./footer.jsx');
+var Container = require('./container.jsx');
 var PostList = require('./postList.jsx');
+var Single = require('./single.jsx');
+
 
 var App = React.createClass({
-
-  render: function() {
+  render: function(){
+    var page;
+    if (this.props.data.route === 'home') {
+      page = <PostList posts={this.props.data.state} router={this.props.data.router}/>;
+    }
+    if (this.props.data.route === 'single') {
+      page = <Single article={this.props.data.state} params={this.props.data.params} router={this.props.data.router}/>;
+    }
     return (
-      <div className='app-wrapper'>
-        <Header/>
-        <div className='main-content container'>
-          <PostList posts={this.props.data}/>
-        </div>
-        <Footer/>
-      </div>
+      <Container page={page}/>
     );
   }
 });

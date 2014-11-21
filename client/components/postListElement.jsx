@@ -3,7 +3,7 @@
 var React = require('react');
 var ReactPropTypes = React.PropTypes;
 var TodoActions = require('../actions/PostActions');
-var Link = require('./Link.jsx');
+var Link = require('./link.jsx');
 
 var PostListElement = React.createClass({
 
@@ -21,7 +21,7 @@ var PostListElement = React.createClass({
     return (
     <article className="post">
         <header className="post-header">
-            <h2 className="post-title"><Link to={to}>{post.title}</Link></h2>
+            <h2 className="post-title"><Link router={this.props.router} to={to}>aaa + {post.title}</Link></h2>
         </header>
         <section className="post-excerpt">
             <p dangerouslySetInnerHTML={{__html: post.excerpt}}></p><a className="read-more" href={post.url}>&raquo;</a>
