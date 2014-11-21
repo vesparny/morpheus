@@ -16,19 +16,7 @@ var StoreWatchMixin = function(stores) {
       if (this.isMounted()) {
         this.setState(this.getState());
       }
-    },
-
-    getInitialState: function(props) {
-      if (props) {
-        return props;
-      } else {
-        return this.getState();
-      }
-    },
-
-    componentWillReceiveProps: function(newProps, oldProps) {
-      this.setState(this.getInitialState(newProps));
-    },
+    }
   };
 };
 module.exports = StoreWatchMixin;

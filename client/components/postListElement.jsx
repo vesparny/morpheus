@@ -10,11 +10,10 @@ var PostListElement = React.createClass({
   propTypes: {
    post: ReactPropTypes.object.isRequired
   },
-
-  getInitialState: function() {
-    return {};
+  componentWillReceiveProps: function(newProps, oldProps) {
+    console.log("all,l,lsasa", arguments);
+    this.setState(this.getInitialState(newProps));
   },
-
   render: function() {
     var post = this.props.post || {};
     var to = '/'+post.slug;

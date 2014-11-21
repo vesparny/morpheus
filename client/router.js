@@ -15,11 +15,26 @@ var Single = require('./components/Single.jsx');
 
 module.exports = {
   setup:function(){
+    /*
     var content='page-content';
     React.render(<App content={content}/>, document.body);
+    */
   },
   home: function () {
-    React.render(<PostList/>, document.querySelector('.page-content')  );
+    /*
+    if (typeof window !== 'undefined') {
+      window.React = React;
+      var container = document.getElementById("container");
+      var props = JSON.parse(document.getElementById("props").innerHTML);
+      React.renderComponent(Item(props), container);
+    }
+    */
+   if (typeof window !== 'undefined') {
+     window.React = React;
+     var props = JSON.parse(document.getElementById("initial-state").innerHTML);
+     React.render(<App data={props}/>, document.getElementById('react-app'));
+   }
+
   },
   single:function(request){
     React.render(<Single params={{slug: request.namedParams.slug}}/>, document.querySelector('.page-content'));

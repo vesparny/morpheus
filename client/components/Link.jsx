@@ -10,11 +10,11 @@ var Link = React.createClass({
     var that = this;
     function click(e){
       e.preventDefault();
+      Aviator.pushStateEnabled = true;
       Aviator.navigate(that.props.to);
     }
-
     return (
-      <a onClick={click} href={this.props.to}> asa</a>
+      <a onClick={click} href={this.props.to}>{this.props.children}</a>
     );
   }
 });

@@ -6,15 +6,6 @@ var React = require('react');
 var router = require('./router.js');
 var Aviator = require('aviator');
 
-/*
-if (typeof window !== 'undefined') {
-  window.React = React;
-  var container = document.getElementById("container");
-  var props = JSON.parse(document.getElementById("props").innerHTML);
-  React.renderComponent(Item(props), container);
-}
-*/
-
 // define routes
 Aviator.setRoutes({
   target: router,

@@ -13,17 +13,39 @@ var PostList = React.createClass({
   mixins: [storeWatchMixin([PostStore])],
 
   getState: function() {
+    var a = PostStore.getAll();
+    a[0].author = "pino";
     return {
       posts: PostStore.getAll()
     };
   },
 
+getInitialState: function(props) {
+  console.log(arguments);
+  return {
+    posts:this.props.posts
+  };
+  if (props) {
+    return props;
+  } else {
+    return this.getState();
+  }
+},
+
+  componentWillReceiveProps: function(newProps, oldProps) {
+    console.log("all,l,lsasa", arguments);
+    this.setState(this.getInitialState(newProps));
+  },
   componentDidMount: function() {
-    PostActions.getAllPosts();
+    if(!this.state.posts.length){
+      PostActions.getAllPosts();
+    }
+
   },
 
   render: function() {
     var posts = [];
+    console.log("render");
 
     if(!this.state.posts.length){
       return <div>Loading ... </div>;
