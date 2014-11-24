@@ -7,7 +7,7 @@ var PostListElement = require('./postListElement.jsx');
 var PostActions = require('../actions/PostActions');
 var PostStore = require('../stores/PostStore');
 var storeWatchMixin = require('../mixins/StoreWatchMixin');
-var Aside = require('./aside.jsx');
+var Aside = require('./Aside.jsx');
 
 var PostList = React.createClass({
   mixins: [storeWatchMixin([PostStore])],

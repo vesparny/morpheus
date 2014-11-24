@@ -3,11 +3,11 @@
 'use strict';
 
 var React = require('react');
-var PostListElement = require('./postListElement.jsx');
+var PostListElement = require('./PostListElement.jsx');
 var PostActions = require('../actions/PostActions');
 var PostStore = require('../stores/PostStore');
 var storeWatchMixin = require('../mixins/StoreWatchMixin');
-var Aside = require('./aside.jsx');
+var Aside = require('./Aside.jsx');
 
 var Single = React.createClass({
   mixins: [storeWatchMixin([PostStore])],

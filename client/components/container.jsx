@@ -3,9 +3,9 @@
 'use strict';
 
 var React = require('react');
-var Header = require('./header.jsx');
-var Footer = require('./footer.jsx');
-var PostList = require('./postList.jsx');
+var Header = require('./Header.jsx');
+var Footer = require('./Footer.jsx');
+var PostList = require('./PostList.jsx');
 
 var Container = React.createClass({
 

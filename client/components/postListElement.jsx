@@ -5,7 +5,7 @@
 var React = require('react');
 var ReactPropTypes = React.PropTypes;
 var TodoActions = require('../actions/PostActions');
-var Link = require('./link.jsx');
+var Link = require('./Link.jsx');
 
 var PostListElement = React.createClass({
 
