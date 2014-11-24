@@ -18,20 +18,8 @@ var Single = React.createClass({
     };
   },
 
-  getInitialState: function(props) {
-    return {
-      single:this.props.single
-    };
-    if (props) {
-      return props;
-    } else {
-      return this.getState();
-    }
-  },
-
   componentWillReceiveProps: function(newProps, oldProps) {
-    console.log("all,l,lsasa", newProps);
-    this.setState(this.getInitialState(newProps));
+    console.log("revceived single", arguments);
   },
 
   componentDidMount: function() {
@@ -41,7 +29,6 @@ var Single = React.createClass({
   },
 
   render: function() {
-    console.log(this.props)
     if(!this.state.single){
       return <div>Loading ... </div>;
     }

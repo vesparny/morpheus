@@ -1,3 +1,5 @@
+'use strict';
+
 var NextAppConstants = require('../constants/NextAppConstants');
 var Dispatcher = require('flux').Dispatcher;
 var copyProperties = require('react/lib/copyProperties');

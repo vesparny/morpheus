@@ -11,7 +11,6 @@ var Link = React.createClass({
       e.preventDefault();
       that.props.router.setRoute(that.props.to);
     }
-
     return (
       <a onClick={click} href={this.props.to}>{this.props.children}</a>
     );

@@ -1,3 +1,5 @@
+'use strict';
+
 var NextAppDispatcher = require('../dispatcher/NextAppDispatcher');
 var NextAppConstants = require('../constants/NextAppConstants');
 var api = require('../utils/api');

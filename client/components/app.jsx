@@ -3,9 +3,9 @@
 'use strict';
 
 var React = require('react');
-var Container = require('./container.jsx');
-var PostList = require('./postList.jsx');
-var Single = require('./single.jsx');
+var Container = require('./Container.jsx');
+var PostList = require('./PostList.jsx');
+var Single = require('./Single.jsx');
 
 
 var App = React.createClass({

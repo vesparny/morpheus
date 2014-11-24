@@ -17,29 +17,14 @@ var PostList = React.createClass({
       posts: PostStore.getAll()
     };
   },
-
-getInitialState: function(props) {
-  return {
-    posts:this.props.posts
-  };
-  if (props) {
-    return props;
-  } else {
-    return this.getState();
-  }
-},
-
   componentWillReceiveProps: function(newProps, oldProps) {
-    console.log('newProps')
-    console.log("all,l,lsasa", arguments);
-    this.setState(this.getInitialState(newProps));
+    console.log("revceived pl", arguments);
   },
   componentDidMount: function() {
     if(!this.state.posts.length){
       PostActions.getAllPosts();
     }
   },
-
   render: function() {
     var posts = [];
     if(!this.state.posts.length){

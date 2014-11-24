@@ -1,3 +1,5 @@
+'use strict';
+
 var Promise = require('es6-promise').Promise;
 var request = require('superagent');
 var API_URL = '/api';

@@ -1,5 +1,7 @@
 /** @jsx React.DOM */
 
+'use strict';
+
 var React = require('react');
 
 var Header = React.createClass({
@@ -8,7 +10,7 @@ var Header = React.createClass({
     return (
       <footer className={classString}>
          <section className="copyright"><a href="url">title</a> &copy;</section>
-         <section className="poweredby">Proudly published with <a href="https://ghost.org">Ghost</a></section>
+         <section className="poweredby">Proudly published with <a href="https://nklnlk">Flash</a></section>
     </footer>
     );
   }

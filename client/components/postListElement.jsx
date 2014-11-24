@@ -1,5 +1,7 @@
 /** @jsx React.DOM */
 
+'use strict';
+
 var React = require('react');
 var ReactPropTypes = React.PropTypes;
 var TodoActions = require('../actions/PostActions');
@@ -11,8 +13,7 @@ var PostListElement = React.createClass({
    post: ReactPropTypes.object.isRequired
   },
   componentWillReceiveProps: function(newProps, oldProps) {
-    console.log("all,l,lsasa", arguments);
-    this.setState(this.getInitialState(newProps));
+    console.log("revceived postlist", arguments);
   },
   render: function() {
     var post = this.props.post || {};

@@ -1,3 +1,5 @@
+'use strict';
+
 var NextAppDispatcher = require('../dispatcher/NextAppDispatcher');
 var NextAppConstants = require('../constants/NextAppConstants');
 var EventEmitter = require('events').EventEmitter;

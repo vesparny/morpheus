@@ -3,9 +3,9 @@ layout: post
 author: Alessandro Arnodo
 tags: tag1, tag2
 date: 25/08/1984
-slug: markdown-example
-permalink: /markdown-example
-title: MD rules
+slug: markdown-example-2
+permalink: /markdown-example-2
+title: ex2
 path: 2014-07-23-markdown-example.md
 ---
 
