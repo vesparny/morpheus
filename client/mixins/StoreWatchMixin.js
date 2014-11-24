@@ -13,7 +13,6 @@ var StoreWatchMixin = function(stores) {
       }.bind(this));
     },
     getInitialState: function(props){
-      console.log("initial",this.props);
       return this.props;
     },
     _setState: function() {

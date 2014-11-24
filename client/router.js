@@ -34,7 +34,9 @@ var routes = {
   },
   single:function(slug){
     var data = getInitialData('single');
+    data.state= data.state || {};
     data.params={slug:slug};
+    console.log('data', data);
     React.render(<App data={data}/>, document.getElementById('app'));
   }
 };

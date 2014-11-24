@@ -8,6 +8,8 @@ var PostActions = require('../actions/PostActions');
 var PostStore = require('../stores/PostStore');
 var storeWatchMixin = require('../mixins/StoreWatchMixin');
 var Aside = require('./Aside.jsx');
+var Loader = require('./Loader.jsx');
+
 
 var PostList = React.createClass({
   mixins: [storeWatchMixin([PostStore])],
@@ -27,16 +29,14 @@ var PostList = React.createClass({
   },
   render: function() {
     var posts = [];
-    if(!this.state.posts.length){
-      return <div>Loading ... </div>;
-    }
-
+    var showLoader = this.state.posts.length === 0;
     this.state.posts.forEach(function(post, index){
       posts.push(<PostListElement key={index} post={post} router={this.props.router}/>);
     }.bind(this));
 
     return (
       <div className='post-container'>
+        <Loader class={!showLoader ? 'hidden' : ''}/>
         {posts}
       </div>
     );

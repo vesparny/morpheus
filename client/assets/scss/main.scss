@@ -1952,3 +1952,27 @@ body:not(.post-template) .post-title {
             font-size: 1.4rem;
         }
 }
+
+
+
+
+
+.loader {
+    background: url(../img/loader.svg);
+    height: 24px;
+    width: 30px;
+    background-size: 30px 24px;
+    position: relative;
+    top: 30%;
+    margin: 0 auto;
+}
+
+/*
+Set the color of the icon
+*/
+svg path,
+svg rect{
+  fill: #FF6700;
+}
+
+.hidden { display:none; }

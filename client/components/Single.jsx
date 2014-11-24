@@ -8,6 +8,7 @@ var PostActions = require('../actions/PostActions');
 var PostStore = require('../stores/PostStore');
 var storeWatchMixin = require('../mixins/StoreWatchMixin');
 var Aside = require('./Aside.jsx');
+var Loader = require('./Loader.jsx');
 
 var Single = React.createClass({
   mixins: [storeWatchMixin([PostStore])],
@@ -23,19 +24,17 @@ var Single = React.createClass({
   },
 
   componentDidMount: function() {
-    if(!this.state.single){
+    if(!this.state.single.title){
       PostActions.getSingle(this.props.params.slug);
     }
   },
 
   render: function() {
-    if(!this.state.single){
-      return <div>Loading ... </div>;
-    }
+    var showLoader = !this.state.single.title;
     return (
     <article className="post">
-
-        <header className="post-header">
+      <Loader class={!showLoader ? 'hidden' : ''}/>
+      <header className="post-header">
             <h1 className="post-title">{this.state.single.title}</h1>
             <section className="post-meta">
                 <time className="post-date" >{this.state.single.date}</time> {this.state.single.tags}
