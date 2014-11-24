@@ -6,11 +6,11 @@ var React = require("react");
 var Router = require('director').Router;
 
 // Handlers
-var App = require('./components/App.jsx');
+var App = require('./components/App');
 
-var NotFound = require('./components/NotFound.jsx');
-var PostList = require('./components/PostList.jsx');
-var Single = require('./components/Single.jsx');
+var NotFound = require('./components/NotFound');
+var PostList = require('./components/PostList');
+var Single = require('./components/Single');
 
 var router = new Router();
 function getInitialData(route) {
