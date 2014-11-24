@@ -34,10 +34,6 @@ var Single = React.createClass({
     this.setState(this.getInitialState(newProps));
   },
 
-
-
-
-
   componentDidMount: function() {
     if(!this.state.single){
       PostActions.getSingle(this.props.params.slug);
@@ -45,8 +41,7 @@ var Single = React.createClass({
   },
 
   render: function() {
-    var posts = [];
-
+    console.log(this.props)
     if(!this.state.single){
       return <div>Loading ... </div>;
     }

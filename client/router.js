@@ -12,8 +12,7 @@ var router = new Router();
 function getInitialData(route) {
   var el = document.getElementById("initial-data");
   var data = {
-      route : route,
-      state:[],
+      route : route
   };
   if (el) {
     data = JSON.parse(el.innerHTML);
@@ -26,6 +25,7 @@ function getInitialData(route) {
 var routes = {
   home: function () {
     var data = getInitialData('home');
+    data.state=[];
     React.render(<App data={data}/>, document.getElementById('app'));
   },
   single:function(slug){

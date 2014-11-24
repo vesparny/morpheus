@@ -15,7 +15,7 @@ var App = React.createClass({
       page = <PostList posts={this.props.data.state} router={this.props.data.router}/>;
     }
     if (this.props.data.route === 'single') {
-      page = <Single article={this.props.data.state} params={this.props.data.params} router={this.props.data.router}/>;
+      page = <Single single={this.props.data.state} params={this.props.data.params} router={this.props.data.router}/>;
     }
     return (
       <Container page={page}/>

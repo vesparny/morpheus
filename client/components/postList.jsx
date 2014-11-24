@@ -13,8 +13,6 @@ var PostList = React.createClass({
   mixins: [storeWatchMixin([PostStore])],
 
   getState: function() {
-    var a = PostStore.getAll();
-    a[0].author = "pino";
     return {
       posts: PostStore.getAll()
     };
