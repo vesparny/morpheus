@@ -1,12 +1,10 @@
 ---
-layout: post
+type: post
 author: Alessandro Arnodo
-tags: tag1, tag2
-date: 25/08/1984
+tags: tag1,Tag 2
 slug: markdown-example-2
 permalink: /markdown-example-2
-title: ex2
-path: 2014-07-23-markdown-example.md
+title: Markdown Example Extra
 ---
 
 # An exhibit of Markdown

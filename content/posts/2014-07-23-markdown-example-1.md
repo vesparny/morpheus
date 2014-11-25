@@ -1,15 +1,10 @@
 ---
-layout: post
+type: post
 author: Alessandro Arnodo
-tags: tag1, tag2
-date: 25/08/1984
 slug: markdown-example-1
 permalink: /markdown-example-1
-title: ex 1
-path: 2014-07-23-markdown-example.md
+title: Markdown Example
 ---
-
-# An exhibit of Markdown
 
 This note demonstrates some of what [Markdown][1] is capable of doing.
 

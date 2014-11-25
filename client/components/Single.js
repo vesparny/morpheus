@@ -8,6 +8,7 @@ var FrontEndActions = require('../actions/FrontEndActions');
 var FrontEndStore = require('../stores/FrontEndStore');
 var InitialStateMixin = require('../mixins/InitialStateMixin');
 var Loader = require('./Loader');
+var Tags = require('./Tags');
 
 var Single = React.createClass({
   mixins: [InitialStateMixin, FrontEndStore.mixin],
@@ -39,7 +40,8 @@ var Single = React.createClass({
         <header className="post-header">
               <h1 className="post-title">{this.state.single.title}</h1>
               <section className="post-meta">
-                  <time className="post-date" >{this.state.single.date}</time> {this.state.single.tags}
+                  <time className="post-date" >{this.state.single.date}</time>
+                  <Tags tags={this.state.single.tags} />
               </section>
           </header>
 
