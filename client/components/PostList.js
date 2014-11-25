@@ -4,18 +4,18 @@
 
 var React = require('react');
 var PostListElement = require('./postListElement');
-var PostActions = require('../actions/PostActions');
-var PostStore = require('../stores/PostStore');
-var storeWatchMixin = require('../mixins/StoreWatchMixin');
+var FrontEndActions = require('../actions/FrontEndActions');
+var FrontEndStore = require('../stores/FrontEndStore');
+var InitialStateMixin = require('../mixins/InitialStateMixin');
 var Loader = require('./Loader');
 
 
 var PostList = React.createClass({
-  mixins: [storeWatchMixin([PostStore])],
+  mixins: [FrontEndStore.mixin , InitialStateMixin],
 
   getState: function() {
     return {
-      posts: PostStore.getAll()
+      posts: FrontEndStore.getAll()
     };
   },
   componentWillReceiveProps: function(newProps, oldProps) {
@@ -23,7 +23,7 @@ var PostList = React.createClass({
   },
   componentDidMount: function() {
     if(!this.state.posts.length){
-      PostActions.getAllPosts();
+      FrontEndActions.getAllPosts();
     }
   },
   render: function() {
