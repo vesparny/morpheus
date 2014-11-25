@@ -7,4 +7,4 @@ flash
 npm install
 gulp
 ```
-open `http://localhost:3000
+open `http://localhost:3000`
