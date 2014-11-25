@@ -30,6 +30,9 @@ var Single = React.createClass({
 
   render: function() {
     var showLoader = !this.state.single.title;
+    var style = {
+      'background-image': 'url(//www.gravatar.com/avatar/b191979120db1749f5f8c8cadc2ac4a9?d=404&amp;s=250'
+    };
     return (
     <article className="post">
       <Loader class={!showLoader ? 'hidden' : ''}/>
@@ -42,7 +45,38 @@ var Single = React.createClass({
 
         <section className="post-content" dangerouslySetInnerHTML={{__html: this.state.single.content}}></section>
 
-        <footer className="post-footer"></footer>
+        <footer className="post-footer">
+
+
+        <figure className="author-image">
+        <a className="img" href="/author/alessandro/" style={style}><span className="hidden">alessandro arnodo's Picture</span></a>
+        </figure>
+
+        <section className="author">
+        <h4><a href="/author/alessandro/">alessandro arnodo</a></h4>
+
+        <p>Read <a href="/author/alessandro/">more posts</a> by this author.</p>
+        <div className="author-meta">
+
+
+        </div>
+        </section>
+
+
+        <section className="share">
+        <h4>Share this post</h4>
+        <a className="icon-twitter" href="https://twitter.com/share?text=Welcome%20to%20Ghost&amp;url=http://localhost:2368/2014/11/25/welcome-to-ghost/" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+        <span className="hidden">Twitter</span>
+        </a>
+        <a className="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:2368/2014/11/25/welcome-to-ghost/" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+        <span className="hidden">Facebook</span>
+        </a>
+        <a className="icon-google-plus" href="https://plus.google.com/share?url=http://localhost:2368/2014/11/25/welcome-to-ghost/" onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+        <span className="hidden">Google+</span>
+        </a>
+        </section>
+
+        </footer>
         </article>
     );
   }
