@@ -8,7 +8,7 @@ var Header = React.createClass({
   render: function() {
     var className = "site-footer clearfix";
     return (
-      <header className="main-header">
+      <header className="main-header no-cover">
         <nav className="main-nav overlay clearfix">
           <a className="subscribe-button icon-feed" href="http://localhost:2368/rss/">Subscribe</a>
           </nav>

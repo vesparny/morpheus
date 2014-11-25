@@ -36,13 +36,18 @@ var routes = {
     var data = getInitialData('single');
     data.state= data.state || {};
     data.params={slug:slug};
-    console.log('data', data);
     React.render(<App data={data}/>, document.body);
   }
 };
 
 router.configure({
-  html5history: true
+  html5history: true,
+  on:function(){
+    window.scrollTo(0,0);
+  },
+  notfound: function(){
+    //TODO
+  }
 });
 
 router.on('/', routes.home);

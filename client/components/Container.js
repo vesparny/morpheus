@@ -11,7 +11,7 @@ var Container = React.createClass({
 
   render: function() {
     return (
-      <div className='app-wrapper'>
+      <div className='wrapper'>
         <Header/>
         <div className='main-content container'>
          {this.props.page}
