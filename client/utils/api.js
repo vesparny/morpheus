@@ -2,16 +2,16 @@
 
 var Promise = require('es6-promise').Promise;
 var request = require('superagent');
-var API_URL = '/api';
-var TIMEOUT = 10000;
+var apiUrl = '/api';
+var timeout = 10000;
 
 function get(url) {
   return new Promise(function(resolve, reject) {
-    request.get(API_URL + url)
+    request.get(apiUrl + url)
       .type('json')
-      .timeout(TIMEOUT)
+      .timeout(timeout)
       .end(function(err, res) {
-        if (err && err.timeout === TIMEOUT) {
+        if (err) {
           reject(err);
         } else if (res.status === 400) {
           reject(err);
