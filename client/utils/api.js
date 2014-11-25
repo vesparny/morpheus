@@ -1,6 +1,6 @@
 'use strict';
 
-var Promise = require('es6-promise').Promise;
+var Promise = require('es6-promise').Promise; // jshint ignore:line
 var request = require('superagent');
 var apiUrl = '/api';
 var timeout = 10000;

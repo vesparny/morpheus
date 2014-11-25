@@ -21,7 +21,8 @@ var PostList = React.createClass({
     };
   },
   componentWillReceiveProps: function(newProps, oldProps) {
-    console.log("revceived pl", arguments);
+    console.log('revceived pl', newProps);
+    console.log('revceived pl', oldProps);
   },
   componentDidMount: function() {
     if(!this.state.posts.length){

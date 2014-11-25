@@ -17,21 +17,20 @@ var FrontEndActions = mcFly.createActions({
     };
   },
   getAllPosts: function() {
-    api.get("/posts").then(function(res){
+    api.get('/posts').then(function(res){
       mcFly.actions.receiveAllPosts(res.body);
     }, function(err){
-      console.log("error",err);
+      console.log('error',err);
     });
     return {
       actionType: 'GET_POST'
     };
   },
   getSingle: function(slug) {
-    var that = this;
-    api.get("/posts/"+slug).then(function(res){
+    api.get('/posts/'+slug).then(function(res){
       mcFly.actions.receiveSingle(res.body);
     }, function(err){
-      console.log("error",err);
+      console.log('error',err);
     });
     return {
       actionType: 'GET_SINGLE'

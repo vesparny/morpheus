@@ -21,9 +21,9 @@ var Single = React.createClass({
     };
   },
   componentWillReceiveProps: function(newProps, oldProps) {
-    console.log("revceived single", arguments);
+    console.log('revceived pl', newProps);
+    console.log('revceived pl', oldProps);
   },
-
   componentDidMount: function() {
     if(!this.state.single.title){
       FrontEndActions.getSingle(this.props.params.slug);

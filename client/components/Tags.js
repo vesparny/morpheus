@@ -20,18 +20,17 @@ var Tags = React.createClass({
       if (this.props.tags.length) {
         pre = <span> on </span>;
         this.props.tags.forEach(function(tag, index){
-          var to = "/tag/"+tag.path;
           tags.push(<Tag tag={tag} key={index} />);
         });
       }
-      tags = utils.intersperse(tags, ", ");
-    }
-    return (
-      <div className="tags">
+      tags = utils.intersperse(tags, ', ');
+      return (
+        <div className="tags">
         {pre}
         {tags}
-      </div>
-    );
+        </div>
+      );
+    }
   }
 });
 

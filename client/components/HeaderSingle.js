@@ -6,7 +6,6 @@ var React = require('react');
 
 var Header = React.createClass({
   render: function() {
-    var className = "site-footer clearfix";
     return (
       <header className="main-header post-head no-cover">
         <nav className="main-nav  clearfix">

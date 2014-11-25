@@ -1,11 +1,8 @@
-
-
 /** @jsx React.DOM */
 
 'use strict';
 
 var React = require('react');
-var ReactPropTypes = React.PropTypes;
 
 var Tag = React.createClass({
 

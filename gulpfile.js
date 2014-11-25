@@ -65,7 +65,7 @@ gulp.task('watchers', function() {
 
 
 gulp.task('watch', ['clean'], function(cb) {
-  runSequence('styles', 'watchify', "server", 'watchers', cb);
+  runSequence('styles', 'watchify', 'server', 'watchers', cb);
 });
 
 gulp.task('server', function() {
@@ -79,5 +79,5 @@ gulp.task('server', function() {
 });
 
 gulp.task('default', function() {
-  gulp.start("watch");
+  gulp.start('watch');
 });

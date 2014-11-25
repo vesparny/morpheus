@@ -20,15 +20,12 @@ var FrontEndStore = mcFly.createStore({
   get: function(id) {
     return _posts[id];
   },
-
   getAll: function() {
     return _posts;
   },
-
   getSingle: function() {
     return _single;
   }
-
 }, function(payload) {
   switch (payload.actionType) {
     case 'GET_POST_SUCCESS':

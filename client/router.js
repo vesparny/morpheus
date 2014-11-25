@@ -2,19 +2,13 @@
 
 'use strict';
 
-var React = require("react");
+var React = require('react');
 var Router = require('director').Router;
-
-// Handlers
 var App = require('./components/App');
-
-var NotFound = require('./components/NotFound');
-var PostList = require('./components/PostList');
-var Single = require('./components/Single');
 
 var router = new Router();
 function getInitialData(route) {
-  var el = document.getElementById("initial-data");
+  var el = document.getElementById('initial-data');
   var data = {
       route : route
   };
