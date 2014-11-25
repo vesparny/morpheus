@@ -10,7 +10,12 @@ var Header = React.createClass({
     return (
       <header className="main-header">
         <nav className="main-nav overlay clearfix">
-          <a className="subscribe-button icon icon-feed" href="http://localhost:2368/rss/">Subscribe</a>
+        <a className="icon-flash blog-logo" href="http://localhost:3000">
+          <span className="hidden">flash</span>
+        </a>
+        <a className="menu-button" href="{{@blog.url}}">page</a>
+        <a className="menu-button" href="/about">About</a>
+        <a className="subscribe-button icon icon-feed" href="http://localhost:2368/rss/">Subscribe</a>
           </nav>
         <div className="vertical">
           <div className="main-header-content inner">

@@ -67,15 +67,17 @@ var Single = React.createClass({
           </section>
           <section className="share">
             <h4>Share this post</h4>
-            <a className="icon-twitter" href="https://twitter.com/share?text=Welcome%20to%20Ghost&amp;url=http://localhost:2368/2014/11/25/welcome-to-ghost/" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
-              <span className="hidden">Twitter</span>
-            </a>
-            <a className="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:2368/2014/11/25/welcome-to-ghost/" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
-              <span className="hidden">Facebook</span>
-            </a>
-            <a className="icon-google-plus" href="https://plus.google.com/share?url=http://localhost:2368/2014/11/25/welcome-to-ghost/" onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
-              <span className="hidden">Google+</span>
+            <div className="text-center">
+              <a className="icon-twitter" href="https://twitter.com/share?text=Welcome%20to%20Ghost&amp;url=http://localhost:2368/2014/11/25/welcome-to-ghost/" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+                <span className="hidden">Twitter</span>
               </a>
+              <a className="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:2368/2014/11/25/welcome-to-ghost/" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+                <span className="hidden">Facebook</span>
+              </a>
+              <a className="icon-google-plus" href="https://plus.google.com/share?url=http://localhost:2368/2014/11/25/welcome-to-ghost/" onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+                <span className="hidden">Google+</span>
+              </a>
+            </div>
           </section>
           </footer>
         </div>
