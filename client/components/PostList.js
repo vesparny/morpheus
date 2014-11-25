@@ -8,6 +8,8 @@ var FrontEndActions = require('../actions/FrontEndActions');
 var FrontEndStore = require('../stores/FrontEndStore');
 var InitialStateMixin = require('../mixins/InitialStateMixin');
 var Loader = require('./Loader');
+var Header = require('./Header');
+var Footer = require('./Footer');
 
 
 var PostList = React.createClass({
@@ -32,11 +34,17 @@ var PostList = React.createClass({
     this.state.posts.forEach(function(post, index){
       posts.push(<PostListElement key={index} post={post} router={this.props.router}/>);
     }.bind(this));
-
+    var classes = 'wrapper '+this.props.cssClass;
     return (
-      <div className='post-container'>
-        <Loader class={!showLoader ? 'hidden' : ''}/>
-        {posts}
+      <div className={classes}>
+        <Header/>
+        <div className='main-content container'>
+          <div className='post-container'>
+            <Loader class={!showLoader ? 'hidden' : ''}/>
+            {posts}
+          </div>
+        </div>
+        <Footer/>
       </div>
     );
   }

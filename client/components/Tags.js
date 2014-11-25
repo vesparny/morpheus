@@ -25,7 +25,6 @@ var Tags = React.createClass({
         });
       }
       tags = utils.intersperse(tags, ", ");
-      console.log(tags);
     }
     return (
       <div className="tags">

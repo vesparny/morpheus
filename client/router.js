@@ -30,12 +30,14 @@ var routes = {
   home: function () {
     var data = getInitialData('home');
     data.state= data.state || [];
+    data.cssClass= 'home-template';
     React.render(<App data={data}/>, document.body);
   },
   single:function(slug){
     var data = getInitialData('single');
     data.state= data.state || {};
     data.params={slug:slug};
+    data.cssClass= 'post-template';
     React.render(<App data={data}/>, document.body);
   }
 };
