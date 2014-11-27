@@ -1,6 +1,6 @@
 'use strict';
 
-var mcFly = require('../flux');
+var mcFly = require('../flux')();
 var api = require('../utils/api');
 
 var FrontEndActions = mcFly.createActions({
@@ -21,6 +21,7 @@ var FrontEndActions = mcFly.createActions({
       mcFly.actions.receiveAllPosts(res.body);
     }, function(err){
       console.log('error',err);
+
     });
     return {
       actionType: 'GET_POST'

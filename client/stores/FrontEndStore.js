@@ -1,6 +1,6 @@
 'use strict';
 
-var mcFly = require('../flux');
+var mcFly = require('../flux')();
 
 var _posts = [];
 var _single;
@@ -17,6 +17,7 @@ function _setSingle(rawSingle) {
 }
 
 var FrontEndStore = mcFly.createStore({
+  name:'store',
   get: function(id) {
     return _posts[id];
   },
@@ -25,12 +26,17 @@ var FrontEndStore = mcFly.createStore({
   },
   getSingle: function() {
     return _single;
+  },
+  dehydrate:function(){
+    return _posts;
   }
 }, function(payload) {
   switch (payload.actionType) {
     case 'GET_POST_SUCCESS':
       _addPosts(payload.data);
       FrontEndStore.emitChange();
+      console.log('sadasdasd');
+      console.log(mcFly.dehydrate());
       break;
     case 'GET_SINGLE_SUCCESS':
       _setSingle(payload.data);
