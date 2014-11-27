@@ -49,7 +49,7 @@ inherits(PostRepository, AbstractRepository);
 PostRepository.prototype.find = function(options) {
   options = options || {};
   return new Promise(function(resolve, reject) {
-    glob(path.resolve(__dirname + '/../../content/posts/**/*.md'), function(err, files) {
+    glob(path.resolve(__dirname + '/../content/posts/**/*.md'), function(err, files) {
       if (err) {
         reject(boom.wrap(err, 500));
       }
@@ -74,7 +74,7 @@ PostRepository.prototype.find = function(options) {
 PostRepository.prototype.findOne = function(options) {
   options = options || {};
   return new Promise(function(resolve, reject) {
-    glob(path.resolve(__dirname + '/../../content/posts/**/[0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9]-' + options.slug + '.md'), function(err, files) {
+    glob(path.resolve(__dirname + '/../content/posts/**/[0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9]-' + options.slug + '.md'), function(err, files) {
       if (err) {
         reject(boom.wrap(err, 500));
       }

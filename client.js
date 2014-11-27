@@ -4,17 +4,16 @@
 
 var React = require('react');
 window.React = React;
-var appContext = require('./appContext');
+var appContext = require('./context');
 var dehydratedState = window.App; // Sent from the server
 window.React = React; // For chrome dev tool support
-var app = appContext();
-app.rehydrate(dehydratedState, function(err, context) {
+appContext.rehydrate(dehydratedState, function(err, context) {
   if (err) {
     throw err;
   }
   window.context = context;
   var mountNode = document.body;
-  React.render(app.getAppComponent()({
+  React.render(appContext.getAppComponent()({
     context: context.getComponentContext()
   }), mountNode, function() {});
 });

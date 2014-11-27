@@ -13,13 +13,12 @@ var multer = require('multer');
 var indexRoute = require('./routes');
 var postRoute = require('./routes/post');
 var errors = require('./middlewares/errors');
-var appContext = require('../client/appContext');
+var appContext = require('./context');
 var navigateAction = require('flux-router-component').navigateAction;
-var services = require('./services/');
+var services = require('./services');
 
 module.exports = function(params) {
-  var app = appContext();
-  app.plug({
+  appContext.plug({
     name: 'ServicePlugin',
     plugContext: function plugContext() {
       return {
@@ -35,7 +34,7 @@ module.exports = function(params) {
   var log = params.loggerFactory.create('server');
   log.info('creating express application');
   server.set('port', process.env.PORT || 3000);
-  server.use(favicon(__dirname + '/../public/favicon.ico'));
+  server.use(favicon(__dirname + '/public/favicon.ico'));
   server.use(morganLogger('dev'));
   server.use(methodOverride());
   server.use(session({
@@ -48,10 +47,10 @@ module.exports = function(params) {
     extended: true
   }));
   server.use(multer());
-  server.use(express.static(path.join(__dirname, '/../public')));
+  server.use(express.static(path.join(__dirname, '/public')));
 
   server.use(function(req, res, next) {
-    var context = res.locals.context = app.createContext();
+    var context = res.locals.context = appContext.createContext();
     if (req.path.indexOf('/api/') === 0) {
       return next();
     }
@@ -66,8 +65,9 @@ module.exports = function(params) {
     });
   });
 
-  postRoute(server, params.config, app);
-  indexRoute(server, params.config, app);
+  indexRoute(server, params.config, appContext);
+  postRoute(server, params.config, appContext);
+
 
   server.use(errors.call(errors, log));
 
@@ -90,7 +90,5 @@ module.exports = function(params) {
       }
     });
   });
-
-
   return server;
 };

@@ -10,11 +10,10 @@ marked.setOptions({
   }
 });
 
-module.exports = exports = function(app, config) {
-
+module.exports = function(server, config) {
   var services = serviceLoader(config);
 
-  app.get('/api/posts/', function(req, res, next) {
+  server.get('/api/posts/', function(req, res, next) {
     services.post.getPosts().then(function(articles) {
       res.json(articles);
     }).catch(function(err) {
@@ -22,7 +21,7 @@ module.exports = exports = function(app, config) {
     });
   });
 
-  app.get('/api/posts/:slug/', function(req, res, next) {
+  server.get('/api/posts/:slug/', function(req, res, next) {
     services.post.getPostBySlug(req.params.slug).then(function(article) {
       res.json(article);
     }).catch(function(err) {

@@ -1,5 +1,3 @@
-'use strict';
-
 module.exports = {
   intersperse: function (arr, sep) {
     if (arr.length === 0) {

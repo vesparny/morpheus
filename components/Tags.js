@@ -4,13 +4,11 @@
 
 var React = require('react');
 var Tag = require('./Tag');
-var utils = require('../utils');
+var clientUtils = require('../utils').client;
 
 var Tags = React.createClass({
 
   render: function() {
-
-
 
     if (!this.props.tags) {
       return null;
@@ -23,7 +21,7 @@ var Tags = React.createClass({
           tags.push(<Tag tag={tag} key={index} />);
         });
       }
-      tags = utils.intersperse(tags, ', ');
+      tags = clientUtils.intersperse(tags, ', ');
       return (
         <div className="tags">
         {pre}

@@ -1,9 +1,9 @@
 'use strict';
 
-var server = require('./server');
+var expressLoader = require('./express-loader');
 var config = require('config');
 var LoggerFactory = require('./logger-factory');
-var pkg = require('../package.json');
+var pkg = require('./package.json');
 var loggerFactory = new LoggerFactory(config);
 
 exports.run = function(callback) {
@@ -12,11 +12,11 @@ exports.run = function(callback) {
     loggerFactory: loggerFactory,
     version: pkg.version
   };
-  var express = server(params);
-  express.listen(express.get('port'), function() {
+  var expressApp = expressLoader(params);
+  expressApp.listen(expressApp.get('port'), function() {
     callback({
       version: params.version,
-      port: express.get('port'),
+      port: expressApp.get('port'),
     });
   });
 };

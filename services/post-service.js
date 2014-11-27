@@ -2,10 +2,10 @@
 
 var marked = require('marked');
 var Promise = require('es6-promise').Promise; //jshint ignore:line
-var utils = require('../utils');
+var serverUtils = require('../utils').server;
 
 var postService = function(config) {
-  var repositories = require(config.appRoot + '/lib/'+config.get('repository-strategy.type'))();
+  var repositories = require(config.appRoot + '/'+config.get('repository-strategy.type'))();
   return {
     getPosts: function(params) {
       params = params || {};
@@ -19,7 +19,7 @@ var postService = function(config) {
             article.date = single.attributes.date;
             article.slug = single.attributes.slug;
             article.title = single.attributes.title;
-            article.excerpt = utils.excerpt(marked(single.body));
+            article.excerpt = serverUtils.excerpt(marked(single.body));
             articles.push(article);
           });
           resolve(articles);

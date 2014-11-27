@@ -1,6 +1,6 @@
 {
-  "name": "next",
-  "version": "0.0.1",
+  "name": "boogie",
+  "version": "0.0.0",
   "description": "The next generation blogging platform.",
   "main": "server.js",
   "repository": {

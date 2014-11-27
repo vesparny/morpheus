@@ -6,7 +6,7 @@ module.exports = {
     method: 'get',
     page: 'home'
   },
-  about: {
+  single: {
     path: '/:slug',
     method: 'get',
     page: 'single'

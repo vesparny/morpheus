@@ -1,11 +1,11 @@
 'use strict';
 
 var React = require('react');
-var HtmlComponent = React.createFactory(require('../../client/components/Html'));
-var appAction = require('../../client/actions/ApplicationAction');
+var HtmlComponent = React.createFactory(require('../components/Html'));
+var appAction = require('../actions/ApplicationAction');
 
 
-module.exports = exports = function(server, config, app) {
+module.exports = function(server, config, app) {
   server.get('/', function(req, res, next) {
     var context = res.locals.context;
     context.getActionContext().executeAction(appAction, {}, function(err) {

@@ -1,3 +1,4 @@
+'use strict';
 
 var postService = require('./post-service');
 

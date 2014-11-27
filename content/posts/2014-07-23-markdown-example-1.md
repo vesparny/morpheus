@@ -1,6 +1,7 @@
 ---
 type: post
 author: Alessandro Arnodo
+tags: tag1,Tag 2
 slug: markdown-example-1
 permalink: /markdown-example-1
 title: Markdown Example

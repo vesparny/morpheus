@@ -34,7 +34,7 @@ var Single = React.createClass({
   },
   componentDidMount: function() {
     if(!this.state.single.title){
-      var slug = (this.props.slug);
+      var slug = this.props.slug;
       this.props.context.executeAction(FrontEndActions.getSingle, {
         slug:slug
       });

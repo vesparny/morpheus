@@ -1,6 +1,6 @@
 'use strict';
 
-var api = require('../utils/api');
+var api = require('../utils').api;
 
 var FrontEndActions = {
   getAllPosts: function(context) {

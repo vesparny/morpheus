@@ -10,8 +10,8 @@ var del = require('del');
 var watchify = require('watchify');
 var runSequence = require('run-sequence');
 var config = {
-  app: './client/app.js',
-  scss: './client/assets/scss/main.scss',
+  client: './client.js',
+  scss: './assets/scss/main.scss',
   bundle: 'bundle.js',
   distJs: './public/js',
   distCss: './public/css'
@@ -22,7 +22,7 @@ gulp.task('clean', function(cb) {
 });
 
 gulp.task('browserify', function() {
-  browserify(config.app)
+  browserify(config.client)
     .transform(reactify)
     .bundle()
     .pipe(source(config.bundle))
@@ -32,7 +32,7 @@ gulp.task('browserify', function() {
 });
 
 gulp.task('watchify', function() {
-  var bundler = watchify(browserify(config.app, watchify.args));
+  var bundler = watchify(browserify(config.client, watchify.args));
 
   function rebundle() {
     return bundler
