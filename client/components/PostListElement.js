@@ -4,7 +4,7 @@
 
 var React = require('react');
 var ReactPropTypes = React.PropTypes;
-var Link = require('./Link');
+var NavLink = require('flux-router-component').NavLink;
 var Tags = require('./Tags');
 
 
@@ -20,7 +20,7 @@ var PostListElement = React.createClass({
     return (
     <article className="post">
         <header className="post-header">
-            <h2 className="post-title"><Link router={this.props.router} to={to}>{post.title}</Link></h2>
+            <h2 className="post-title"><NavLink href={to} routeName={'single'} context={this.props.context} >{post.title}</NavLink></h2>
         </header>
         <section className="post-excerpt">
             <p dangerouslySetInnerHTML={{__html: post.excerpt}}></p><a className="read-more" href={post.url}>&raquo;</a>

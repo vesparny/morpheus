@@ -11,23 +11,40 @@ var Loader = require('./Loader');
 var HeaderSingle = require('./HeaderSingle');
 var Footer = require('./Footer');
 var Tags = require('./Tags');
+var StoreMixin = require('fluxible-app').StoreMixin;
 
 var Single = React.createClass({
-  mixins: [InitialStateMixin, FrontEndStore.mixin],
-
-  getState: function() {
+  mixins: [StoreMixin],
+  statics: {
+    storeListeners: {
+      _onChange: [FrontEndStore]
+    }
+  },
+  getInitialState: function() {
+    return this.getStateFromStores();
+  },
+  getStateFromStores: function () {
     return {
-      single: FrontEndStore.getSingle()
+      single: this.getStore(FrontEndStore).getSingle(),
+      cssClass: 'single'
     };
   },
-  componentWillReceiveProps: function(newProps, oldProps) {
-    console.log('revceived pl', newProps);
-    console.log('revceived pl', oldProps);
+  _onChange: function() {
+    this.setState(this.getStateFromStores());
   },
   componentDidMount: function() {
     if(!this.state.single.title){
-      FrontEndActions.getSingle(this.props.params.slug);
+      var slug = (this.props.slug);
+      this.props.context.executeAction(FrontEndActions.getSingle, {
+        slug:slug
+      });
     }
+  },
+  componentWillUnmount: function(){
+    this.getStore(FrontEndStore).initialize();
+  },
+  componentWillReceiveProps: function(newProps, oldProps) {
+    console.log('revceived', newProps);
   },
 
   render: function() {

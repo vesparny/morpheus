@@ -1,42 +1,24 @@
 'use strict';
 
-var mcFly = require('../flux')();
 var api = require('../utils/api');
 
-var FrontEndActions = mcFly.createActions({
-  receiveAllPosts: function(rawPosts) {
-    return {
-      actionType: 'GET_POST_SUCCESS',
-      data: rawPosts
-    };
-  },
-  receiveSingle: function(rawSingle) {
-    return {
-      actionType: 'GET_SINGLE_SUCCESS',
-      data: rawSingle
-    };
-  },
-  getAllPosts: function() {
+var FrontEndActions = {
+  getAllPosts: function(context) {
     api.get('/posts').then(function(res){
-      mcFly.actions.receiveAllPosts(res.body);
+      var posts = res.body;
+      context.dispatch('GET_POSTS_SUCCESS', posts);
     }, function(err){
-      console.log('error',err);
-
+      context.dispatch('GET_POSTS_FAILURE', err);
     });
-    return {
-      actionType: 'GET_POST'
-    };
   },
-  getSingle: function(slug) {
-    api.get('/posts/'+slug).then(function(res){
-      mcFly.actions.receiveSingle(res.body);
+  getSingle: function(context, payload) {
+    api.get('/posts/'+payload.slug).then(function(res){
+      var single = res.body;
+      context.dispatch('GET_SINGLE_SUCCESS', single);
     }, function(err){
-      console.log('error',err);
+      context.dispatch('GET_SINGLE_FAILURE', err);
     });
-    return {
-      actionType: 'GET_SINGLE'
-    };
   }
-});
+};
 
 module.exports = FrontEndActions;

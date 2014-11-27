@@ -1,50 +1,40 @@
 'use strict';
 
-var mcFly = require('../flux')();
-
-var _posts = [];
-var _single;
-
-function _addPosts(rawPosts) {
-  _posts = [];
-  rawPosts.forEach(function(post) {
-    _posts.push(post);
-  });
-}
-
-function _setSingle(rawSingle) {
-  _single = rawSingle;
-}
-
-var FrontEndStore = mcFly.createStore({
-  name:'store',
-  get: function(id) {
-    return _posts[id];
+var createStore = require('fluxible-app/utils/createStore');
+var MessageStore = createStore({
+  storeName: 'FrontEndStore',
+  handlers: {
+    'GET_POSTS_SUCCESS': 'getPostsSuccess',
+    'GET_SINGLE_SUCCESS': 'getSingleSuccess'
+  },
+  initialize: function(dispatcher) { //jshint ignore:line
+    this._posts = [];
+    this._single = {};
+  },
+  getPostsSuccess: function(posts) {
+    this._posts = posts;
+    this.emitChange();
+  },
+  getSingleSuccess: function(single) {
+    this._single = single;
+    this.emitChange();
   },
   getAll: function() {
-    return _posts;
+    return this._posts;
   },
   getSingle: function() {
-    return _single;
+    return this._single;
   },
-  dehydrate:function(){
-    return _posts;
-  }
-}, function(payload) {
-  switch (payload.actionType) {
-    case 'GET_POST_SUCCESS':
-      _addPosts(payload.data);
-      FrontEndStore.emitChange();
-      console.log('sadasdasd');
-      console.log(mcFly.dehydrate());
-      break;
-    case 'GET_SINGLE_SUCCESS':
-      _setSingle(payload.data);
-      FrontEndStore.emitChange();
-      break;
-    default:
+  dehydrate: function() {
+    return {
+      posts: this._posts,
+      single: this._single
+    };
+  },
+  rehydrate: function(state) {
+    this._posts = state.posts;
+    this._single = state.single;
   }
 });
 
-
-module.exports = FrontEndStore;
+module.exports = MessageStore;

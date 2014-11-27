@@ -5,20 +5,30 @@
 var React = require('react');
 var PostList = require('./PostList');
 var Single = require('./Single');
+var ApplicationStore = require('../stores/ApplicationStore');
+var RouterMixin = require('flux-router-component').RouterMixin;
+var StoreMixin = require('fluxible-app').StoreMixin;
 
 
 var App = React.createClass({
+  mixins: [RouterMixin, StoreMixin],
+  statics: {
+    storeListeners: [ApplicationStore]
+  },
+  getInitialState: function () {
+    return this.getStore(ApplicationStore).getState();
+  },
+  onChange: function () {
+    var state = this.getStore(ApplicationStore).getState();
+    this.setState(state);
+  },
   render: function(){
-    var page;
-    var route = this.props.data.route;
-
-    if (route === 'home') {
-      page = <PostList posts={this.props.data.state} router={this.props.data.router} cssClass={route}/>;
+    if (this.state.currentPageName === 'home') {
+      return <PostList context={this.props.context}/>;
     }
-    if (route === 'single') {
-      page = <Single single={this.props.data.state} params={this.props.data.params} router={this.props.data.router} cssClass={route}/>;
+    if (this.state.currentPageName === 'single') {
+      return <Single context={this.props.context} slug={this.state.route.params.slug}/>;
     }
-    return page;
   }
 });
 
