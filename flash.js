@@ -43,6 +43,12 @@ Flash.prototype.run = function(callback) {
   });
 };
 
+//TODO plug here plugins, look at architect and fluxible-app for reference
+Flash.prototype.plug = function(callback){
+  //pass back only what needed, maybe the context
+  callback(this);
+};
+
 var flash = new Flash();
 flash.init();
 module.exports = flash;
