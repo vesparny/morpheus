@@ -52,10 +52,10 @@ var Single = React.createClass({
     var style = {
       'backgroundImage': 'url(//www.gravatar.com/avatar/b191979120db1749f5f8c8cadc2ac4a9?d=404&amp;s=250'
     };
-    var classes = 'wrapper '+this.props.cssClass;
+    var classes = 'wrapper '+this.state.cssClass;
     return (
       <div className={classes}>
-        <HeaderSingle/>
+        <HeaderSingle context={this.props.context}/>
         <div className='main-content container'>
           <article className="post">
             <Loader class={!showLoader ? 'hidden' : ''}/>

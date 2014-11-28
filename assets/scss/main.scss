@@ -792,8 +792,13 @@ just for the lolz and stylepoints. */
   border-radius: 100%;
   box-shadow: #fff 0 0 0 5px;
 }
-div:not(.single) .post-title {
+.post-title {
   font-size: 3.6rem;
+}
+.single {
+  .post-title{
+    font-size: 5rem;
+  }
 }
 .post-title a {
   text-decoration: none;
