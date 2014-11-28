@@ -2,7 +2,6 @@
 
 module.exports = function(log) {
   return function(err, req, res, next) { // jshint ignore:line
-    console.log("arguments", err.output);
     log.error({
       err: err,
       req: req
@@ -11,7 +10,7 @@ module.exports = function(log) {
     res.format({
       html: function() {
         //var view = err.output.statusCode === 404 ? '404' : '500';
-        res.send("view");
+        res.send('view');
       },
       json: function() {
         res.send({

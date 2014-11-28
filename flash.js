@@ -1,0 +1,48 @@
+'use strict';
+
+var expressLoader = require('./express-loader');
+var config = require('config');
+var LoggerFactory = require('./logger-factory');
+var pkg = require('./package.json');
+var loggerFactory = new LoggerFactory(config);
+var servicesLoader = require('./services/');
+var context = require('./context');
+
+
+function Flash() {
+  this.config = {};
+  this.services = {};
+  this.context = null;
+}
+
+Flash.prototype.init = function() {
+  this.config = config;
+  //load services
+  this.services = servicesLoader(this.config);
+  //load fluxible context
+  this.context = context;
+
+};
+
+Flash.prototype.logger = loggerFactory.create('flash');
+
+Flash.prototype.getLogger = loggerFactory.create.bind(loggerFactory);
+
+Flash.prototype.run = function(callback) {
+  var expressApp = expressLoader();
+  var params = {
+    config: this.config,
+    loggerFactory: loggerFactory,
+    version: pkg.version
+  };
+  expressApp.listen(expressApp.get('port'), function() {
+    callback({
+      version: params.version,
+      port: expressApp.get('port'),
+    });
+  });
+};
+
+var flash = new Flash();
+flash.init();
+module.exports = flash;

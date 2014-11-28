@@ -1,7 +1,9 @@
 'use strict';
 
 require('node-jsx').install();
-var boogie = require('./boogie');
-boogie.run(function(data) {
-  boogie.logger.info('Worker %s is running app@%s on port %d', process.pid, data.version, data.port);
+
+var flash = require('./flash');
+
+flash.run(function(data) {
+  flash.logger.info('Worker %s is running flash@%s on port %d', process.pid, data.version, data.port);
 });

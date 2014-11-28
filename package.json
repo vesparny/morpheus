@@ -1,11 +1,11 @@
 {
-  "name": "boogie",
+  "name": "flash",
   "version": "0.0.0",
   "description": "The next generation blogging platform.",
   "main": "server.js",
   "repository": {
     "type": "git",
-    "url": "https://github.com/vesparny/next"
+    "url": "https://github.com/vesparny/flash"
   },
   "keywords": [
     "react",
@@ -16,9 +16,9 @@
   "author": "Alessandro Arnodo",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/vesparny/next/issues"
+    "url": "https://github.com/vesparny/flash/issues"
   },
-  "homepage": "https://github.com/vesparny/next",
+  "homepage": "https://github.com/vesparny/flash",
   "dependencies": {
     "body-parser": "~1.9.0",
     "boom": "^2.6.0",

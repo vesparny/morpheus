@@ -1,9 +1,10 @@
 'use strict';
+var flash = require('../flash');
 
 module.exports = {
   home:function(context, payload, done) {
     context.dispatch('APP_START');
-    context.services.post.getPosts().then(function(posts) {
+    flash.services.post.getPosts().then(function(posts) {
       context.dispatch('GET_POSTS_SUCCESS', posts);
       done();
     }).catch(function(err) {
@@ -13,7 +14,7 @@ module.exports = {
   },
   single:function(context, payload, done) {
     context.dispatch('APP_START');
-    context.services.post.getPostBySlug(payload.slug).then(function(single) {
+    flash.services.post.getPostBySlug(payload.slug).then(function(single) {
       context.dispatch('GET_SINGLE_SUCCESS', single);
       done();
     }).catch(function(err) {
