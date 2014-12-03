@@ -6,13 +6,15 @@ module.exports = function(log) {
       err: err,
       req: req
     }, 'There was an error while handling the request');
-    //res.status(err.output.statusCode || 500);
+    res.status(err.output.statusCode);
+    var view = err.output.statusCode === 404 ? '404' : '500';
     res.format({
-      html: function() {
-        //var view = err.output.statusCode === 404 ? '404' : '500';
-        res.send('view');
+      'html': function() {
+        res.render(view, {
+          err:err
+        });
       },
-      json: function() {
+      'json': function() {
         res.send({
           error: err.message || 'Unexpected error'
         });

@@ -9,7 +9,7 @@ module.exports = {
       done();
     }).catch(function(err) {
       context.dispatch('GET_POSTS_FAILURE', err);
-      done();
+      done(err);
     });
   },
   single:function(context, payload, done) {
@@ -19,6 +19,6 @@ module.exports = {
       done();
     }).catch(function(err) {
       context.dispatch('GET_SINGLE_FAILURE', err);
-      done();
+      done(err);
     });
 }};

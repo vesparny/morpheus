@@ -19,29 +19,22 @@ module.exports = function(server, config, app) {
     var context = res.locals.context;
     context.getActionContext().executeAction(appAction.home, {}, function(err) {
       if (err) {
-        if (err.status && err.status === 404) {
-          next();
-        } else {
-          next(err);
-        }
-        return;
+        return next(err);
       }
+
       render(req, res, app, context);
     });
   });
 
-    server.get('/:slug', function(req, res, next) {
-      var context = res.locals.context;
-      context.getActionContext().executeAction(appAction.single, {slug:req.params.slug}, function(err) {
-        if (err) {
-          if (err.status && err.status === 404) {
-            next();
-          } else {
-            next(err);
-          }
-          return;
-        }
-        render(req, res, app, context);
-      });
+  server.get('/:slug', function(req, res, next) {
+    var context = res.locals.context;
+    context.getActionContext().executeAction(appAction.single, {
+      slug: req.params.slug
+    }, function(err) {
+      if (err) {
+        return next(err);
+      }
+      render(req, res, app, context);
     });
+  });
 };
