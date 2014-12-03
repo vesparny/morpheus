@@ -1,0 +1,55 @@
+@font-face {
+  font-family: "Ionicons";
+  src: url("../fonts/ionicons.eot?v=1.5.2#iefix") format("embedded-opentype"), url("../fonts/ionicons.ttf?v=1.5.2") format("truetype"), url("../fonts/ionicons.woff?v=1.5.2") format("woff"), url("../fonts/ionicons.svg?v=1.5.2#Ionicons") format("svg");
+  font-weight: normal;
+  font-style: normal;
+
+}
+/* Apply these base styles to all icons */
+[class^="icon-"]:before,
+[class*=" icon-"]:before {
+  font-family: "Ionicons", "Open Sans", sans-serif;
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  text-decoration: none !important;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+}
+/* Each icon is created by inserting the correct character into the
+content of the :before pseudo element. Like a boss. */
+.icon-flash:before {
+  content: "\f15a";
+}
+.icon-feed:before {
+  content: "\f23d";
+}
+.icon-twitter:before {
+  content: "\f243";
+  font-size: 1.1em;
+}
+.icon-google-plus:before {
+  content: "\f146";
+}
+.icon-facebook:before {
+  content: "\f231";
+}
+.icon-arrow-left:before {
+  content: "\f153";
+}
+.icon-stats:before {
+  content: "\f606";
+}
+.icon-location:before {
+  content: "\f607";
+  margin-left: -3px;
+  /* Tracking fix */
+}
+.icon-link:before {
+  content: "\f608";
+
+}

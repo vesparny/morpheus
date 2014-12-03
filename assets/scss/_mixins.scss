@@ -1,0 +1,43 @@
+//box Sizing
+@mixin box-sizing ($type: border-box) {
+  //content-box | border-box | inherit
+  -webkit-box-sizing: $type;
+     -moz-box-sizing: $type;
+          box-sizing: $type;
+}
+@mixin border-box() {
+    @include box-sizing( border-box );
+}
+
+//reset border, margin, and padding
+@mixin box-reset() {
+  margin: 0;
+  padding: 0;
+  border: 0 none;
+}
+
+//px to rem sizing with px fallout
+@mixin font-size($size, $context: $base-root-size) {
+  font-size: $size + px;
+  font-size: ($size / $base-root-size) + rem;
+}
+
+//selection
+@mixin selection() {
+  background: #b3d4fc;
+  text-shadow: none;
+}
+
+//placeholder
+@mixin placeholder() {
+  color: #999;
+}
+
+//vertical align (http://zerosixthree.se/vertical-align-anything-with-just-3-lines-of-css/)
+@mixin vertical-align {
+  position: relative;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+}

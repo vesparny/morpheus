@@ -6,7 +6,7 @@ var React = require('react');
 
 var Header = React.createClass({
   render: function() {
-    var classString = 'site-footer clearfix';
+    var classString = 'footer site-footer clearfix';
     return (
       <footer className={classString}>
          <section className="copyright"><a href="url">title</a> &copy;</section>

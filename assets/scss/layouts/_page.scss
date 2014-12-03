@@ -1,0 +1,388 @@
+.wrapper {
+  height: 100%;
+}
+.container {
+  min-height: 100%;
+  /* equal to footer height */
+  margin-bottom: -50px;
+}
+.container:after {
+  content: "";
+  display: block;
+}
+.footer,
+.container:after {
+  height: 50px;
+
+}
+
+.page-title {
+  margin: 10px 0;
+  @include font-size(50);
+  letter-spacing: -1px;
+  font-weight: 700;
+  font-family: "Open Sans", sans-serif;
+  color: #fff;
+}
+.page-description {
+  margin: 0;
+  @include font-size(20);
+  line-height: 1.5em;
+  font-weight: 400;
+  font-family: "Merriweather", serif;
+  letter-spacing: 0.01rem;
+  color: rgba(255,255,255,0.8);
+}
+.no-cover .page-title {
+  color: rgba(0,0,0,0.8);
+}
+.no-cover .page-description {
+  color: rgba(0,0,0,0.5);
+}
+.no-cover .main-nav.overlay .back-button,
+.no-cover .main-nav.overlay .subscribe-button,
+.no-cover .main-nav.overlay .menu-button {
+  color: rgba(0,0,0,0.4);
+  border-color: rgba(0,0,0,0.3);
+
+}
+/* Add subtle load-in animation for content on the home page */
+.home .page-title {
+  -webkit-animation: fadeInDown 0.9s;
+  animation: fadeInDown 0.9s;
+  -webkit-animation-delay: 0.1s;
+  animation-delay: 0.1s;
+}
+.home .page-description {
+  -webkit-animation: fadeInDown 0.9s;
+  animation: fadeInDown 0.9s;
+  -webkit-animation-delay: 0.1s;
+  animation-delay: 0.1s;
+
+}
+/* Every post, on every page, gets this style on its <article> tag */
+.post {
+  position: relative;
+  width: 80%;
+  max-width: 710px;
+  margin: 4rem auto;
+  padding-bottom: 4rem;
+  border-bottom: #ebf2f6 1px solid;
+  word-break: break-word;
+  hyphens: auto;
+
+}
+/* Add a little circle in the middle of the border-bottom on our .post
+just for the lolz and stylepoints. */
+.post:after {
+  display: block;
+  content: "";
+  width: 7px;
+  height: 7px;
+  border: #e7eef2 1px solid;
+  position: absolute;
+  bottom: -5px;
+  left: 50%;
+  margin-left: -5px;
+  background: #fff;
+  -webkit-border-radius: 100%;
+  -moz-border-radius: 100%;
+  border-radius: 100%;
+  box-shadow: #fff 0 0 0 5px;
+}
+.post-title {
+  @include font-size(36);
+}
+.single {
+  .post-title{
+    @include font-size(50);
+  }
+}
+.post-title a {
+  text-decoration: none;
+}
+.post-excerpt p {
+  margin: 0;
+  @include font-size(16);
+  line-height: 1.7em;
+}
+.read-more {
+  text-decoration: none;
+}
+.post-meta {
+  display: block;
+  margin: 1.75rem 0 0;
+  font-family: "Open Sans", sans-serif;
+  @include font-size(15);
+  line-height: rem-calc(23);
+  color: #9eabb3;
+}
+.author-thumb {
+  width: 24px;
+  height: 24px;
+  float: left;
+  margin-right: 9px;
+  border-radius: 100%;
+}
+.post-meta a {
+  color: #9eabb3;
+  text-decoration: none;
+}
+.post-meta a:hover {
+  text-decoration: underline;
+}
+.user-meta {
+  position: relative;
+  padding: 0.3rem 40px 0 100px;
+  min-height: 77px;
+}
+.post-date {
+  display: inline-block;
+  margin-left: 8px;
+  padding-left: 12px;
+  border-left: #d5dbde 1px solid;
+  text-transform: uppercase;
+  @include font-size(13);
+  white-space: nowrap;
+}
+.user-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+.user-name {
+  display: block;
+  font-weight: 700;
+}
+.user-bio {
+  display: block;
+  max-width: 440px;
+  @include font-size(14);
+  line-height: 1.5em;
+}
+.publish-meta {
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 4.3rem 0 4rem;
+  text-align: right;
+}
+.publish-heading {
+  display: block;
+  font-weight: 700;
+}
+.publish-date {
+  display: block;
+  @include font-size(14);
+  line-height: 1.5em;
+
+}
+
+.single .post-header {
+  margin-bottom: 3.4rem;
+}
+.single .post-title {
+  margin-bottom: 0;
+}
+.single .post-meta {
+  margin: 0;
+}
+.single .post-date {
+  padding: 0;
+  margin: 0;
+  border: none;
+
+}
+/* Stop .full-img from creating horizontal scroll - slight hack due to
+imperfections with browser width % calculations and rounding */
+.single .content {
+  overflow: hidden;
+
+}
+/* Tweak the .post wrapper style */
+.single .post {
+  margin-top: 0;
+  border-bottom: none;
+  padding-bottom: 0;
+
+}
+/* Kill that stylish little circle that was on the border, too */
+.single .post:after {
+  display: none;
+
+}
+/* Keep images centred and within the bounds of the post-width */
+.post-content img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  margin: 0 auto;
+  padding: 0.6em 0;
+
+}
+/* Break out larger images to be wider than the main text column
+the class is applied with jQuery */
+.post-content .full-img {
+  width: 126%;
+  max-width: none;
+  margin: 0 -13%;
+
+}
+/* The author credit area after the post */
+.post-footer {
+  position: relative;
+  margin: 6rem 0 0;
+  padding: 6rem 0 0;
+  border-top: #ebf2f6 1px solid;
+}
+.post-footer h4 {
+  @include font-size(18);
+  margin: 0;
+}
+.post-footer p {
+  margin: 1rem 0;
+  @include font-size(14);
+  line-height: 1.75em;
+
+}
+/* list of author links - location / url */
+.author-meta {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  @include font-size(14);
+  line-height: 1;
+  font-style: italic;
+  color: #9eabb3;
+}
+.author-meta a {
+  color: #9eabb3;
+}
+.author-meta a:hover {
+  color: #111;
+
+}
+/* Create some space to the right for the share links */
+.post-footer .author {
+  margin-right: 180px;
+}
+.post-footer h4 a {
+  color: #2e2e2e;
+  text-decoration: none;
+}
+.post-footer h4 a:hover {
+  text-decoration: underline;
+
+}
+/* Drop the share links in the space to the right.
+Doing it like this means it's easier for the author bio
+to be flexible at smaller screen sizes while the share
+links remain at a fixed width the whole time */
+.post-footer .share {
+  position: absolute;
+  top: 6rem;
+  right: 0;
+  width: 140px;
+}
+.post-footer .share a {
+  @include font-size(22);
+  display: inline-block;
+  margin: 1rem 1.6rem 1.6rem 0;
+  color: #bbc7cc;
+  text-decoration: none;
+}
+.post-footer .share a:hover {
+  color: #50585d;
+
+}
+/* The subscribe icon on the footer */
+.subscribe {
+  width: 28px;
+  height: 28px;
+  position: absolute;
+  top: -14px;
+  left: 50%;
+  margin-left: -15px;
+  border: #ebf2f6 1px solid;
+  text-align: center;
+  line-height: 2.4rem;
+  border-radius: 50px;
+  background: #fff;
+  transition: box-shadow 0.5s;
+
+}
+/* The RSS icon, inserted via icon font */
+.subscribe:before {
+  color: #d2dee3;
+  @include font-size(10);
+  position: absolute;
+  top: 2px;
+  left: 9px;
+  font-weight: 700;
+  transition: color 0.5s ease;
+
+}
+/* Add a box shadow to on hover */
+.subscribe:hover {
+  box-shadow: rgba(0,0,0,0.05) 0 0 0 3px;
+  transition: box-shadow 0.25s;
+}
+.subscribe:hover:before {
+  color: #50585d;
+
+}
+/* CSS tooltip saying "Subscribe!" - initially hidden */
+.tooltip {
+  opacity: 0;
+  display: block;
+  width: 53px;
+  padding: 4px 8px 5px;
+  position: absolute;
+  top: -23px;
+  left: -21px;
+  color: rgba(255,255,255,0.9);
+  @include font-size(11);
+  line-height: 1em;
+  text-align: center;
+  background: #50585d;
+  border-radius: 20px;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+  transition: opacity 0.3s ease, top 0.3s ease;
+
+}
+/* The little chiclet arrow under the tooltip, pointing down */
+.tooltip:after {
+  content: " ";
+  border-width: 5px 5px 0 5px;
+  border-style: solid;
+  border-color: #50585d transparent;
+  display: block;
+  position: absolute;
+  bottom: -4px;
+  left: 50%;
+  margin-left: -5px;
+  z-index: 220;
+  width: 0;
+
+}
+/* On hover, show the tooltip! */
+.subscribe:hover .tooltip {
+  opacity: 1;
+  top: -33px;
+
+}
+
+.loader {
+  background: url("../img/loader.svg");
+  height: 24px;
+  width: 30px;
+  background-size: 30px 24px;
+  position: relative;
+  top: 30%;
+  margin: 0 auto;
+}
+
+.tags {
+  display: inline-block;
+  margin-left: 5px;
+}

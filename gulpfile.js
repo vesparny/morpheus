@@ -11,7 +11,8 @@ var watchify = require('watchify');
 var runSequence = require('run-sequence');
 var config = {
   client: './client.js',
-  scss: './assets/scss/main.scss',
+  mainScss: './assets/scss/main.scss',
+  scss: './assets/scss/**/*.scss',
   bundle: 'bundle.js',
   distJs: './public/js',
   distCss: './public/css'
@@ -50,7 +51,7 @@ gulp.task('watchify', function() {
 });
 
 gulp.task('styles', function() {
-  return gulp.src(config.scss)
+  return gulp.src(config.mainScss)
     .pipe($.changed(config.distCss))
     .pipe($.sass({
       errLogToConsole: true

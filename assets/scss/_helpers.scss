@@ -1,0 +1,27 @@
+%center {
+  margin-right: auto;
+  margin-left: auto;
+}
+
+%text-center {
+  text-align:center;
+}
+
+%clearfix {
+  &::before,
+  &::after {
+    content: "";
+    display: table;
+  }
+  &::after {
+    clear: both;
+  }
+}
+
+.text-center{
+  @extend %text-center;
+}
+
+@function rem-calc($size, $context: $base-root-size) {
+  @return ($size / $base-root-size) + rem;
+}

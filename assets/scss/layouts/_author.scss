@@ -1,0 +1,120 @@
+.post-head.main-header {
+  height: 65%;
+  min-height: 180px;
+}
+.no-cover.post-head.main-header {
+  height: 85px;
+  min-height: 0;
+  margin-bottom: 0;
+  background: transparent;
+}
+.tag-head.main-header {
+  height: 40%;
+  min-height: 180px;
+}
+.author-head.main-header {
+  height: 40%;
+  min-height: 180px;
+}
+.no-cover.author-head.main-header {
+  height: 10%;
+  min-height: 100px;
+  background: transparent;
+}
+.author-profile {
+  padding: 0 15px 5rem;
+  border-bottom: #ebf2f6 1px solid;
+  text-align: center;
+
+}
+/* Add a little circle in the middle of the border-bottom */
+.author-profile:after {
+  display: block;
+  content: "";
+  width: 7px;
+  height: 7px;
+  border: #e7eef2 1px solid;
+  position: absolute;
+  bottom: -5px;
+  left: 50%;
+  margin-left: -5px;
+  background: #fff;
+  -webkit-border-radius: 100%;
+  -moz-border-radius: 100%;
+  border-radius: 100%;
+  box-shadow: #fff 0 0 0 5px;
+}
+.author-image {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  display: block;
+  position: absolute;
+  top: -55px;
+  left: 50%;
+  margin-left: -40px;
+  width: 80px;
+  height: 80px;
+  border-radius: 100%;
+  overflow: hidden;
+  padding: 6px;
+  background: #fff;
+  z-index: 2;
+  box-shadow: #e7eef2 0 0 0 1px;
+}
+.author-image .img {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center center;
+  border-radius: 100%;
+}
+.author-profile .author-image {
+  position: relative;
+  left: auto;
+  top: auto;
+  width: 120px;
+  height: 120px;
+  padding: 3px;
+  margin: -100px auto 0;
+  box-shadow: none;
+}
+.author-title {
+  margin: 1.5rem 0 1rem;
+}
+.author-bio {
+  @include font-size(18);
+  line-height: 1.5em;
+  font-weight: 200;
+  color: #50585d;
+  letter-spacing: 0;
+  text-indent: 0;
+}
+.author-meta {
+  margin: 1.6rem 0;
+
+}
+/* Location, website, and link */
+.author-profile .author-meta {
+  margin: 2rem 0;
+  font-family: "Merriweather", serif;
+  letter-spacing: 0.01rem;
+  @include font-size(17);
+}
+.author-meta span {
+  display: inline-block;
+  margin: 0 2rem 1rem 0;
+  word-wrap: break-word;
+}
+.author-meta a {
+  text-decoration: none;
+
+}
+/* Turn off meta for page2+ to make room for extra
+pagination prev/next links */
+.archive-template .author-profile .author-meta {
+  display: none;
+
+}

@@ -50,7 +50,7 @@ var Single = React.createClass({
   render: function() {
     var showLoader = !this.state.single.title;
     var style = {
-      'backgroundImage': 'url(//www.gravatar.com/avatar/b191979120db1749f5f8c8cadc2ac4a9?d=404&amp;s=250'
+      'backgroundImage': 'url(//gravatar.com/avatar/b191979120db1749f5f8c8cadc2ac4a9?d=404&amp;s=250)'
     };
     var classes = 'wrapper '+this.state.cssClass;
     return (

@@ -1,0 +1,318 @@
+/* ==========================================================================
+10. Media Queries - Smaller than 900px
+========================================================================== */
+@media only screen and (max-width: 900px) {
+  .main-nav {
+    padding: 15px;
+  }
+  blockquote {
+    margin-left: 0;
+  }
+  .main-header {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    height: auto;
+    min-height: 240px;
+    height: 60%;
+    padding: 15% 0;
+  }
+  .scroll-down,
+  .home .main-header:after {
+    display: none;
+  }
+  .archive-template .main-header {
+    min-height: 180px;
+    padding: 10% 0;
+  }
+  .blog-logo img {
+    padding: 4px 0;
+  }
+  .page-title {
+    @include font-size(40);
+    letter-spacing: -1px;
+  }
+  .page-description {
+    @include font-size(18);
+    line-height: 1.5em;
+  }
+  .post {
+    @include font-size(16);
+  }
+  :not(.single) .post-title {
+    @include font-size(32);
+  }
+  hr {
+    margin: 2.4em 0;
+  }
+  ol,
+  ul {
+    padding-left: 2em;
+  }
+  h1 {
+    @include font-size(45);
+    text-indent: -2px;
+  }
+  h2 {
+    @include font-size(36);
+  }
+  h3 {
+    @include font-size(31);
+  }
+  h4 {
+    @include font-size(25);
+  }
+  h5 {
+    @include font-size(22);
+  }
+  h6 {
+    @include font-size(18);
+  }
+  .author-profile {
+    padding-bottom: rem-calc(40);
+  }
+  .author-profile .author-bio {
+    @include font-size(16);
+  }
+  .author-meta span {
+    display: block;
+    margin: rem-calc(15) 0;
+  }
+  .author-profile .author-meta span {
+    @include font-size(16);
+  }
+  .post-head.main-header {
+    height: 45%;
+  }
+  .tag-head.main-header,
+  .author-head.main-header {
+    height: 30%;
+  }
+  .no-cover.post-head.main-header {
+    height: 55px;
+    padding: 0;
+  }
+  .no-cover.author-head.main-header {
+    padding: 0;
+  }
+
+}
+/* ==========================================================================
+11. Media Queries - Smaller than 500px
+========================================================================== */
+@media only screen and (max-width: 500px) {
+  .main-header {
+    margin-bottom: 15px;
+    height: 40%;
+  }
+  .no-cover.main-header {
+    height: 30%;
+  }
+  .archive-template .main-header {
+    max-height: 20%;
+    min-height: 160px;
+    padding: 10% 0;
+  }
+  .main-nav {
+    padding: 0;
+    margin-bottom: rem-calc(20);
+    border-bottom: #e0e4e7 1px solid;
+  }
+  .blog-logo {
+    display: none;
+  }
+  .blog-logo img {
+    height: 26px;
+  }
+  .back-button,
+  .subscribe-button,
+  .menu-button {
+    height: 44px;
+    line-height: 41px;
+    border-radius: 0;
+    color: #2e2e2e;
+    background: transparent;
+  }
+  .back-button:hover,
+  .subscribe-button:hover,
+  .menu-button:hover {
+    border-color: #ebeef0;
+    color: #2e2e2e;
+    background: #ebeef0;
+  }
+  .back-button {
+    padding: 0 15px 0 10px;
+  }
+  .subscribe-button,
+  .menu-button {
+    padding: 0 12px;
+  }
+  .main-nav.overlay a:hover {
+    color: #fff;
+    border-color: transparent;
+    background: transparent;
+  }
+  .no-cover .main-nav.overlay {
+    background: none;
+  }
+  .no-cover .main-nav.overlay .back-button,
+  .no-cover .main-nav.overlay .subscribe-button,
+  .no-cover .main-nav.overlay .menu-button {
+    border: none;
+  }
+  .main-nav.overlay .back-button,
+  .main-nav.overlay .subscribe-button,
+  .main-nav.overlay .menu-button {
+    border-color: transparent;
+  }
+  .blog-logo img {
+    max-height: 80px;
+  }
+  .inner,
+  .pagination {
+    width: auto;
+    margin: rem-calc(20) auto;
+  }
+  .post {
+    width: auto;
+    margin: rem-calc(20);
+    padding-bottom: rem-calc(20);
+    line-height: rem-calc(29);
+  }
+  .post-date {
+    display: none;
+  }
+  .single .post-header {
+    margin-bottom: rem-calc(20);
+  }
+  .single .post-date {
+    display: inline-block;
+  }
+  hr {
+    margin: rem-calc(17) 0;
+  }
+  p,
+  ul,
+  ol,
+  dl {
+    @include font-size(16);
+    margin: 0 0 rem-calc(25);
+  }
+  .page-title {
+    @include font-size(30);
+  }
+  .post-excerpt p {
+    @include font-size(15);
+  }
+  .page-description {
+    @include font-size(16);
+  }
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    margin: 0 0 0.3em;
+  }
+  h1 {
+    @include font-size(28);
+    letter-spacing: -1px;
+  }
+  h2 {
+    @include font-size(24);
+    letter-spacing: 0;
+  }
+  h3 {
+    @include font-size(21);
+  }
+  h4 {
+    @include font-size(19);
+  }
+  h5 {
+    @include font-size(18);
+  }
+  h6 {
+    @include font-size(18);
+  }
+  body:not(.single) .post-title {
+    @include font-size(25);
+  }
+  .single .post {
+    padding-bottom: 0;
+    margin-bottom: 0;
+  }
+  .single .site-footer {
+    margin-top: 0;
+  }
+  .post-content img {
+    padding: 0;
+  }
+  .post-content .full-img {
+    width: calc(100% + 32px);
+    /* expand with to image + margins */
+    margin: 0 -16px;
+    /* get rid of margins */
+    min-width: 0;
+    max-width: 112%;
+    /* fallback when calc doesn't work */
+  }
+  .post-meta {
+    @include font-size(13);
+    margin-top: rem-calc(10);
+  }
+  .post-footer {
+    padding: rem-calc(50) 0 rem-calc(30);
+    text-align: center;
+  }
+  .post-footer .author {
+    margin: 0 0 2rem;
+    padding: 0 0 1.6rem;
+    border-bottom: #ebf2f6 1px dashed;
+  }
+  .post-footer .share {
+    position: static;
+    width: auto;
+  }
+  .post-footer .share a {
+    margin: rem-calc(14) rem-calc(8) 0;
+  }
+  .author-meta li {
+    float: none;
+    margin: 0;
+    line-height: 1.75em;
+  }
+  .author-meta li:before {
+    display: none;
+  }
+  .older-posts,
+  .newer-posts {
+    position: static;
+    margin: 10px 0;
+  }
+  .page-number {
+    display: block;
+  }
+  .site-footer {
+    margin-top: rem-calc(30);
+  }
+  .author-profile {
+    padding-bottom: rem-calc(20);
+  }
+  .post-head.main-header {
+    height: 30%;
+  }
+  .tag-head.main-header,
+  .author-head.main-header {
+    height: 20%;
+  }
+  .author-profile .author-image {
+    margin-top: -70px;
+  }
+  .author-profile .author-meta span {
+    @include font-size(14);
+  }
+  .archive-template .main-header .page-description {
+    display: none;
+  }
+}
