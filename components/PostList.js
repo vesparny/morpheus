@@ -3,7 +3,7 @@
 'use strict';
 
 var React = require('react');
-var PostListElement = require('./postListElement');
+var PostListElement = require('./PostListElement');
 var FrontEndActions = require('../actions/FrontEndActions');
 
 var FrontEndStore = require('../stores/FrontEndStore');
