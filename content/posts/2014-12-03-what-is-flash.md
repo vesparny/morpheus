@@ -10,7 +10,7 @@ title: What is Flash?
 
 
 This is the "Hello world" post of [Flash](https://github.com/vesparny/flash), a Node.js blogging platform, minimalist
-and extensible. I'm going to keep this post **because I love Hadron**, beside the fact that *this post is cool*.
+and extensible.
 
 ### Reasons I like Flash
 
