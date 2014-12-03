@@ -42,6 +42,14 @@ module.exports = function(){
   server.use(express.static(path.join(__dirname, '/content/themes/blablabla')));
 
   server.use(function(req, res, next) {
+    if (req.headers['x-forwarded-proto'] === 'http') {
+      return res.redirect(301, 'https://' + req.headers.host + '/');
+    } else {
+      return next();
+    }
+  });
+
+  server.use(function(req, res, next) {
     var context = res.locals.context = flash.context.createContext();
     if (req.path.indexOf('/api/') === 0) {
       return next();
