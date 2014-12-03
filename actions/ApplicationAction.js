@@ -5,6 +5,7 @@ module.exports = {
   home:function(context, payload, done) {
     context.dispatch('APP_START');
     flash.services.post.getPosts().then(function(posts) {
+      context.dispatch('SET_SITE_URL', flash.config.get('siteUrl'));
       context.dispatch('GET_POSTS_SUCCESS', posts);
       done();
     }).catch(function(err) {

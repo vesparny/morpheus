@@ -6,16 +6,24 @@ var MessageStore = createStore({
   storeName: 'FrontEndStore',
   handlers: {
     'GET_POSTS_SUCCESS': 'getPostsSuccess',
-    'GET_SINGLE_SUCCESS': 'getSingleSuccess'
+    'GET_SINGLE_SUCCESS': 'getSingleSuccess',
+    'SET_SITE_URL': 'setSiteUrl'
   },
   initialize: function(dispatcher) { //jshint ignore:line
     this.posts = [];
     this.single = {};
-    //this.siteUrl = flash.config.get('siteUrl');
+    this.siteUrl = null;
   },
   getPostsSuccess: function(posts) {
     this.posts = posts;
     this.emitChange();
+  },
+  setSiteUrl: function(url) {
+    this.siteUrl = url;
+    this.emitChange();
+  },
+  getSiteUrl: function() {
+    return this.siteUrl;
   },
   getSingleSuccess: function(single) {
     this.single = single;

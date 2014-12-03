@@ -20,6 +20,8 @@ var postService = function(config) {
             article.slug = single.attributes.slug;
             article.email = single.attributes.email;
             article.title = single.attributes.title;
+            article.permalink = single.attributes.permalink;
+            article.fullUrl = config.get('siteUrl')+single.attributes.permalink;
             article.excerpt = serverUtils.excerpt(marked(single.body));
             articles.push(article);
           });
@@ -42,6 +44,8 @@ var postService = function(config) {
           article.date = single.attributes.date;
           article.title = single.attributes.title;
           article.email = single.attributes.email;
+          article.permalink = single.attributes.permalink;
+          article.fullUrl = config.get('siteUrl')+single.attributes.permalink;
           article.content = marked(single.body);
           resolve(article);
         }).catch(function(err) {

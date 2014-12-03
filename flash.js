@@ -6,8 +6,6 @@ var LoggerFactory = require('./logger-factory');
 var pkg = require('./package.json');
 var loggerFactory = new LoggerFactory(config);
 var servicesLoader = require('./services/');
-var context = require('./context');
-
 
 function Flash() {
   this.config = {};
@@ -19,9 +17,6 @@ Flash.prototype.init = function() {
   this.config = config;
   //load services
   this.services = servicesLoader(this.config);
-  //load fluxible context
-  this.context = context;
-
 };
 
 Flash.prototype.logger = loggerFactory.create('flash');
@@ -41,6 +36,11 @@ Flash.prototype.run = function(callback) {
       port: expressApp.get('port'),
     });
   });
+
+};
+
+Flash.prototype.setContext = function(context) {
+  this.context = context;
 };
 
 //TODO plug here plugins, look at architect and fluxible-app for reference
