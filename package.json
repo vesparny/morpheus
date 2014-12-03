@@ -37,6 +37,7 @@
     "fluxible-plugin-routr": "^0.2.1",
     "front-matter": "^0.2.0",
     "glob": "^4.0.6",
+    "gravatar": "^1.1.0",
     "highlight.js": "^8.2.0",
     "inherits": "^2.0.1",
     "lodash": "~2.4.1",

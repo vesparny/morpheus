@@ -1,12 +1,15 @@
 .site-footer {
   position: relative;
-  margin: 8rem 0 0;
+  margin: 2rem 0 0;
   padding: 0.5rem 15px;
   border-top: $silver 1px solid;
   font-family: "Open Sans", sans-serif;
-  @include font-size(10);
+  @include font-size(14);
   line-height: 1.75em;
   color: $gray;
+  section {
+    @include vertical-align();
+  }
 }
 .site-footer a {
   color: $gray;

@@ -1,6 +1,7 @@
 ---
 type: post
 author: Alessandro Arnodo
+email: alessandro@arnodo.net
 tags: markdown
 slug: markdown-example-with-flash
 permalink: /markdown-example-with-flash

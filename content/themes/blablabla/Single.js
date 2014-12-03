@@ -12,6 +12,7 @@ var HeaderSingle = require('./HeaderSingle');
 var Footer = require('./Footer');
 var Tags = require('./Tags');
 var StoreMixin = require('fluxible-app').StoreMixin;
+var gravatar = require('gravatar');
 
 var Single = React.createClass({
   mixins: [StoreMixin],
@@ -50,7 +51,7 @@ var Single = React.createClass({
   render: function() {
     var showLoader = !this.state.single.title;
     var style = {
-      'backgroundImage': 'url(//gravatar.com/avatar/b191979120db1749f5f8c8cadc2ac4a9?d=404&amp;s=250)'
+      'backgroundImage': 'url('+gravatar.url(this.state.single.email, {s:250}, true)+')'
     };
     var classes = 'wrapper '+this.state.cssClass;
     return (
@@ -74,11 +75,10 @@ var Single = React.createClass({
               <a className="img" href="/author/alessandro/" style={style}><span className="hidden">alessandro arnodo's Picture</span></a>
             </figure>
           <section className="author">
-            <h4><a href="/author/alessandro/">alessandro arnodo</a></h4>
+            <h4>{this.state.single.author}</h4>
 
-            <p>Read <a href="/author/alessandro/">more posts</a> by this author.</p>
             <div className="author-meta">
-            <p>Founder at Ghost.org. Writes about open source, startup life, non-profits, and publishing platforms. Travels the world with a bag of kites.</p>
+            <p>Just another code Monkey</p>
 
             </div>
           </section>
@@ -100,7 +100,7 @@ var Single = React.createClass({
         </div>
       </article>
     </div>
-    <Footer/>
+    <Footer context={this.props.context}/>
     </div>
     );
   }

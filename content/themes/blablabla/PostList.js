@@ -48,14 +48,14 @@ var PostList = React.createClass({
     var classes = 'wrapper '+this.state.cssClass;
     return (
       <div className={classes}>
-      <Header/>
+      <Header context={this.props.context}/>
         <div className='main-content container'>
         <div className='post-container'>
         <Loader class={!showLoader ? 'hidden' : ''}/>
         {posts}
         </div>
         </div>
-        <Footer/>
+        <Footer context={this.props.context}/>
       </div>
     );
   }

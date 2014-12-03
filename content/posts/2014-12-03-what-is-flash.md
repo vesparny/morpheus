@@ -1,6 +1,7 @@
 ---
 type: post
 author: Alessandro Arnodo
+email: alessandro@arnodo.net
 tags: flash
 slug: what-is-flash
 permalink: /what-is-flash

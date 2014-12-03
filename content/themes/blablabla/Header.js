@@ -3,19 +3,16 @@
 'use strict';
 
 var React = require('react');
+var NavLink = require('flux-router-component').NavLink;
 
 var Header = React.createClass({
   render: function() {
     return (
       <header className='main-header'>
         <nav className='main-nav overlay clearfix'>
-        <a className='icon-flash blog-logo' href='http://localhost:3000'>
-          <span className='hidden'>flash</span>
-        </a>
-        <a className='menu-button' href='{{@blog.url}}'>page</a>
-        <a className='menu-button' href='/about'>About</a>
-        <a className='menu-button subscribe-button icon icon-feed' href='http://localhost:2368/rss/'>Subscribe</a>
-          </nav>
+        <NavLink href='https://github.com/vesparny/flash' context={this.props.context} className="icon-flash blog-logo"><span className='hidden'>flash</span></NavLink>
+        <NavLink href='/a-static-page' context={this.props.context} className="menu-button">A Static Page</NavLink>
+        </nav>
         <div className='vertical'>
           <div className='main-header-content inner'>
             <h1 className='page-title'>Flash</h1>

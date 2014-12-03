@@ -18,6 +18,7 @@ var postService = function(config) {
             article.tags = single.attributes.tags;
             article.date = single.attributes.date;
             article.slug = single.attributes.slug;
+            article.email = single.attributes.email;
             article.title = single.attributes.title;
             article.excerpt = serverUtils.excerpt(marked(single.body));
             articles.push(article);
@@ -40,6 +41,7 @@ var postService = function(config) {
           article.slug = single.attributes.slug;
           article.date = single.attributes.date;
           article.title = single.attributes.title;
+          article.email = single.attributes.email;
           article.content = marked(single.body);
           resolve(article);
         }).catch(function(err) {

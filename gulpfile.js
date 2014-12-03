@@ -14,12 +14,11 @@ var config = {
   mainScss: './content/themes/blablabla/assets/scss/main.scss',
   scss: './content/themes/blablabla/assets/scss/**/*.scss',
   bundle: 'bundle.js',
-  distJs: './content/themes/blablabla/assets/js',
-  distCss: './content/themes/blablabla/assets/css'
+  dist: './content/themes/blablabla/assets/dist'
 };
 
 gulp.task('clean', function(cb) {
-  del([config.distJs, config.distCss], cb);
+  del([config.dist], cb);
 });
 
 gulp.task('browserify', function() {
@@ -29,7 +28,7 @@ gulp.task('browserify', function() {
     .pipe(source(config.bundle))
     .pipe(buffer())
     //.pipe($.uglify())
-    .pipe(gulp.dest(config.distJs));
+    .pipe(gulp.dest(config.dist));
 });
 
 gulp.task('watchify', function() {
@@ -42,7 +41,7 @@ gulp.task('watchify', function() {
       .pipe(source(config.bundle))
       .pipe(buffer())
       //.pipe($.uglify())
-      .pipe(gulp.dest(config.distJs));
+      .pipe(gulp.dest(config.dist));
   }
 
   bundler.transform(reactify)
@@ -52,12 +51,12 @@ gulp.task('watchify', function() {
 
 gulp.task('styles', function() {
   return gulp.src(config.mainScss)
-    .pipe($.changed(config.distCss))
+    .pipe($.changed(config.dist))
     .pipe($.sass({
       errLogToConsole: true
     }))
     //.pipe($.csso())
-    .pipe(gulp.dest(config.distCss));
+    .pipe(gulp.dest(config.dist));
 });
 
 gulp.task('watchers', function() {
