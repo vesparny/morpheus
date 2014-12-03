@@ -33,7 +33,7 @@ Flash.prototype.run = function(callback) {
   expressApp.listen(flash.config.get('port'), flash.config.get('ip'), function() {
     callback({
       version: params.version,
-      port: expressApp.get('port'),
+      port: flash.config.get('port'),
     });
   });
 

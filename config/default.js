@@ -1,10 +1,12 @@
+'use strict';
+
 var path = require('path');
 var appRoot = process.cwd();
 
 module.exports = {
   log: {
     level: 'info',
-    file: 'content/logs/log.log'
+    file: path.resolve(appRoot, 'content/logs/log.log'),
   },
   'repository-strategy': {
     type: 'file-system-repository-strategy'

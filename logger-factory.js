@@ -6,8 +6,6 @@ var formatOut = bformat({
   outputMode: 'long'
 });
 
-var path = require('path');
-
 function Logger(bunyanLogger, config) {
   var self = this;
   this.bunyanLogger = bunyanLogger;
@@ -39,7 +37,7 @@ function LoggerFactory(config) {
     }, {
       level: this.config.get('log').level || 'info',
       type: 'rotating-file',
-      path: path.join(this.config.get('appRoot'), this.config.get('log').file),
+      path: this.config.get('log').file,
       period: '1d',
       count: 3
     }],
