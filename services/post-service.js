@@ -4,8 +4,24 @@ var marked = require('marked');
 var Promise = require('es6-promise').Promise; //jshint ignore:line
 var serverUtils = require('../utils').server;
 
+
+function buildContent(item, siteUrl) {
+  var content = {};
+  content.author = item.attributes.author;
+  content.tags = item.attributes.tags;
+  content.date = item.attributes.date;
+  content.slug = item.attributes.slug;
+  content.type = item.attributes.type;
+  content.email = item.attributes.email;
+  content.title = item.attributes.title;
+  content.permalink = item.attributes.permalink;
+  content.fullUrl = siteUrl + item.attributes.permalink;
+  content.excerpt = serverUtils.excerpt(marked(item.body));
+  content.content = marked(item.body);
+  return content;
+}
 var postService = function(config) {
-  var repositories = require(config.appRoot + '/'+config.get('repository-strategy.type'))();
+  var repositories = require(config.appRoot + '/' + config.get('repository-strategy.type'))();
   return {
     getPosts: function(params) {
       params = params || {};
@@ -13,18 +29,7 @@ var postService = function(config) {
         repositories.post.find().then(function(data) {
           var articles = [];
           data.forEach(function(single) {
-            var article = {};
-            article.author = single.attributes.author;
-            article.tags = single.attributes.tags;
-            article.date = single.attributes.date;
-            article.slug = single.attributes.slug;
-            article.type = single.attributes.type;
-            article.email = single.attributes.email;
-            article.title = single.attributes.title;
-            article.permalink = single.attributes.permalink;
-            article.fullUrl = config.get('siteUrl')+single.attributes.permalink;
-            article.excerpt = serverUtils.excerpt(marked(single.body));
-            articles.push(article);
+            articles.push(buildContent(single, config.get('siteUrl')));
           });
           resolve(articles);
         }).catch(function(err) {
@@ -38,18 +43,8 @@ var postService = function(config) {
         repositories.post.findOne({
           slug: slug
         }).then(function(single) {
-          var article = {};
-          article.author = single.attributes.author;
-          article.tags = single.attributes.tags;
-          article.slug = single.attributes.slug;
-          article.date = single.attributes.date;
-          article.title = single.attributes.title;
-          article.type = single.attributes.type;
-          article.email = single.attributes.email;
-          article.permalink = single.attributes.permalink;
-          article.fullUrl = config.get('siteUrl')+single.attributes.permalink;
-          article.content = marked(single.body);
-          resolve(article);
+          var content = buildContent(single, config.get('siteUrl'));
+          resolve(content);
         }).catch(function(err) {
           reject(err);
         });
