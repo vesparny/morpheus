@@ -21,17 +21,17 @@ function readFile(file) {
         reject(err);
       } else {
         var parsed = fm(data);
-        parsed.attributes.tags = parsed.attributes.tags ? parsed.attributes.tags.split(','): [];
+        parsed.attributes.tags = parsed.attributes.tags ? parsed.attributes.tags.split(',') : [];
         var tags = [];
-        parsed.attributes.tags.forEach(function(tag){
+        parsed.attributes.tags.forEach(function(tag) {
           tags.push({
-            path : _s.slugify(tag),
+            path: _s.slugify(tag),
             name: tag
           });
         });
         parsed.attributes.tags = tags;
-        var filename =  path.basename(file);
-        var date = moment(filename.substring(0,10), 'YYYY-MM-DD');
+        var filename = path.basename(file);
+        var date = moment(filename.substring(0, 10), 'YYYY-MM-DD');
         parsed.attributes.date = date.format('DD MMMM YYYY');
         resolve(parsed);
       }
@@ -73,8 +73,34 @@ PostRepository.prototype.find = function(options) {
 
 PostRepository.prototype.findOne = function(options) {
   options = options || {};
+  var that = this;
   return new Promise(function(resolve, reject) {
-    glob(path.resolve(__dirname + '/../content/posts/**/[0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9]-' + options.slug + '.md'), function(err, files) {
+    glob(path.resolve(__dirname + '/../content/posts/[0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9]-' + options.slug + '.md'), function(err, files) {
+      if (err) {
+        reject(boom.wrap(err, 500));
+      }
+      if (files.length === 0) {
+        return that.findPage(options).then(function(data) {
+          resolve(data);
+        }).catch(function(err) {
+          reject(boom.wrap(err, 500));
+        });
+      } else {
+        readFile(files[0]).then(function(data) {
+          resolve(data);
+        }).catch(function(err) {
+          reject(boom.wrap(err, 500));
+        });
+      }
+    });
+  });
+};
+
+PostRepository.prototype.findPage = function(options) {
+  options = options || {};
+  return new Promise(function(resolve, reject) {
+    glob(path.resolve(__dirname + '/../content/pages/' + options.slug + '.md'), function(err, files) {
+      console.log(files);
       if (err) {
         reject(boom.wrap(err, 500));
       }
@@ -90,5 +116,6 @@ PostRepository.prototype.findOne = function(options) {
     });
   });
 };
+
 
 module.exports = PostRepository;
