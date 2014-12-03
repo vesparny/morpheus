@@ -125,11 +125,7 @@ just for the lolz and stylepoints. */
   border-radius: 100%;
 }
 .post-meta a {
-  color: #9eabb3;
   text-decoration: none;
-}
-.post-meta a:hover {
-  text-decoration: underline;
 }
 .user-meta {
   position: relative;
@@ -267,7 +263,6 @@ the class is applied with jQuery */
   margin-right: 180px;
 }
 .post-footer h4 a {
-  color: #2e2e2e;
   text-decoration: none;
 }
 .post-footer h4 a:hover {
@@ -288,11 +283,11 @@ links remain at a fixed width the whole time */
   @include font-size(22);
   display: inline-block;
   margin: 1rem 1.6rem 1.6rem 0;
-  color: #bbc7cc;
+  color: $gray;
   text-decoration: none;
 }
 .post-footer .share a:hover {
-  color: #50585d;
+  color: $blue;
 
 }
 /* The subscribe icon on the footer */

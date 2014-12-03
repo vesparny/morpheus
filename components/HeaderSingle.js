@@ -9,9 +9,9 @@ var Header = React.createClass({
   render: function() {
     return (
       <header className="main-header post-head no-cover">
-        <nav className="main-nav  clearfix">
-          <NavLink className="back-button icon-arrow-left" routeName={'home'} context={this.props.context} >Home</NavLink>
-          <a className="subscribe-button icon-feed" href="http://localhost:3000/rss/">Subscribe</a>
+        <nav className="main-nav clearfix">
+          <NavLink className="menu-button back-button inverted icon-arrow-left" routeName={'home'} context={this.props.context} >Home</NavLink>
+          <a className="menu-button subscribe-button inverted icon-feed" href="http://localhost:3000/rss/">Subscribe</a>
           </nav>
       </header>
     );

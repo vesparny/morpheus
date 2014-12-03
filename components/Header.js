@@ -14,7 +14,7 @@ var Header = React.createClass({
         </a>
         <a className='menu-button' href='{{@blog.url}}'>page</a>
         <a className='menu-button' href='/about'>About</a>
-        <a className='subscribe-button icon icon-feed' href='http://localhost:2368/rss/'>Subscribe</a>
+        <a className='menu-button subscribe-button icon icon-feed' href='http://localhost:2368/rss/'>Subscribe</a>
           </nav>
         <div className='vertical'>
           <div className='main-header-content inner'>

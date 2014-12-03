@@ -124,27 +124,21 @@
   .blog-logo img {
     height: 26px;
   }
-  .back-button,
-  .subscribe-button,
   .menu-button {
     height: 44px;
     line-height: 41px;
     border-radius: 0;
-    color: #2e2e2e;
-    background: transparent;
   }
-  .back-button:hover,
-  .subscribe-button:hover,
   .menu-button:hover {
     border-color: #ebeef0;
     color: #2e2e2e;
     background: #ebeef0;
   }
-  .back-button {
+  .menu-button.back-button {
     padding: 0 15px 0 10px;
   }
-  .subscribe-button,
-  .menu-button {
+  .menu-button.subscribe-button.inverted,
+  .menu-button.menu-button.inverted {
     padding: 0 12px;
   }
   .main-nav.overlay a:hover {

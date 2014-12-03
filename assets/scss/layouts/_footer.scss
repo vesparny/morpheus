@@ -2,19 +2,20 @@
   position: relative;
   margin: 8rem 0 0;
   padding: 0.5rem 15px;
-  border-top: #ebf2f6 1px solid;
+  border-top: $silver 1px solid;
   font-family: "Open Sans", sans-serif;
   @include font-size(10);
   line-height: 1.75em;
-  color: #bbc7cc;
+  color: $gray;
 }
 .site-footer a {
-  color: #bbc7cc;
+  color: $gray;
   text-decoration: none;
   font-weight: bold;
 }
 .site-footer a:hover {
-  color: #50585d;
+  text-decoration: none;
+  color:$blue;
 }
 .poweredby {
   display: block;
