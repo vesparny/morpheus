@@ -23,7 +23,7 @@ module.exports = function(){
   expressState.extend(server);
   server.set('state namespace', 'App');
   server.set('port', process.env.PORT || 3000);
-  server.use(favicon(__dirname + '/public/favicon.ico'));
+  server.use(favicon(__dirname + '/content/themes/blablabla/assets/favicon.ico'));
   server.use(morganLogger('dev'));
   server.use(methodOverride());
   server.use(session({
@@ -39,7 +39,7 @@ module.exports = function(){
   server.engine('hbs', hbs.express3());
   server.set('view engine', 'hbs');
   server.set('views', __dirname + '/content/themes/blablabla');
-  server.use(express.static(path.join(__dirname, '/public')));
+  server.use(express.static(path.join(__dirname, '/content/themes/blablabla')));
 
   server.use(function(req, res, next) {
     var context = res.locals.context = flash.context.createContext();

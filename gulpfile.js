@@ -11,11 +11,11 @@ var watchify = require('watchify');
 var runSequence = require('run-sequence');
 var config = {
   client: './client.js',
-  mainScss: './assets/scss/main.scss',
-  scss: './assets/scss/**/*.scss',
+  mainScss: './content/themes/blablabla/assets/scss/main.scss',
+  scss: './content/themes/blablabla/assets/scss/**/*.scss',
   bundle: 'bundle.js',
-  distJs: './public/js',
-  distCss: './public/css'
+  distJs: './content/themes/blablabla/assets/js',
+  distCss: './content/themes/blablabla/assets/css'
 };
 
 gulp.task('clean', function(cb) {
