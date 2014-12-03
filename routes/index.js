@@ -1,7 +1,6 @@
 'use strict';
 
 var React = require('react');
-var HtmlComponent = React.createFactory(require('../components/Html'));
 var appAction = require('../actions/ApplicationAction');
 
 function render(req, res, app, context) {
@@ -10,15 +9,10 @@ function render(req, res, app, context) {
   var markup = React.renderToString(AppComponent({ //jshint ignore:line
     context: context.getComponentContext()
   }));
-  var html = React.renderToStaticMarkup(HtmlComponent({ //jshint ignore:line
-    state: res.locals.state,
-    markup: markup
-  }));
-  res.set({
-    'content-type': 'text/html; charset=utf-8'
+  res.render('html', {
+    markup: markup,
+    state: res.locals.state
   });
-  res.write('<!doctype>' + html);
-  res.end();
 }
 module.exports = function(server, config, app) {
   server.get('/', function(req, res, next) {

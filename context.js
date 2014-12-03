@@ -7,7 +7,7 @@ var routes = require('./client-routes');
 
 
 var context = new FluxibleApp({
-  appComponent: React.createFactory(require('./components/App'))
+  appComponent: React.createFactory(require('./content/themes/blablabla/App'))
 });
 
 context.plug(routrPlugin({

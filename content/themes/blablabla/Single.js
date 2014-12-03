@@ -4,9 +4,9 @@
 
 var React = require('react');
 var PostListElement = require('./PostListElement');
-var FrontEndActions = require('../actions/FrontEndActions');
-var FrontEndStore = require('../stores/FrontEndStore');
-var InitialStateMixin = require('../mixins/InitialStateMixin');
+var FrontEndActions = require('../../../actions/FrontEndActions');
+var FrontEndStore = require('../../../stores/FrontEndStore');
+var InitialStateMixin = require('../../../mixins/InitialStateMixin');
 var Loader = require('./Loader');
 var HeaderSingle = require('./HeaderSingle');
 var Footer = require('./Footer');

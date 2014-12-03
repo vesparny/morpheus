@@ -5,7 +5,7 @@
 var React = require('react');
 var PostList = require('./PostList');
 var Single = require('./Single');
-var ApplicationStore = require('../stores/ApplicationStore');
+var ApplicationStore = require('../../../stores/ApplicationStore');
 var RouterMixin = require('flux-router-component').RouterMixin;
 var StoreMixin = require('fluxible-app').StoreMixin;
 

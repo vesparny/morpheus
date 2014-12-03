@@ -4,9 +4,9 @@
 
 var React = require('react');
 var PostListElement = require('./PostListElement');
-var FrontEndActions = require('../actions/FrontEndActions');
+var FrontEndActions = require('../../../actions/FrontEndActions');
 
-var FrontEndStore = require('../stores/FrontEndStore');
+var FrontEndStore = require('../../../stores/FrontEndStore');
 var StoreMixin = require('fluxible-app').StoreMixin;
 var Loader = require('./Loader');
 var Header = require('./Header');

@@ -14,6 +14,7 @@ module.exports = function(){
   var postRoute = require('./routes/post');
   var errors = require('./middlewares/errors');
   var navigateAction = require('flux-router-component').navigateAction;
+  var hbs = require('express-hbs');
   var flash = require('./flash');
 
 
@@ -35,6 +36,9 @@ module.exports = function(){
     extended: true
   }));
   server.use(multer());
+  server.engine('hbs', hbs.express3());
+  server.set('view engine', 'hbs');
+  server.set('views', __dirname + '/content/themes/blablabla');
   server.use(express.static(path.join(__dirname, '/public')));
 
   server.use(function(req, res, next) {
@@ -55,7 +59,6 @@ module.exports = function(){
 
   indexRoute(server, flash.config, flash.context);
   postRoute(server, flash.config, flash.context);
-
 
   server.use(errors.call(errors, flash.getLogger('express-loader:ERROR')));
 
