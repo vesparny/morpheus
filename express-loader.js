@@ -1,6 +1,6 @@
 'use strict';
 
-module.exports = function(){
+module.exports = function() {
   var express = require('express');
   var expressState = require('express-state');
   var path = require('path');

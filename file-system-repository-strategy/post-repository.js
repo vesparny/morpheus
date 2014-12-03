@@ -7,10 +7,10 @@ var path = require('path');
 var fs = require('fs');
 var fm = require('front-matter');
 var inherits = require('inherits');
-var boom = require('boom');
 var util = require('util');
 var moment = require('moment');
 var _s = require('underscore.string');
+var errors = require('../errors');
 
 function readFile(file) {
   return new Promise(function(resolve, reject) {
@@ -51,10 +51,10 @@ PostRepository.prototype.find = function(options) {
   return new Promise(function(resolve, reject) {
     glob(path.resolve(__dirname + '/../content/posts/**/*.md'), function(err, files) {
       if (err) {
-        reject(boom.wrap(err, 500));
+        reject(new errors.InternalServer());
       }
       if (files.length === 0) {
-        reject(boom.notFound(util.format('page %s not found', options.slug)));
+        reject(new errors.NotFound(util.format('page %s not found', options.slug)));
       } else {
         var promiseArray = [];
         files.forEach(function(file) {
@@ -63,7 +63,7 @@ PostRepository.prototype.find = function(options) {
         Promise.all(promiseArray).then(function(data) {
           resolve(data);
         }).catch(function(err) {
-          reject(new Error(err));
+          reject(new errors.InternalServer(err.message));
         });
       }
 
@@ -77,19 +77,19 @@ PostRepository.prototype.findOne = function(options) {
   return new Promise(function(resolve, reject) {
     glob(path.resolve(__dirname + '/../content/posts/[0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9]-' + options.slug + '.md'), function(err, files) {
       if (err) {
-        reject(boom.wrap(err, 500));
+        reject(new errors.InternalServer());
       }
       if (files.length === 0) {
-        return that.findPage(options).then(function(data) {
+        that.findPage(options).then(function(data) {
           resolve(data);
         }).catch(function(err) {
-          reject(boom.wrap(err, 500));
+          reject(err);
         });
       } else {
         readFile(files[0]).then(function(data) {
           resolve(data);
         }).catch(function(err) {
-          reject(boom.wrap(err, 500));
+          reject(new errors.InternalServer(err.message));
         });
       }
     });
@@ -100,17 +100,16 @@ PostRepository.prototype.findPage = function(options) {
   options = options || {};
   return new Promise(function(resolve, reject) {
     glob(path.resolve(__dirname + '/../content/pages/' + options.slug + '.md'), function(err, files) {
-      console.log(files);
       if (err) {
-        reject(boom.wrap(err, 500));
+        reject(new errors.InternalServer(err.message));
       }
       if (files.length === 0) {
-        reject(boom.notFound(util.format('page %s not found', options.slug)));
+        reject(new errors.NotFound(util.format('page %s not found', options.slug)));
       } else {
         readFile(files[0]).then(function(data) {
           resolve(data);
         }).catch(function(err) {
-          reject(boom.wrap(err, 500));
+          reject(new errors.InternalServer(err.message));
         });
       }
     });
