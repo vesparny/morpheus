@@ -13,6 +13,8 @@ var Footer = require('./Footer');
 var Tags = require('./Tags');
 var StoreMixin = require('fluxible-app').StoreMixin;
 var gravatar = require('gravatar');
+var NavLink = require('flux-router-component').NavLink;
+
 
 var Single = React.createClass({
   mixins: [StoreMixin],
@@ -73,7 +75,7 @@ var Single = React.createClass({
           <section className="post-content" dangerouslySetInnerHTML={{__html: this.state.single.content}}></section>
           <footer className="post-footer">
             <figure className="author-image">
-              <a className="img" href="/author/alessandro/" style={style}><span className="hidden">alessandro arnodo's Picture</span></a>
+              <NavLink href={this.state.siteUrl} context={this.props.context} className="img" style={style} ><span className="hidden">alessandro arnodo's Picture</span></NavLink>
             </figure>
           <section className="author">
             <h4>{this.state.single.author}</h4>
