@@ -9,6 +9,7 @@ module.exports = function() {
   var morganLogger = require('morgan');
   var methodOverride = require('method-override');
   var session = require('express-session');
+  var FSStore = require('connect-fs2')(session);
   var multer = require('multer');
   var indexRoute = require('./routes');
   var postRoute = require('./routes/post');
@@ -26,9 +27,16 @@ module.exports = function() {
   server.use(morganLogger('dev'));
   server.use(methodOverride());
   server.use(session({
+    store: new FSStore({
+      dir:__dirname + '/content/sessions'
+    }),
     resave: true,
     saveUninitialized: true,
-    secret: 'uwotm8'
+    secret: 'uwotm8',
+    cookie: {
+      secure:true,
+      maxAge: 7 * 24 * 60 * 60 * 1000
+    }
   }));
   server.use(bodyParser.json());
   server.use(bodyParser.urlencoded({

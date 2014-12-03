@@ -76,3 +76,4 @@ $RECYCLE.BIN/
 
 #app specific
 content/themes/**/dist/
+content/sessions/**/*.json
