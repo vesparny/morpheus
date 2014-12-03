@@ -22,7 +22,6 @@ module.exports = function(){
   flash.logger.info('creating express application');
   expressState.extend(server);
   server.set('state namespace', 'App');
-  server.set('port', process.env.PORT || 3000);
   server.use(favicon(__dirname + '/content/themes/blablabla/assets/favicon.ico'));
   server.use(morganLogger('dev'));
   server.use(methodOverride());

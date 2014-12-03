@@ -30,7 +30,7 @@ Flash.prototype.run = function(callback) {
     loggerFactory: loggerFactory,
     version: pkg.version
   };
-  expressApp.listen(expressApp.get('port'), function() {
+  expressApp.listen(flash.config.get('port'), flash.config.get('ip'), function() {
     callback({
       version: params.version,
       port: expressApp.get('port'),

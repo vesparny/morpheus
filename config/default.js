@@ -11,5 +11,7 @@ module.exports = {
   },
   appRoot: appRoot,
   configDir: path.resolve(appRoot, 'config'),
-  siteUrl:'http://localhost:3000'
+  siteUrl:'http://localhost:3000',
+  port:3000,
+  ip:'127.0.0.1'
 };
