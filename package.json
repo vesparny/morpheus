@@ -50,7 +50,8 @@
     "serve-favicon": "^2.1.5",
     "superagent": "^0.21.0",
     "underscore.string": "^2.4.0",
-    "connect-fs2": "~0.1.5"
+    "connect-fs2": "~0.1.5",
+    "lokijs": "~1.0.2"
   },
   "devDependencies": {
     "browserify": "~6.3.3",

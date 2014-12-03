@@ -8,6 +8,7 @@ var Single = require('./Single');
 var ApplicationStore = require('../../../stores/ApplicationStore');
 var RouterMixin = require('flux-router-component').RouterMixin;
 var StoreMixin = require('fluxible-app').StoreMixin;
+var canUseDOM = require('react/lib/ExecutionEnvironment').canUseDOM;
 
 
 var App = React.createClass({
@@ -22,7 +23,11 @@ var App = React.createClass({
     var state = this.getStore(ApplicationStore).getState();
     this.setState(state);
   },
+  scroll: function(){
+    return canUseDOM && window.scrollTo(0,0);
+  },
   render: function(){
+    this.scroll();
     if (this.state.currentPageName === 'home') {
       return <PostList context={this.props.context}/>;
     }
