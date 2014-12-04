@@ -52,9 +52,10 @@ gulp.task('watchify', function() {
 gulp.task('styles', function() {
   return gulp.src(config.mainScss)
     .pipe($.changed(config.dist))
-    .pipe($.sass({
-      errLogToConsole: true
-    }))
+    .pipe($.rubySass())
+    .on('error', function(err) {
+      console.log(err.message);
+    })
     //.pipe($.csso())
     .pipe(gulp.dest(config.dist));
 });
