@@ -7,7 +7,6 @@ var path = require('path');
 var fs = require('fs');
 var fm = require('front-matter');
 var inherits = require('inherits');
-var util = require('util');
 var moment = require('moment');
 var _s = require('underscore.string');
 var errors = require('../errors');
@@ -54,7 +53,7 @@ PostRepository.prototype.find = function(options) {
         reject(new errors.InternalServer());
       }
       if (files.length === 0) {
-        reject(new errors.NotFound(util.format('page %s not found', options.slug)));
+        reject(new errors.NotFound());
       } else {
         var promiseArray = [];
         files.forEach(function(file) {
@@ -104,7 +103,7 @@ PostRepository.prototype.findPage = function(options) {
         reject(new errors.InternalServer(err.message));
       }
       if (files.length === 0) {
-        reject(new errors.NotFound(util.format('page %s not found', options.slug)));
+        reject(new errors.NotFound());
       } else {
         readFile(files[0]).then(function(data) {
           resolve(data);
