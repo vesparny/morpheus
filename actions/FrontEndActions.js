@@ -18,6 +18,11 @@ var FrontEndActions = {
     }, function(err){
       context.dispatch('GET_SINGLE_FAILURE', err);
     });
+  },
+  getTag: function(context, payload) {
+    api.get('/tags/'+payload.tag).then(function(){
+      window.alert('tag feature has to bee implemented');
+    });
   }
 };
 

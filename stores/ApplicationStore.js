@@ -20,6 +20,10 @@ var ApplicationStore = createStore({
       single: {
         text: 'Single',
         route: 'single'
+      },
+      tag: {
+        text: 'Tag',
+        route: 'tag'
       }
     };
     this.siteUrl = null;

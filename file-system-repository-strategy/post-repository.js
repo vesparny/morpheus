@@ -61,7 +61,7 @@ PostRepository.prototype.find = function(options) {
         });
         Promise.all(promiseArray).then(function(data) {
           //sorting
-          data.sort(function(a, b){
+          data.sort(function(a, b) {
             return b.attributes.date > a.attributes.date;
           });
           resolve(data);
@@ -117,6 +117,11 @@ PostRepository.prototype.findPage = function(options) {
       }
     });
   });
+};
+
+PostRepository.prototype.findTag = function(options) {
+  var tag = options.tag;
+  return Promise.resolve(tag);
 };
 
 

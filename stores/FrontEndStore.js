@@ -6,7 +6,8 @@ var MessageStore = createStore({
   storeName: 'FrontEndStore',
   handlers: {
     'GET_POSTS_SUCCESS': 'getPostsSuccess',
-    'GET_SINGLE_SUCCESS': 'getSingleSuccess'
+    'GET_SINGLE_SUCCESS': 'getSingleSuccess',
+    'GET_TAG_SUCCESS': 'getTagSuccess'
   },
   initialize: function(dispatcher) { //jshint ignore:line
     this.posts = [];
@@ -19,6 +20,10 @@ var MessageStore = createStore({
   },
   getSingleSuccess: function(single) {
     this.single = single;
+    this.emitChange();
+  },
+  getTagSuccess: function() {
+    //TODO
     this.emitChange();
   },
   getAll: function() {

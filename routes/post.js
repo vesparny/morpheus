@@ -28,4 +28,12 @@ module.exports = function(server, config) {
       next(err);
     });
   });
+
+  server.get('/api/tag/:tag/', function(req, res, next) {
+    services.post.getTag(req.params.tag).then(function(pages) {
+      res.json(pages);
+    }).catch(function(err) {
+      next(err);
+    });
+  });
 };

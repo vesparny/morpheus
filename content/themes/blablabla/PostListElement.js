@@ -29,7 +29,7 @@ var PostListElement = React.createClass({
         <footer className="post-meta">
         <Gravatar email={post.email}/>
         {post.author}
-        <Tags tags={this.props.post.tags} />
+        <Tags tags={this.props.post.tags} context={this.props.context}/>
         <time className="post-date" dateTime={post.date}>{post.date}</time>
         </footer>
       </article>

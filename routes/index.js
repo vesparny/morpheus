@@ -36,4 +36,16 @@ module.exports = function(server, config, app) {
       render(req, res, app, context);
     });
   });
+
+  server.get('/tag/:tag', function(req, res, next) {
+    var context = res.locals.context;
+    context.getActionContext().executeAction(appAction.tag, {
+      tag: req.params.tag
+    }, function(err) {
+      if (err) {
+        return next(err);
+      }
+      render(req, res, app, context);
+    });
+  });
 };

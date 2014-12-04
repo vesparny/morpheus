@@ -49,6 +49,18 @@ var postService = function(config) {
           reject(err);
         });
       });
+    },
+
+    getTag: function(tag) {
+      return new Promise(function(resolve, reject) {
+        repositories.post.findTag({
+          tag: tag
+        }).then(function(pages) {
+          resolve(pages);
+        }).catch(function(err) {
+          reject(err);
+        });
+      });
     }
   };
 };

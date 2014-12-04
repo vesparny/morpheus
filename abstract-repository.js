@@ -15,7 +15,11 @@ AbstractRepository.prototype.findOne = function(entityName, options) { //jshint 
 };
 
 AbstractRepository.prototype.findPage = function(entityName, options) { //jshint ignore:line
-  throwMethodUndefined('findOne');
+  throwMethodUndefined('findPage');
+};
+
+AbstractRepository.prototype.findTag = function(entityName, options) { //jshint ignore:line
+  throwMethodUndefined('findTag');
 };
 
 module.exports = AbstractRepository;

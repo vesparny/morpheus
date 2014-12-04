@@ -10,5 +10,10 @@ module.exports = {
     path: '/:slug',
     method: 'get',
     page: 'single'
+  },
+  tag: {
+    path: '/tag/:tag',
+    method: 'get',
+    page: 'tag'
   }
 };
