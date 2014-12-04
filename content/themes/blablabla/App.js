@@ -23,16 +23,16 @@ var App = React.createClass({
     var state = this.getStore(ApplicationStore).getState();
     this.setState(state);
   },
-  scroll: function(){
+  scrollToTop: function(){
     return canUseDOM && window.scrollTo(0,0);
   },
   render: function(){
-    this.scroll();
+    this.scrollToTop();
     if (this.state.currentPageName === 'home') {
-      return <PostList context={this.props.context}/>;
+      return <PostList context={this.props.context} siteUrl={this.state.siteUrl}/>;
     }
     if (this.state.currentPageName === 'single') {
-      return <Single context={this.props.context} slug={this.state.route.params.slug}/>;
+      return <Single context={this.props.context} slug={this.state.route.params.slug} siteUrl={this.state.siteUrl}/>;
     }
   }
 });

@@ -15,7 +15,6 @@ var StoreMixin = require('fluxible-app').StoreMixin;
 var gravatar = require('gravatar');
 var NavLink = require('flux-router-component').NavLink;
 
-
 var Single = React.createClass({
   mixins: [StoreMixin],
   statics: {
@@ -29,8 +28,7 @@ var Single = React.createClass({
   getStateFromStores: function () {
     return {
       single: this.getStore(FrontEndStore).getSingle(),
-      cssClass: 'single',
-      siteUrl : this.getStore(FrontEndStore).getSiteUrl()
+      cssClass: 'single'
     };
   },
   _onChange: function() {
@@ -63,7 +61,7 @@ var Single = React.createClass({
       footer =
       <footer className="post-footer">
         <figure className="author-image">
-        <NavLink href={this.state.siteUrl} context={this.props.context} className="img" style={style} ><span className="hidden">alessandro arnodo's Picture</span></NavLink>
+        <NavLink href={this.props.siteUrl} context={this.props.context} className="img" style={style} ><span className="hidden">alessandro arnodo's Picture</span></NavLink>
         </figure>
         <section className="author">
         <h4>{this.state.single.author}</h4>

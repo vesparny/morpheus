@@ -6,8 +6,7 @@ var MessageStore = createStore({
   storeName: 'FrontEndStore',
   handlers: {
     'GET_POSTS_SUCCESS': 'getPostsSuccess',
-    'GET_SINGLE_SUCCESS': 'getSingleSuccess',
-    'SET_SITE_URL': 'setSiteUrl'
+    'GET_SINGLE_SUCCESS': 'getSingleSuccess'
   },
   initialize: function(dispatcher) { //jshint ignore:line
     this.posts = [];
@@ -17,13 +16,6 @@ var MessageStore = createStore({
   getPostsSuccess: function(posts) {
     this.posts = posts;
     this.emitChange();
-  },
-  setSiteUrl: function(url) {
-    this.siteUrl = url;
-    this.emitChange();
-  },
-  getSiteUrl: function() {
-    return this.siteUrl;
   },
   getSingleSuccess: function(single) {
     this.single = single;
@@ -39,13 +31,11 @@ var MessageStore = createStore({
     return {
       posts: this.posts,
       single: this.single,
-      siteUrl: this.siteUrl
     };
   },
   rehydrate: function(state) {
     this.posts = state.posts;
     this.single = state.single;
-    this.siteUrl = state.siteUrl;
   }
 });
 

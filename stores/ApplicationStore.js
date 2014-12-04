@@ -5,7 +5,8 @@ var createStore = require('fluxible-app/utils/createStore');
 var ApplicationStore = createStore({
   storeName: 'ApplicationStore',
   handlers: {
-    'CHANGE_ROUTE_SUCCESS': 'handleNavigate'
+    'CHANGE_ROUTE_SUCCESS': 'handleNavigate',
+    'SET_SITE_URL': 'setSiteUrl'
   },
   initialize: function(dispatcher) { //jshint ignore:line
     this.currentPageName = null;
@@ -21,6 +22,14 @@ var ApplicationStore = createStore({
         route: 'single'
       }
     };
+    this.siteUrl = null;
+  },
+  setSiteUrl: function(url) {
+    this.siteUrl = url;
+    this.emitChange();
+  },
+  getSiteUrl: function() {
+    return this.siteUrl;
   },
   handleNavigate: function(route) {
     var pageName = route.config.page;
@@ -41,7 +50,8 @@ var ApplicationStore = createStore({
       currentPageName: this.currentPageName,
       currentPage: this.currentPage,
       pages: this.pages,
-      route: this.currentRoute
+      route: this.currentRoute,
+      siteUrl: this.siteUrl
     };
   },
   dehydrate: function() {
@@ -52,6 +62,8 @@ var ApplicationStore = createStore({
     this.currentPage = state.currentPage;
     this.pages = state.pages;
     this.currentRoute = state.route;
+    this.siteUrl = state.siteUrl;
+
   }
 });
 
