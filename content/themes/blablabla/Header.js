@@ -10,7 +10,7 @@ var Header = React.createClass({
     return (
       <header className='main-header'>
         <nav className='main-nav overlay clearfix'>
-        <NavLink href='https://github.com/vesparny/flash' context={this.props.context} className="icon-flash blog-logo"><span className='hidden'>flash</span></NavLink>
+        <a href='https://github.com/vesparny/flash' className="icon-flash blog-logo"><span className='hidden'>flash</span></a>
         <NavLink href='/a-static-page' context={this.props.context} className="menu-button">A Static Page</NavLink>
         </nav>
         <div className='vertical'>

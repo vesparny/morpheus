@@ -3,7 +3,6 @@
 'use strict';
 
 var React = require('react');
-var NavLink = require('flux-router-component').NavLink;
 
 var Header = React.createClass({
   getInitialState: function() {
@@ -19,8 +18,9 @@ var Header = React.createClass({
       <footer className={classString}>
          <section className="copyright">{this.state.title} &copy;</section>
          <section className="poweredby">
-          Proudly published with <NavLink href={this.state.url} routeName={'single'} context={this.props.context} >{this.state.title}</NavLink>, blablabla theme inspired by <NavLink href={this.state.casperUrl} routeName={'single'} context={this.props.context} >Casper</NavLink>
-          </section>
+          <span className="engine">Built with love using <a href={this.state.url} >{this.state.title}</a></span>
+          <span className="theme">, blablabla theme inspired by <a href={this.state.casperUrl} >Casper</a></span>
+         </section>
     </footer>
     );
   }
