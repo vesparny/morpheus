@@ -75,5 +75,4 @@ $RECYCLE.BIN/
 .idea/
 
 #app specific
-content/themes/**/dist/
 content/sessions/**/*.json
