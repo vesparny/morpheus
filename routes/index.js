@@ -21,7 +21,6 @@ module.exports = function(server, config, app) {
       if (err) {
         return next(err);
       }
-
       render(req, res, app, context);
     });
   });

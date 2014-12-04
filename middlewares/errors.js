@@ -13,6 +13,9 @@ module.exports = function(log) {
     if (err.statusCode === 404) {
       err.message = util.format('page %s not found', req.protocol + '://' + req.get('host') + req.originalUrl);
     }
+    if (err.statusCode === 500) {
+      err.message = err.message ? err.message : 'Internal Server Error';
+    }
     res.status(err.statusCode);
     var view = err.statusCode === 404 ? '404' : '500';
     res.format({
