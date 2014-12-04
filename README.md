@@ -1,8 +1,9 @@
-# flash, the next generation blogging platform (**THIS REPO IS WORK IN PROGRESS**)
+# flash, the next generation web publishing platform (**THIS REPO IS WORK IN PROGRESS**)
 
-**The idea is to create a new isomorphic blogging platform, with the speed of a single page application, but rendered on the server on the first load ( no more bad SEO impact )**
+**The idea is to create a new isomorphic web publishing platform, with the speed of a single page application, but rendered on the server on the first load ( no more bad SEO impact )**
 
-## working demo: https://flashdemo-arnodo.rhcloud.com/
+## working demo
+https://flashdemo-arnodo.rhcloud.com/
 
 [![Build Status](https://secure.travis-ci.org/vesparny/flash.svg)](http://travis-ci.org/vesparny/flash)
 

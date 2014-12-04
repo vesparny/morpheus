@@ -60,6 +60,10 @@ PostRepository.prototype.find = function(options) {
           promiseArray.push(readFile(file));
         });
         Promise.all(promiseArray).then(function(data) {
+          //sorting
+          data.sort(function(a, b){
+            return b.attributes.date > a.attributes.date;
+          });
           resolve(data);
         }).catch(function(err) {
           reject(new errors.InternalServer(err.message));
