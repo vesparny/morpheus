@@ -3,6 +3,7 @@
 'use strict';
 
 var React = require('react');
+var cx = require('react/lib/cx');
 var PostListElement = require('./PostListElement');
 var FrontEndActions = require('../../../actions/FrontEndActions');
 var FrontEndStore = require('../../../stores/FrontEndStore');
@@ -45,16 +46,15 @@ var Single = React.createClass({
   componentWillUnmount: function(){
     this.getStore(FrontEndStore).initialize();
   },
-  componentWillReceiveProps: function(newProps, oldProps) {
-    console.log('revceived', newProps);
-  },
-
   render: function() {
     var showLoader = !this.state.single.title;
     var style = {
       'backgroundImage': 'url('+gravatar.url(this.state.single.email, {s:250}, true)+')'
     };
-    var classes = 'wrapper '+this.state.cssClass;
+    var classesMap = {};
+    classesMap.wrapper = true;
+    classesMap[this.state.cssClass] = true;
+    var classes = cx(classesMap);
     var footer  = '';
     var header = '';
     if (this.state.single.type === 'post') {
