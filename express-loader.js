@@ -29,13 +29,13 @@ module.exports = function() {
   server.use(methodOverride());
   server.use(session({
     store: new FSStore({
-      dir:__dirname + '/content/sessions'
+      dir: __dirname + '/content/sessions'
     }),
     resave: true,
     saveUninitialized: true,
     secret: 'uwotm8',
     cookie: {
-      secure:true,
+      secure: true,
       maxAge: 7 * 24 * 60 * 60 * 1000
     }
   }));
