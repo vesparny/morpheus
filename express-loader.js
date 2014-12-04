@@ -16,6 +16,7 @@ module.exports = function() {
   var errors = require('./middlewares/errors');
   var navigateAction = require('flux-router-component').navigateAction;
   var hbs = require('express-hbs');
+  var helmet = require('helmet');
   var flash = require('./flash');
 
 
@@ -47,6 +48,13 @@ module.exports = function() {
   server.set('view engine', 'hbs');
   server.set('views', __dirname + '/content/themes/blablabla');
   server.use(express.static(path.join(__dirname, '/content/themes/blablabla')));
+
+  // Use helmet to secure Express headers
+  server.use(helmet.xframe());
+  server.use(helmet.xssFilter());
+  server.use(helmet.nosniff());
+  server.use(helmet.ienoopen());
+  server.disable('x-powered-by');
 
   server.use(function(req, res, next) {
     if (req.headers['x-forwarded-proto'] === 'http') {
