@@ -9,14 +9,14 @@ var Tags = require('./Tags');
 var Gravatar = require('./Gravatar');
 
 var PostListElement = React.createClass({
-
   propTypes: {
-   post: ReactPropTypes.object.isRequired
+   post: ReactPropTypes.object.isRequired,
+   context:React.PropTypes.object.isRequired
   },
-
   render: function() {
     var post = this.props.post || {};
     var to = '/'+post.slug;
+    var tags = this.props.post.tags && <Tags tags={this.props.post.tags} context={this.props.context}/>;
     return (
     <article className="post">
         <header className="post-header">
@@ -29,7 +29,7 @@ var PostListElement = React.createClass({
         <footer className="post-meta">
         <Gravatar email={post.email}/>
         {post.author}
-        <Tags tags={this.props.post.tags} context={this.props.context}/>
+        {tags}
         <time className="post-date" dateTime={post.date}>{post.date}</time>
         </footer>
       </article>

@@ -14,7 +14,8 @@ context.plug(routrPlugin({
   routes: routes
 }));
 
-context.registerStore(require('./stores/FrontEndStore'));
+context.registerStore(require('./stores/ContentStore'));
+context.registerStore(require('./stores/ContentListStore'));
 context.registerStore(require('./stores/ApplicationStore'));
 
 module.exports = context;

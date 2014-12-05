@@ -5,6 +5,9 @@
 var React = require('react');
 
 var Loader = React.createClass({
+  propTypes:{
+    class: React.PropTypes.string.isRequired
+  },
   getInitialState: function() {
     return {
       class: 'hidden'
@@ -17,7 +20,8 @@ var Loader = React.createClass({
     this.updateState(nextProps);
   },
   updateState: function (props) {
-    this.setState({ class: ['loader', props.class].join(' ') });
+    this.setState({
+      class: ['loader', props.class].join(' ') });
   },
   render: function() {
       return (

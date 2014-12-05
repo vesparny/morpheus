@@ -3,7 +3,7 @@
 'use strict';
 
 var React = require('react');
-var FrontEndStore = require('../../../stores/FrontEndStore');
+var ContentListStore = require('../../../stores/ContentListStore');
 var HeaderSingle = require('./HeaderSingle');
 var Footer = require('./Footer');
 var StoreMixin = require('fluxible-app').StoreMixin;
@@ -13,8 +13,11 @@ var Single = React.createClass({
   mixins: [StoreMixin],
   statics: {
     storeListeners: {
-      _onChange: [FrontEndStore]
+      _onChange: [ContentListStore]
     }
+  },
+  propTypes:{
+    tag: React.PropTypes.object.isRequired
   },
   _onChange: function() {
     this.setState({});

@@ -6,7 +6,7 @@ var React = require('react');
 var cx = require('react/lib/cx');
 var PostListElement = require('./PostListElement');
 var FrontEndActions = require('../../../actions/FrontEndActions');
-var FrontEndStore = require('../../../stores/FrontEndStore');
+var ContentStore = require('../../../stores/ContentStore');
 var InitialStateMixin = require('../../../mixins/InitialStateMixin');
 var Loader = require('./Loader');
 var HeaderSingle = require('./HeaderSingle');
@@ -20,15 +20,18 @@ var Single = React.createClass({
   mixins: [StoreMixin],
   statics: {
     storeListeners: {
-      _onChange: [FrontEndStore]
+      _onChange: [ContentStore]
     }
+  },
+  propTypes: {
+    context: React.PropTypes.object.isRequired
   },
   getInitialState: function() {
     return this.getStateFromStores();
   },
   getStateFromStores: function () {
     return {
-      single: this.getStore(FrontEndStore).getSingle(),
+      single: this.getStore(ContentStore).getContent(),
       cssClass: 'single'
     };
   },
@@ -38,13 +41,13 @@ var Single = React.createClass({
   componentDidMount: function() {
     if(!this.state.single.title){
       var slug = this.props.slug;
-      this.props.context.executeAction(FrontEndActions.getSingle, {
+      this.props.context.executeAction(FrontEndActions.getContent, {
         slug:slug
       });
     }
   },
   componentWillUnmount: function(){
-    this.getStore(FrontEndStore).initialize();
+    this.getStore(ContentStore).initialize();
   },
   render: function() {
     var showLoader = !this.state.single.title;

@@ -6,7 +6,7 @@ var React = require('react');
 var PostListElement = require('./PostListElement');
 var FrontEndActions = require('../../../actions/FrontEndActions');
 
-var FrontEndStore = require('../../../stores/FrontEndStore');
+var ContentListStore = require('../../../stores/ContentListStore');
 var StoreMixin = require('fluxible-app').StoreMixin;
 var Loader = require('./Loader');
 var Header = require('./Header');
@@ -16,25 +16,28 @@ var PostList = React.createClass({
   mixins: [StoreMixin],
   statics: {
     storeListeners: {
-      _onChange: [FrontEndStore]
+      _onChange: [ContentListStore]
     }
+  },
+  propTypes:{
+    context:React.PropTypes.object.isRequired
   },
   getInitialState: function() {
     return this.getStateFromStores();
   },
   getStateFromStores: function () {
     return {
-      posts: this.getStore(FrontEndStore).getAll(),
+      posts: this.getStore(ContentListStore).getContentList(),
       cssClass: 'home'
     };
   },
   componentDidMount: function() {
     if(!this.state.posts.length){
-      this.props.context.executeAction(FrontEndActions.getAllPosts);
+      this.props.context.executeAction(FrontEndActions.getContentList);
     }
   },
   componentWillUnmount: function(){
-    this.getStore(FrontEndStore).initialize();
+    this.getStore(ContentListStore).initialize();
   },
   _onChange: function() {
     this.setState(this.getStateFromStores());

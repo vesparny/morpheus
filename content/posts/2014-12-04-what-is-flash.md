@@ -2,7 +2,6 @@
 type: post
 author: Alessandro Arnodo
 email: alessandro@arnodo.net
-tags: flash
 slug: what-is-flash
 permalink: /what-is-flash
 title: What is Flash?
@@ -70,4 +69,3 @@ This has to be defined, I'm looking for ideas and contributions, feel free to co
 Stay tuned.
 
 [@vesparny](http://twitter.com/vesparny/)
-

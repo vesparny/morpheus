@@ -6,6 +6,9 @@ var React = require('react');
 var NavLink = require('flux-router-component').NavLink;
 
 var Header = React.createClass({
+  propTypes:{
+    context: React.PropTypes.object.isRequired
+  },
   render: function() {
     return (
       <header className='main-header'>

@@ -17,6 +17,9 @@ var App = React.createClass({
   statics: {
     storeListeners: [ApplicationStore]
   },
+  propTypes:{
+    context:React.PropTypes.object.isRequired
+  },
   getInitialState: function () {
     return this.getStore(ApplicationStore).getState();
   },
@@ -38,6 +41,7 @@ var App = React.createClass({
     if (this.state.currentPageName === 'tag') {
       return <TagPage context={this.props.context} slug={this.state.route.params.tag} siteUrl={this.state.siteUrl}/>;
     }
+    return '';
   }
 });
 
