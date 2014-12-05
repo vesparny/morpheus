@@ -15,6 +15,7 @@ var FrontEndActions = {
     api.get('/posts/'+payload.slug).then(function(res){
       var content = res.body;
       context.dispatch('GET_CONTENT_SUCCESS', content);
+      context.dispatch('SET_DOCUMENT_TITLE', content.title);
     }, function(err){
       context.dispatch('GET_CONTENT_FAILURE', err);
     });

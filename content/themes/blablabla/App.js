@@ -24,8 +24,8 @@ var App = React.createClass({
     return this.getStore(ApplicationStore).getState();
   },
   onChange: function () {
-    var state = this.getStore(ApplicationStore).getState();
-    this.setState(state);
+    this.setState(this.getStore(ApplicationStore).getState());
+    document.title = this.state.documentTitle;
   },
   scrollToTop: function(){
     return canUseDOM && window.scrollTo(0,0);

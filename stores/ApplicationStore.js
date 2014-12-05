@@ -6,7 +6,8 @@ var ApplicationStore = createStore({
   storeName: 'ApplicationStore',
   handlers: {
     'CHANGE_ROUTE_SUCCESS': 'handleNavigate',
-    'SET_SITE_URL': 'setSiteUrl'
+    'SET_SITE_URL': 'setSiteUrl',
+    'SET_DOCUMENT_TITLE': 'setDocumentTitle'
   },
   initialize: function(dispatcher) { //jshint ignore:line
     this.currentPageName = null;
@@ -27,9 +28,14 @@ var ApplicationStore = createStore({
       }
     };
     this.siteUrl = null;
+    this.documentTitle = 'flash';
   },
   setSiteUrl: function(url) {
     this.siteUrl = url;
+    this.emitChange();
+  },
+  setDocumentTitle: function(title) {
+    this.documentTitle = title;
     this.emitChange();
   },
   getSiteUrl: function() {
@@ -55,7 +61,8 @@ var ApplicationStore = createStore({
       currentPage: this.currentPage,
       pages: this.pages,
       route: this.currentRoute,
-      siteUrl: this.siteUrl
+      siteUrl: this.siteUrl,
+      documentTitle: this.documentTitle
     };
   },
   dehydrate: function() {
@@ -67,7 +74,7 @@ var ApplicationStore = createStore({
     this.pages = state.pages;
     this.currentRoute = state.route;
     this.siteUrl = state.siteUrl;
-
+    this.documentTitle = state.documentTitle;
   }
 });
 
