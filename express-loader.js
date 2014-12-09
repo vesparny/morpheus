@@ -17,9 +17,7 @@ module.exports = function() {
   var navigateAction = require('flux-router-component').navigateAction;
   var helmet = require('helmet');
   var flash = require('./flash');
-  var serverUtils = require('./utils').server;
   var server = express();
-  var React = require('react');
 
   flash.logger.info('creating express application');
   expressState.extend(server);
@@ -84,18 +82,10 @@ module.exports = function() {
   server.use(errors.call(errors, flash.getLogger('express-loader:ERROR')));
 
   // Assume 404 since no middleware responded
+  // no html handler needed since that case is managed by fluxible router
   server.use(function(req, res) {
     res.status = 404;
     res.format({
-      html: function() {
-        var context = res.locals.context;
-        var component = React.createFactory(require('./content/themes/blablabla/404'));
-        var markup = React.renderToString(component({
-          err: req.url
-        }));
-        res.expose(flash.context.dehydrate(context), 'App');
-        serverUtils.render(res, markup);
-      },
       json: function() {
         res.send({
           error: 'Not found'

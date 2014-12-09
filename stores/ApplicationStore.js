@@ -7,7 +7,8 @@ var ApplicationStore = createStore({
   handlers: {
     'CHANGE_ROUTE_SUCCESS': 'handleNavigate',
     'SET_SITE_URL': 'setSiteUrl',
-    'SET_DOCUMENT_TITLE': 'setDocumentTitle'
+    'SET_DOCUMENT_TITLE': 'setDocumentTitle',
+    'SET_ERROR': 'setError'
   },
   initialize: function(dispatcher) { //jshint ignore:line
     this.currentPageName = null;
@@ -29,6 +30,12 @@ var ApplicationStore = createStore({
     };
     this.siteUrl = null;
     this.documentTitle = 'flash';
+    this.error = null;
+  },
+  setError: function(error) {
+    this.error = error;
+    this.setDocumentTitle('error');
+    this.emitChange();
   },
   setSiteUrl: function(url) {
     this.siteUrl = url;
@@ -62,7 +69,8 @@ var ApplicationStore = createStore({
       pages: this.pages,
       route: this.currentRoute,
       siteUrl: this.siteUrl,
-      documentTitle: this.documentTitle
+      documentTitle: this.documentTitle,
+      error: this.error
     };
   },
   dehydrate: function() {
@@ -75,6 +83,7 @@ var ApplicationStore = createStore({
     this.currentRoute = state.route;
     this.siteUrl = state.siteUrl;
     this.documentTitle = state.documentTitle;
+    this.error = state.error;
   }
 });
 

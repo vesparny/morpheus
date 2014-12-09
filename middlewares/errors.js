@@ -3,6 +3,7 @@
 var util = require('util');
 var serverUtils = require('../utils').server;
 var React = require('react');
+var appAction = require('../actions/ApplicationAction');
 
 module.exports = function(log) {
   return function(err, req, res, next) { // jshint ignore:line
@@ -19,17 +20,24 @@ module.exports = function(log) {
       err.message = err.message ? err.message : 'Internal Server Error';
     }
     res.status(err.statusCode);
-    var viewComponent = err.statusCode === 404 ?
-    React.createFactory(require('../content/themes/blablabla/404')):
-    React.createFactory(require('../content/themes/blablabla/500'));
     res.format({
       'html': function() {
-        var state = {
-          err: req.url
-        };
-        var markup = React.renderToString(viewComponent(state));
-        res.expose(state, 'App');
-        serverUtils.render(res, markup);
+        var context = res.locals.context;
+        var fluxibleApp = res.locals.fluxibleApp;
+        context.getActionContext().executeAction(appAction.error, {
+          err: {
+            message: err.message,
+            status: err.statusCode
+          }
+        }, function() {
+          res.status(err.statusCode);
+          var AppComponent = fluxibleApp.getAppComponent();
+          var markup = React.renderToString(AppComponent({ //jshint ignore:line
+            context: context.getComponentContext()
+          }));
+          res.expose(fluxibleApp.dehydrate(context), 'App');
+          serverUtils.render(res, markup);
+        });
       },
       'json': function() {
         res.send({

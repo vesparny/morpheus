@@ -30,5 +30,9 @@ module.exports = {
     }).catch(function(err) {
       done(err);
     });
+  },
+  error: function(context, payload, done) {
+    context.dispatch('SET_ERROR', payload.err);
+    done();
   }
 };

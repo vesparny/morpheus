@@ -6,6 +6,7 @@ var React = require('react');
 var PostList = require('./PostList');
 var Single = require('./Single');
 var TagPage = require('./TagPage');
+var ErrorPage = require('./Error');
 var ApplicationStore = require('../../../stores/ApplicationStore');
 var RouterMixin = require('flux-router-component').RouterMixin;
 var StoreMixin = require('fluxible-app').StoreMixin;
@@ -32,6 +33,9 @@ var App = React.createClass({
   },
   render: function(){
     this.scrollToTop();
+    if (this.state.error) {
+      return <ErrorPage context={this.props.context} error={this.state.error}/>;
+    }
     if (this.state.currentPageName === 'home') {
       return <PostList context={this.props.context} siteUrl={this.state.siteUrl}/>;
     }

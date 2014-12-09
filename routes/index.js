@@ -22,7 +22,6 @@ module.exports = function(server) {
   });
 
   server.get('/:slug', function(req, res, next) {
-
     var context = res.locals.context;
     var fluxibleApp = res.locals.fluxibleApp;
     context.getActionContext().executeAction(appAction.single, {

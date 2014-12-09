@@ -4,7 +4,7 @@ var React = require('react');
 var NotFound = React.createClass({
   render: function(){
     return (
-      <div>{this.props.err}</div>
+      <div>Error: {this.props.error.message}</div>
     )
   }
 });
