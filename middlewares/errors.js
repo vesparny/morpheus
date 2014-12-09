@@ -1,6 +1,8 @@
 'use strict';
 
 var util = require('util');
+var serverUtils = require('../utils').server;
+var React = require('react');
 
 module.exports = function(log) {
   return function(err, req, res, next) { // jshint ignore:line
@@ -17,12 +19,17 @@ module.exports = function(log) {
       err.message = err.message ? err.message : 'Internal Server Error';
     }
     res.status(err.statusCode);
-    var view = err.statusCode === 404 ? '404' : '500';
+    var viewComponent = err.statusCode === 404 ?
+    React.createFactory(require('../content/themes/blablabla/404')):
+    React.createFactory(require('../content/themes/blablabla/500'));
     res.format({
       'html': function() {
-        res.render(view, {
-          err: err
-        });
+        var state = {
+          err: req.url
+        };
+        var markup = React.renderToString(viewComponent(state));
+        res.expose(state, 'App');
+        serverUtils.render(res, markup);
       },
       'json': function() {
         res.send({

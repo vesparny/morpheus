@@ -10,7 +10,6 @@ module.exports = {
       context.dispatch('GET_CONTENT_LIST_SUCCESS', posts);
       done();
     }).catch(function(err) {
-      context.dispatch('GET_CONTENT_LIST_FAILURE', err);
       done(err);
     });
   },
@@ -20,7 +19,6 @@ module.exports = {
       context.dispatch('SET_DOCUMENT_TITLE', single.title);
       done();
     }).catch(function(err) {
-      context.dispatch('GET_SINGLE_FAILURE', err);
       done(err);
     });
   },
@@ -30,7 +28,6 @@ module.exports = {
       context.dispatch('GET_CONTENT_SUCCESS', pages);
       done();
     }).catch(function(err) {
-      context.dispatch('GET_CONTENT_FAILURE', err);
       done(err);
     });
   }

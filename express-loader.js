@@ -15,12 +15,12 @@ module.exports = function() {
   var postRoute = require('./routes/post');
   var errors = require('./middlewares/errors');
   var navigateAction = require('flux-router-component').navigateAction;
-  var hbs = require('express-hbs');
   var helmet = require('helmet');
   var flash = require('./flash');
-
-
+  var serverUtils = require('./utils').server;
   var server = express();
+  var React = require('react');
+
   flash.logger.info('creating express application');
   expressState.extend(server);
   server.set('state namespace', 'App');
@@ -44,9 +44,6 @@ module.exports = function() {
     extended: true
   }));
   server.use(multer());
-  server.engine('hbs', hbs.express3());
-  server.set('view engine', 'hbs');
-  server.set('views', __dirname + '/content/themes/blablabla');
   server.use(express.static(path.join(__dirname, '/content/themes/blablabla')));
 
   // Use helmet to secure Express headers
@@ -65,6 +62,7 @@ module.exports = function() {
   });
 
   server.use(function(req, res, next) {
+    res.locals.fluxibleApp = flash.context;
     var context = res.locals.context = flash.context.createContext();
     if (req.path.indexOf('/api/') === 0) {
       return next();
@@ -90,9 +88,13 @@ module.exports = function() {
     res.status = 404;
     res.format({
       html: function() {
-        res.render('404', {
-          url: req.url
-        });
+        var context = res.locals.context;
+        var component = React.createFactory(require('./content/themes/blablabla/404'));
+        var markup = React.renderToString(component({
+          err: req.url
+        }));
+        res.expose(flash.context.dehydrate(context), 'App');
+        serverUtils.render(res, markup);
       },
       json: function() {
         res.send({
