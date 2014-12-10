@@ -20,7 +20,8 @@ module.exports = {
     state = state || res.locals.state;
     var html = React.renderToStaticMarkup(HtmlComponent({ //jshint ignore:line
       state: state,
-      markup: markup
+      markup: markup,
+      context: res.locals.context.getComponentContext()
     }));
     res.set({
       'content-type': 'text/html; charset=utf-8'

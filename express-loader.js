@@ -16,10 +16,11 @@ module.exports = function() {
   var errors = require('./middlewares/errors');
   var navigateAction = require('flux-router-component').navigateAction;
   var helmet = require('helmet');
+  var appContex = require('./context');
   var flash = require('./flash');
   var server = express();
 
-  flash.logger.info('creating express application');
+  flash.logger().info('creating express application');
   expressState.extend(server);
   server.set('state namespace', 'App');
   server.use(favicon(__dirname + '/content/themes/blablabla/assets/favicon.ico'));
@@ -60,8 +61,8 @@ module.exports = function() {
   });
 
   server.use(function(req, res, next) {
-    res.locals.fluxibleApp = flash.context;
-    var context = res.locals.context = flash.context.createContext();
+    res.locals.fluxibleApp = appContex;
+    var context = res.locals.context = appContex.createContext();
     if (req.path.indexOf('/api/') === 0) {
       return next();
     }
@@ -76,8 +77,8 @@ module.exports = function() {
     });
   });
 
-  indexRoute(server, flash.config, flash.context);
-  postRoute(server, flash.config, flash.context);
+  indexRoute(server, flash.config, appContex);
+  postRoute(server, flash.config, appContex);
 
   server.use(errors.call(errors, flash.getLogger('express-loader:ERROR')));
 

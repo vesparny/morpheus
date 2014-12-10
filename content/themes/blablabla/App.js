@@ -26,13 +26,15 @@ var App = React.createClass({
   },
   onChange: function () {
     this.setState(this.getStore(ApplicationStore).getState());
-    document.title = this.state.documentTitle;
   },
-  scrollToTop: function(){
-    return canUseDOM && window.scrollTo(0,0);
+  handleDomChanges: function(){
+    if (canUseDOM) {
+      window.scrollTo(0,0);
+      document.title = this.state.pageTitle;
+    }
   },
   render: function(){
-    this.scrollToTop();
+    this.handleDomChanges();
     if (this.state.error) {
       return <ErrorPage context={this.props.context} error={this.state.error}/>;
     }
