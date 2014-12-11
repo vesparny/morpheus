@@ -1,14 +1,13 @@
 'use strict';
 
 var api = require('../utils').api;
-var flash = require('../flash');
 
 var FrontEndActions = {
   getContentList: function(context) {
     api.get('/posts').then(function(res){
       var contentList = res.body;
       context.dispatch('GET_CONTENT_LIST_SUCCESS', contentList);
-      context.dispatch('UPDATE_PAGE_TITLE', flash.config.get('siteUrl'));
+      context.dispatch('UPDATE_PAGE_TITLE', context.config.siteTitle);
     }, function(err){
       context.dispatch('GET_CONTENT_LIST_FAILURE', err);
     });

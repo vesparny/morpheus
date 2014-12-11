@@ -4,10 +4,13 @@ var flash = require('../flash');
 
 module.exports = {
   home: function(context, payload, done) {
-    context.dispatch('APP_START');
+    context.dispatch('APP_START' ,{
+      siteTitle :flash.config.get('siteTitle'),
+      siteDescription: flash.config.get('siteDescription')
+    });
     flash.services.post.getPosts().then(function(posts) {
       context.dispatch('SET_SITE_URL', flash.config.get('siteUrl'));
-      context.dispatch('UPDATE_PAGE_TITLE', flash.config.get('siteUrl'));
+      context.dispatch('UPDATE_PAGE_TITLE', flash.config.get('siteTitle'));
       context.dispatch('GET_CONTENT_LIST_SUCCESS', posts);
       done();
     }).catch(function(err) {

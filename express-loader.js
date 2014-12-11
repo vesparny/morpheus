@@ -20,7 +20,7 @@ module.exports = function() {
   var flash = require('./flash');
   var server = express();
 
-  flash.logger().info('creating express application');
+  flash.logger.info('creating express application');
   expressState.extend(server);
   server.set('state namespace', 'App');
   server.use(favicon(__dirname + '/content/themes/blablabla/assets/favicon.ico'));

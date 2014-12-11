@@ -4,6 +4,7 @@
 
 var React = require('react');
 var NavLink = require('flux-router-component').NavLink;
+var ApplicationStore = require('../../../stores/ApplicationStore');
 
 var Header = React.createClass({
   propTypes:{
@@ -18,8 +19,8 @@ var Header = React.createClass({
         </nav>
         <div className='vertical'>
           <div className='main-header-content inner'>
-            <h1 className='page-title'>Flash</h1>
-            <h2 className='page-description'>The next generation blogging platform.</h2>
+            <h1 className='page-title'>{this.props.context.getStore(ApplicationStore).getSiteTitle()}</h1>
+            <h2 className='page-description'>{this.props.context.getStore(ApplicationStore).getSiteDescription()}</h2>
           </div>
         </div>
       </header>

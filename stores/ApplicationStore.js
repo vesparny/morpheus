@@ -8,7 +8,8 @@ var ApplicationStore = createStore({
     'CHANGE_ROUTE_SUCCESS': 'handleNavigate',
     'SET_SITE_URL': 'setSiteUrl',
     'SET_ERROR': 'setError',
-    'UPDATE_PAGE_TITLE': 'updatePageTitle'
+    'UPDATE_PAGE_TITLE': 'updatePageTitle',
+    'APP_START': 'appStart'
   },
   initialize: function(dispatcher) { //jshint ignore:line
     this.currentPageName = null;
@@ -30,7 +31,14 @@ var ApplicationStore = createStore({
     };
     this.siteUrl = null;
     this.pageTitle = '';
+    this.siteTitle = '';
+    this.siteDescription = '';
     this.error = null;
+  },
+  appStart:function(data){
+    this.siteTitle = data.siteTitle;
+    this.siteDescription = data.siteDescription;
+    this.emitChange();
   },
   updatePageTitle: function(title) {
     this.pageTitle = title;
@@ -43,6 +51,12 @@ var ApplicationStore = createStore({
   },
   getPageTitle: function() {
     return this.pageTitle;
+  },
+  getSiteTitle: function() {
+    return this.siteTitle;
+  },
+  getSiteDescription: function() {
+    return this.siteDescription;
   },
   getSiteUrl: function() {
     return this.siteUrl;
@@ -73,6 +87,8 @@ var ApplicationStore = createStore({
       route: this.currentRoute,
       siteUrl: this.siteUrl,
       pageTitle: this.pageTitle,
+      siteTitle:this.siteTitle,
+      siteDescription:this.siteDescription,
       error: this.error
     };
   },
@@ -86,6 +102,8 @@ var ApplicationStore = createStore({
     this.currentRoute = state.route;
     this.siteUrl = state.siteUrl;
     this.pageTitle = state.pageTitle;
+    this.siteTitle = state.siteTitle;
+    this.siteDescription = state.siteDescription;
     this.error = state.error;
   }
 });

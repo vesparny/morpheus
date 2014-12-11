@@ -14,6 +14,8 @@ module.exports = {
   appRoot: appRoot,
   configDir: path.resolve(appRoot, 'config'),
   siteUrl:'http://localhost:3000',
+  siteTitle:'welcome',
+  siteDescription:'to the next generation blogging platform',
   port:3000,
   ip:'127.0.0.1'
 };

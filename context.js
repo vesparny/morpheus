@@ -4,6 +4,7 @@ var React = require('react');
 var FluxibleApp = require('fluxible-app');
 var routrPlugin = require('fluxible-plugin-routr');
 var routes = require('./client-routes');
+var clientConfig = require('./client-config.js');
 
 
 var context = new FluxibleApp({
@@ -13,6 +14,32 @@ var context = new FluxibleApp({
 context.plug(routrPlugin({
   routes: routes
 }));
+
+function configPlugin (options){
+  var config = options.config;
+  return {
+    name: 'configPlugin',
+    plugContext: function () {
+      return {
+        plugActionContext: function (actionContext) {
+          actionContext.config = config;
+        },
+        dehydrate: function () {
+          return {
+            config: config
+          };
+        },
+        rehydrate: function (state) {
+          config = state.config;
+        }
+      };
+    }
+  };
+}
+context.plug(configPlugin({
+  config:clientConfig.data
+}));
+
 
 context.registerStore(require('./stores/ContentStore'));
 context.registerStore(require('./stores/ContentListStore'));
