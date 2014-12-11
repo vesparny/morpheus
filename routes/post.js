@@ -2,7 +2,7 @@
 
 var marked = require('marked');
 var Promise = require('es6-promise').Promise; //jshint ignore:line
-var serviceLoader = require('../services');
+var flash = require('../flash');
 
 marked.setOptions({
   highlight: function(code) {
@@ -10,11 +10,9 @@ marked.setOptions({
   }
 });
 
-module.exports = function(server, config) {
-  var services = serviceLoader(config);
-
+module.exports = function(server) {
   server.get('/api/posts/', function(req, res, next) {
-    services.post.getPosts().then(function(articles) {
+    flash.services.post.getPosts().then(function(articles) {
       res.json(articles);
     }).catch(function(err) {
       next(err);
@@ -22,7 +20,7 @@ module.exports = function(server, config) {
   });
 
   server.get('/api/posts/:slug/', function(req, res, next) {
-    services.post.getPostBySlug(req.params.slug).then(function(article) {
+    flash.services.post.getPostBySlug(req.params.slug).then(function(article) {
       res.json(article);
     }).catch(function(err) {
       next(err);
@@ -30,7 +28,7 @@ module.exports = function(server, config) {
   });
 
   server.get('/api/tags/:tag/', function(req, res, next) {
-    services.post.getTag(req.params.tag).then(function(pages) {
+    flash.services.post.getTag(req.params.tag).then(function(pages) {
       res.json(pages);
     }).catch(function(err) {
       next(err);

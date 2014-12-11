@@ -29,16 +29,17 @@ Flash.prototype.logger = loggerFactory.create('flash');
 Flash.prototype.getLogger = loggerFactory.create.bind(loggerFactory);
 
 Flash.prototype.run = function(callback) {
+  var that = this;
   var expressApp = expressLoader();
   var params = {
-    config: this.config,
+    config: that.config,
     loggerFactory: loggerFactory,
     version: pkg.version
   };
-  expressApp.listen(flash.config.get('port'), flash.config.get('ip'), function() {
+  expressApp.listen(that.config.get('port'), that.config.get('ip'), function() {
     callback({
       version: params.version,
-      port: flash.config.get('port'),
+      port: that.config.get('port'),
     });
   });
 
