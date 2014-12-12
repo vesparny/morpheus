@@ -13,6 +13,7 @@ module.exports = function() {
   var multer = require('multer');
   var routes = require('./routes');
   var errors = require('./middlewares/errors');
+  var notFound = require('./middlewares/not-found');
   var navigateAction = require('flux-router-component').navigateAction;
   var helmet = require('helmet');
   var appContex = require('./context');
@@ -85,21 +86,8 @@ module.exports = function() {
 
   routes(server);
 
-  server.use(errors.call(errors, flash.getLogger('express-loader:ERROR')));
+  server.use(errors.call(errors, flash.getLogger('express-loader')));
   // Assume 404 since no middleware responded
-  // no html handler needed since that case is managed by fluxible router
-  server.use(function(req, res) {
-    res.status = 404;
-    res.format({
-      json: function() {
-        res.send({
-          error: 'Not found'
-        });
-      },
-      'default': function() {
-        res.send();
-      }
-    });
-  });
+  server.use(notFound.call(notFound, flash.getLogger('express-loader')));
   return server;
 };

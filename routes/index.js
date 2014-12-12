@@ -3,6 +3,7 @@
 var React = require('react');
 var ContentActions = require('../actions/ContentActions');
 var serverUtils = require('../utils').server;
+var validator = require('validator');
 
 module.exports = function(server) {
   server.get('/', function(req, res, next) {
@@ -22,9 +23,14 @@ module.exports = function(server) {
   });
 
   server.get('/page/:page', function(req, res, next) {
+    var page = req.params.page || 0;
+    if (!validator.isInt(page)) {
+      console.log("next");
+      return next();
+    }
     var context = res.locals.context;
     var fluxibleApp = res.locals.fluxibleApp;
-    context.getActionContext().executeAction(ContentActions.list, {page:req.params.page}, function(err) {
+    context.getActionContext().executeAction(ContentActions.list, {page:page}, function(err) {
       if (err) {
         return next(err);
       }
