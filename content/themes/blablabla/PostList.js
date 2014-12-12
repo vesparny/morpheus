@@ -11,6 +11,8 @@ var StoreMixin = require('fluxible-app').StoreMixin;
 var Loader = require('./Loader');
 var Header = require('./Header');
 var Footer = require('./Footer');
+var Paginator = require('./Paginator');
+
 
 var PostList = React.createClass({
   mixins: [StoreMixin],
@@ -56,6 +58,7 @@ var PostList = React.createClass({
         <div className='post-container'>
         <Loader class={!showLoader ? 'hidden' : ''}/>
         {posts}
+        <Paginator context={this.props.context} page={this.props.page} pageCount={this.props.pageCount} totalCount={this.props.totalCount}/>
         </div>
         </div>
         <Footer context={this.props.context}/>

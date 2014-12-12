@@ -33,16 +33,16 @@ var ApplicationStore = createStore({
     this.siteDescription = '';
     this.error = null;
   },
-  appStart:function(data){
+  appStart: function(data) {
     this.siteTitle = data.siteTitle;
     this.siteDescription = data.siteDescription;
     this.emitChange();
   },
-  updateMeta:function(meta){
+  updateMeta: function(meta) {
     this.page = meta.page;
     this.perPage = meta.perPage;
-    this.pageCount =meta.pageCount;
-    this.totalCount =meta.totalCount;
+    this.pageCount = meta.pageCount;
+    this.totalCount = meta.totalCount;
     this.emitChange();
   },
   updatePageTitle: function(title) {
@@ -92,13 +92,13 @@ var ApplicationStore = createStore({
       route: this.currentRoute,
       siteUrl: this.siteUrl,
       pageTitle: this.pageTitle,
-      siteTitle:this.siteTitle,
-      siteDescription:this.siteDescription,
+      siteTitle: this.siteTitle,
+      siteDescription: this.siteDescription,
       error: this.error,
-      page : this.page,
-      perPage : this.perPage,
-      pageCount : this.pageCount,
-      totalCount : this.totalCount
+      page: parseInt(this.page, 10),
+      perPage: this.perPage,
+      pageCount: this.pageCount,
+      totalCount: this.totalCount
     };
   },
   dehydrate: function() {
@@ -114,10 +114,10 @@ var ApplicationStore = createStore({
     this.siteTitle = state.siteTitle;
     this.siteDescription = state.siteDescription;
     this.error = state.error;
-    this.page = state.page;
+    this.page = parseInt(state.page, 10);
     this.perPage = state.perPage;
-    this.pageCount =state.pageCount;
-    this.totalCount =state.totalCount;
+    this.pageCount = state.pageCount;
+    this.totalCount = state.totalCount;
     this.emitChange();
   }
 });

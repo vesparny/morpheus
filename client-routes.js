@@ -19,6 +19,6 @@ module.exports = {
   page: {
     path: '/page/:page',
     method: 'get',
-    page: 'home'
+    page: 'page'
   }
 };

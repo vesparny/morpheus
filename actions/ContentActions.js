@@ -17,6 +17,7 @@ module.exports = {
       }
       context.dispatch('SET_SITE_URL', context.config.siteUrl);
       context.dispatch('UPDATE_PAGE_TITLE', context.config.siteTitle);
+      console.log("metaaa", result.meta);
       context.dispatch('UPDATE_META', result.meta);
       context.dispatch('GET_CONTENT_LIST_SUCCESS', result.data);
       done();

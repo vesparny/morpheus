@@ -20,10 +20,10 @@ var PostListElement = React.createClass({
     return (
     <article className="post">
         <header className="post-header">
-            <h2 className="post-title"><NavLink href={to} routeName={'single'} context={this.props.context} >{post.title}</NavLink></h2>
+            <h2 className="post-title"><NavLink href={to} context={this.props.context} >{post.title}</NavLink></h2>
         </header>
         <section className="post-excerpt">
-            <p dangerouslySetInnerHTML={{__html: post.excerpt}}></p><NavLink href={to} routeName={'single'} context={this.props.context} >&raquo;</NavLink>
+            <p dangerouslySetInnerHTML={{__html: post.excerpt}}></p><NavLink href={to} context={this.props.context} >&raquo;</NavLink>
         </section>
 
         <footer className="post-meta">
