@@ -3,7 +3,7 @@
 var util = require('util');
 var serverUtils = require('../utils').server;
 var React = require('react');
-var appAction = require('../actions/ApplicationAction');
+var ContentActions = require('../actions/ContentActions');
 
 module.exports = function(log) {
   return function(err, req, res, next) { // jshint ignore:line
@@ -24,7 +24,7 @@ module.exports = function(log) {
       'html': function() {
         var context = res.locals.context;
         var fluxibleApp = res.locals.fluxibleApp;
-        context.getActionContext().executeAction(appAction.error, {
+        context.getActionContext().executeAction(ContentActions.error, {
           err: {
             message: err.message,
             status: err.statusCode

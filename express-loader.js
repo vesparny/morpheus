@@ -11,14 +11,14 @@ module.exports = function() {
   var session = require('express-session');
   var FSStore = require('connect-fs2')(session);
   var multer = require('multer');
-  var indexRoute = require('./routes');
-  var postRoute = require('./routes/post');
+  var routes = require('./routes');
   var errors = require('./middlewares/errors');
   var navigateAction = require('flux-router-component').navigateAction;
   var helmet = require('helmet');
   var appContex = require('./context');
   var flash = require('./flash');
   var server = express();
+  var fetchrPlugin = appContex.getPlugin('FetchrPlugin');
 
   flash.logger.info('creating express application');
   expressState.extend(server);
@@ -52,6 +52,9 @@ module.exports = function() {
   server.use(helmet.ienoopen());
   server.disable('x-powered-by');
 
+  fetchrPlugin.registerService(flash.services.content);
+  server.use(fetchrPlugin.getXhrPath(), fetchrPlugin.getMiddleware());
+
   server.use(function(req, res, next) {
     if (req.headers['x-forwarded-proto'] === 'http') {
       return res.redirect(301, 'https://' + req.headers.host + '/');
@@ -62,12 +65,15 @@ module.exports = function() {
 
   server.use(function(req, res, next) {
     res.locals.fluxibleApp = appContex;
-    var context = res.locals.context = appContex.createContext();
+    var context = res.locals.context = appContex.createContext({
+      req: req
+    });
+
     if (req.path.indexOf('/api/') === 0) {
       return next();
     }
     context.getActionContext().executeAction(navigateAction, {
-      path: req.path
+      url: req.url
     }, function(err) {
       if (err) {
         next(err);
@@ -77,11 +83,9 @@ module.exports = function() {
     });
   });
 
-  indexRoute(server, flash.config, appContex);
-  postRoute(server, flash.config, appContex);
+  routes(server);
 
   server.use(errors.call(errors, flash.getLogger('express-loader:ERROR')));
-
   // Assume 404 since no middleware responded
   // no html handler needed since that case is managed by fluxible router
   server.use(function(req, res) {

@@ -1,9 +1,9 @@
 'use strict';
 
-var postService = require('./post-service');
+var contentService = require('./content');
 
 module.exports = function(config){
   return{
-    post: postService(config)
+    content: contentService(config)
   };
 };

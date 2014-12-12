@@ -3,6 +3,7 @@
 var React = require('react');
 var FluxibleApp = require('fluxible-app');
 var routrPlugin = require('fluxible-plugin-routr');
+var fetchrPlugin = require('fluxible-plugin-fetchr');
 var routes = require('./client-routes');
 var clientConfig = require('./client-config.js');
 
@@ -13,6 +14,10 @@ var context = new FluxibleApp({
 
 context.plug(routrPlugin({
   routes: routes
+}));
+
+context.plug(fetchrPlugin({
+  xhrPath: '/api'
 }));
 
 function configPlugin (options){

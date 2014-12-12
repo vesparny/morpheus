@@ -31,9 +31,9 @@
     "express": "~4.10.4",
     "express-session": "~1.9.3",
     "express-state": "~1.2.0",
-    "flux-router-component": "~0.4.6",
+    "flux-router-component": "~0.5.0",
     "fluxible-app": "~0.1.2",
-    "fluxible-plugin-routr": "~0.2.1",
+    "fluxible-plugin-routr": "~0.3.0",
     "front-matter": "~0.2.0",
     "glob": "~4.3.1",
     "gravatar": "~1.1.0",
@@ -51,7 +51,8 @@
     "react": "~0.12.1",
     "serve-favicon": "~2.1.5",
     "superagent": "~0.21.0",
-    "underscore.string": "~2.4.0"
+    "underscore.string": "~2.4.0",
+    "fluxible-plugin-fetchr": "~0.2.1"
   },
   "devDependencies": {
     "browserify": "~7.0.0",

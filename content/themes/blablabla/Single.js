@@ -5,7 +5,7 @@
 var React = require('react');
 var cx = require('react/lib/cx');
 var PostListElement = require('./PostListElement');
-var FrontEndActions = require('../../../actions/FrontEndActions');
+var ContentActions = require('../../../actions/ContentActions');
 var ContentStore = require('../../../stores/ContentStore');
 var InitialStateMixin = require('../../../mixins/InitialStateMixin');
 var Loader = require('./Loader');
@@ -41,7 +41,7 @@ var Single = React.createClass({
   componentDidMount: function() {
     if(!this.state.single.title){
       var slug = this.props.slug;
-      this.props.context.executeAction(FrontEndActions.getContent, {
+      this.props.context.executeAction(ContentActions.single, {
         slug:slug
       });
     }

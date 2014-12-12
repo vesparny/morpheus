@@ -1,14 +1,14 @@
 'use strict';
 
 var React = require('react');
-var appAction = require('../actions/ApplicationAction');
+var ContentActions = require('../actions/ContentActions');
 var serverUtils = require('../utils').server;
 
 module.exports = function(server) {
   server.get('/', function(req, res, next) {
     var context = res.locals.context;
     var fluxibleApp = res.locals.fluxibleApp;
-    context.getActionContext().executeAction(appAction.home, {}, function(err) {
+    context.getActionContext().executeAction(ContentActions.list, {}, function(err) {
       if (err) {
         return next(err);
       }
@@ -24,7 +24,7 @@ module.exports = function(server) {
   server.get('/:slug', function(req, res, next) {
     var context = res.locals.context;
     var fluxibleApp = res.locals.fluxibleApp;
-    context.getActionContext().executeAction(appAction.single, {
+    context.getActionContext().executeAction(ContentActions.single, {
       slug: req.params.slug
     }, function(err) {
       if (err) {
@@ -42,7 +42,7 @@ module.exports = function(server) {
   server.get('/tag/:tag', function(req, res, next) {
     var context = res.locals.context;
     var fluxibleApp = res.locals.fluxibleApp;
-    context.getActionContext().executeAction(appAction.tag, {
+    context.getActionContext().executeAction(ContentActions.tag, {
       tag: req.params.tag
     }, function(err) {
       if (err) {

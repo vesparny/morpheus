@@ -12,11 +12,14 @@ var Tags = React.createClass({
   },
   render: function() {
     var tags = [];
-    var pre =  <span> on </span>;
+    var pre =  '';
     this.props.tags.forEach(function(tag, index){
       tags.push(<Tag tag={tag} key={index} context={this.props.context}/>);
     }.bind(this));
     tags = clientUtils.intersperse(tags, ', ');
+    if (this.props.tags.length > 0) {
+      pre =  <span> on </span>;
+    }
     return (
       <div className="tags">
       {pre}

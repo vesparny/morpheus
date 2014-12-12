@@ -4,7 +4,7 @@
 
 var React = require('react');
 var PostListElement = require('./PostListElement');
-var FrontEndActions = require('../../../actions/FrontEndActions');
+var ContentActions = require('../../../actions/ContentActions');
 
 var ContentListStore = require('../../../stores/ContentListStore');
 var StoreMixin = require('fluxible-app').StoreMixin;
@@ -33,7 +33,7 @@ var PostList = React.createClass({
   },
   componentDidMount: function() {
     if(!this.state.posts.length){
-      this.props.context.executeAction(FrontEndActions.getContentList);
+      this.props.context.executeAction(ContentActions.list);
     }
   },
   componentWillUnmount: function(){
