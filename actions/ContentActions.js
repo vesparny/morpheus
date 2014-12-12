@@ -4,14 +4,21 @@ module.exports = {
   list: function(context, payload, done) {
     context.dispatch('APP_START', {
       siteTitle: context.config.siteTitle,
-      siteDescription: context.config.siteDescription
+      siteDescription: context.config.siteDescription,
+      page:payload.page
     });
     context.service.read('content', {
-      actionType: 'list'
-    }, {}, function(err, posts) {
+      actionType: 'list',
+      page:payload.page || 1
+    }, {}, function(err, result) {
+      if (err) {
+        context.dispatch('GET_CONTENT_LIST_FAILURE');
+        return done(err);
+      }
       context.dispatch('SET_SITE_URL', context.config.siteUrl);
       context.dispatch('UPDATE_PAGE_TITLE', context.config.siteTitle);
-      context.dispatch('GET_CONTENT_LIST_SUCCESS', posts);
+      context.dispatch('UPDATE_META', result.meta);
+      context.dispatch('GET_CONTENT_LIST_SUCCESS', result.data);
       done();
     });
   },
@@ -19,9 +26,13 @@ module.exports = {
       context.service.read('content', {
         slug: payload.slug,
         actionType: 'single'
-      }, {}, function(err, single) {
-        context.dispatch('GET_CONTENT_SUCCESS', single);
-        context.dispatch('UPDATE_PAGE_TITLE', single.title);
+      }, {}, function(err, result) {
+        if (err) {
+          context.dispatch('GET_CONTENT_FAILURE');
+          return done(err);
+        }
+        context.dispatch('GET_CONTENT_SUCCESS', result.data);
+        context.dispatch('UPDATE_PAGE_TITLE', result.data.title);
         done();
       });
     },

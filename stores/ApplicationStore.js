@@ -9,6 +9,7 @@ var ApplicationStore = createStore({
     'SET_SITE_URL': 'setSiteUrl',
     'SET_ERROR': 'setError',
     'UPDATE_PAGE_TITLE': 'updatePageTitle',
+    'UPDATE_META': 'updateMeta',
     'APP_START': 'appStart'
   },
   initialize: function(dispatcher) { //jshint ignore:line
@@ -17,15 +18,12 @@ var ApplicationStore = createStore({
     this.currentRoute = null;
     this.pages = {
       home: {
-        text: 'Home',
         route: 'home'
       },
       single: {
-        text: 'Single',
         route: 'single'
       },
       tag: {
-        text: 'Tag',
         route: 'tag'
       }
     };
@@ -38,6 +36,13 @@ var ApplicationStore = createStore({
   appStart:function(data){
     this.siteTitle = data.siteTitle;
     this.siteDescription = data.siteDescription;
+    this.emitChange();
+  },
+  updateMeta:function(meta){
+    this.page = meta.page;
+    this.perPage = meta.perPage;
+    this.pageCount =meta.pageCount;
+    this.totalCount =meta.totalCount;
     this.emitChange();
   },
   updatePageTitle: function(title) {
@@ -89,7 +94,11 @@ var ApplicationStore = createStore({
       pageTitle: this.pageTitle,
       siteTitle:this.siteTitle,
       siteDescription:this.siteDescription,
-      error: this.error
+      error: this.error,
+      page : this.page,
+      perPage : this.perPage,
+      pageCount : this.pageCount,
+      totalCount : this.totalCount
     };
   },
   dehydrate: function() {
@@ -105,6 +114,11 @@ var ApplicationStore = createStore({
     this.siteTitle = state.siteTitle;
     this.siteDescription = state.siteDescription;
     this.error = state.error;
+    this.page = state.page;
+    this.perPage = state.perPage;
+    this.pageCount =state.pageCount;
+    this.totalCount =state.totalCount;
+    this.emitChange();
   }
 });
 

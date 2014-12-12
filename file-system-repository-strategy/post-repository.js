@@ -7,11 +7,25 @@ var path = require('path');
 var fs = require('fs');
 var fm = require('front-matter');
 var inherits = require('inherits');
-var moment = require('moment');
-var _s = require('underscore.string');
 var errors = require('../errors');
+var moment =require('moment');
 
-function readFile(file) {
+function buildContent(item) {
+  var content = {};
+  content.author = item.attributes.author;
+  content.tags = item.attributes.tags;
+  content.date = item.attributes.date;
+  content.slug = item.attributes.slug;
+  content.type = item.attributes.type;
+  content.email = item.attributes.email;
+  content.title = item.attributes.title;
+  content.permalink = item.attributes.permalink;
+  content.body = item.body;
+  content.tags = item.attributes.tags ? item.attributes.tags.split(',') : [];
+  return content;
+}
+
+function readFile(file, options) {
   return new Promise(function(resolve, reject) {
     fs.readFile(file, {
       encoding: 'utf-8'
@@ -20,23 +34,16 @@ function readFile(file) {
         reject(err);
       } else {
         var parsed = fm(data);
-        parsed.attributes.tags = parsed.attributes.tags ? parsed.attributes.tags.split(',') : [];
-        var tags = [];
-        parsed.attributes.tags.forEach(function(tag) {
-          tags.push({
-            path: _s.slugify(tag),
-            name: tag
-          });
-        });
-        parsed.attributes.tags = tags;
         var filename = path.basename(file);
         var date = moment(filename.substring(0, 10), 'YYYY-MM-DD');
         parsed.attributes.date = date.format('DD MMMM YYYY');
-        resolve(parsed);
+        var content = buildContent(parsed, options);
+        resolve(content);
       }
     });
   });
 }
+
 
 function PostRepository() {
   AbstractRepository.call(this);
@@ -47,6 +54,15 @@ inherits(PostRepository, AbstractRepository);
 
 PostRepository.prototype.find = function(options) {
   options = options || {};
+  var response = {
+    meta:{
+      page:options.page,
+      perPage:2,
+      pageCount:0,
+      totalCount:0
+    },
+    rawData : undefined
+  };
   return new Promise(function(resolve, reject) {
     glob(path.resolve(__dirname + '/../content/posts/**/*.md'), function(err, files) {
       if (err) {
@@ -55,16 +71,24 @@ PostRepository.prototype.find = function(options) {
       if (files.length === 0) {
         reject(new errors.NotFound());
       } else {
+        response.meta.totalCount = files.length;
+        response.meta.pageCount = Math.ceil(files.length/response.meta.perPage);
+        var sliced  = files.slice((response.meta.page - 1) * response.meta.perPage, response.meta.page * response.meta.perPage);
+        if (sliced.length === 0) {
+          reject(new errors.NotFound());
+        }
         var promiseArray = [];
-        files.forEach(function(file) {
+        sliced.forEach(function(file) {
           promiseArray.push(readFile(file));
         });
+
         Promise.all(promiseArray).then(function(data) {
           //sorting
           data.sort(function(a, b) {
-            return b.attributes.date > a.attributes.date;
+            return b.date > a.date;
           });
-          resolve(data);
+          response.rawData = data;
+          resolve(response);
         }).catch(function(err) {
           reject(new errors.InternalServer(err.message));
         });
@@ -77,6 +101,10 @@ PostRepository.prototype.find = function(options) {
 PostRepository.prototype.findOne = function(options) {
   options = options || {};
   var that = this;
+  var response = {
+    meta:{},
+    rawData : undefined
+  };
   return new Promise(function(resolve, reject) {
     glob(path.resolve(__dirname + '/../content/posts/[0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9]-' + options.slug + '.md'), function(err, files) {
       if (err) {
@@ -84,13 +112,15 @@ PostRepository.prototype.findOne = function(options) {
       }
       if (files.length === 0) {
         that.findPage(options).then(function(data) {
-          resolve(data);
+          response.rawData = data;
+          resolve(response);
         }).catch(function(err) {
           reject(err);
         });
       } else {
         readFile(files[0]).then(function(data) {
-          resolve(data);
+          response.rawData = data;
+          resolve(response);
         }).catch(function(err) {
           reject(new errors.InternalServer(err.message));
         });
@@ -101,6 +131,10 @@ PostRepository.prototype.findOne = function(options) {
 
 PostRepository.prototype.findPage = function(options) {
   options = options || {};
+  var response = {
+    meta:{},
+    data : undefined
+  };
   return new Promise(function(resolve, reject) {
     glob(path.resolve(__dirname + '/../content/pages/' + options.slug + '.md'), function(err, files) {
       if (err) {
@@ -109,8 +143,9 @@ PostRepository.prototype.findPage = function(options) {
       if (files.length === 0) {
         reject(new errors.NotFound());
       } else {
-        readFile(files[0]).then(function(data) {
-          resolve(data);
+        readFile(files[0], options.siteUrl).then(function(data) {
+          response.data = data;
+          resolve(response);
         }).catch(function(err) {
           reject(new errors.InternalServer(err.message));
         });

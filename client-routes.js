@@ -15,5 +15,10 @@ module.exports = {
     path: '/tag/:tag',
     method: 'get',
     page: 'tag'
+  },
+  page: {
+    path: '/page/:page',
+    method: 'get',
+    page: 'home'
   }
 };
