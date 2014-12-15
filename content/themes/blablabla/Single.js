@@ -102,7 +102,7 @@ var Single = React.createClass({
       <h1 className="post-title">{this.state.single.title}</h1>
       <section className="post-meta">
       <time className="post-date" >{this.state.single.date}</time>
-      <Tags tags={this.state.single.tags} />
+      <Tags tags={this.state.single.tags} context={this.props.context}/>
       </section>
       </header>
     }

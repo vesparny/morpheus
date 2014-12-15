@@ -8,7 +8,8 @@ var clientUtils = require('../../../utils').client;
 
 var Tags = React.createClass({
   propTypes:{
-    tags: React.PropTypes.array.isRequired
+    tags: React.PropTypes.array.isRequired,
+    context: React.PropTypes.object.isRequired
   },
   render: function() {
     var tags = [];

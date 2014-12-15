@@ -16,7 +16,7 @@ var PostListElement = React.createClass({
   render: function() {
     var post = this.props.post || {};
     var to = '/'+post.slug;
-    var tags = this.props.post.tags && <Tags tags={this.props.post.tags} context={this.props.context}/>;
+    var tags = this.props.post.tags && <Tags tags={this.props.post.tags} context={this.props.context} />;
     return (
     <article className="post">
         <header className="post-header">
