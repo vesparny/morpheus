@@ -46,7 +46,14 @@ var Single = React.createClass({
       });
     }
   },
-  componentWillReceiveProps: function(){
+  componentWillReceiveProps: function(props){
+    if (props.page !== this.props.page) {
+      this.props.context.executeAction(ContentActions.single, {
+        slug:slug
+      });
+    }
+  },
+  componentWillUnmount: function(){
     this.getStore(ContentStore).initialize();
   },
   render: function() {

@@ -45,7 +45,6 @@ var PostList = React.createClass({
   },
   componentWillReceiveProps: function(props){
     if (props.page !== this.props.page) {
-      this.getStore(ContentListStore).initialize();
       this.props.context.executeAction(ContentActions.list, {
         page:props.page
       });

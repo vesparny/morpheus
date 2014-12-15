@@ -5,10 +5,16 @@ var createStore = require('fluxible-app/utils/createStore');
 var ContentStore = createStore({
   storeName: 'ContentStore',
   handlers: {
-    'GET_CONTENT_SUCCESS': 'getContentSuccess'
+    'GET_CONTENT_SUCCESS': 'getContentSuccess',
+    'RESET_CONTENT': 'resetContent'
+
   },
   initialize: function(dispatcher) { //jshint ignore:line
     this.content = {};
+  },
+  resetContent: function(){
+    this.initialize();
+    this.emitChange();
   },
   getContentSuccess: function(content) {
     this.content = content;

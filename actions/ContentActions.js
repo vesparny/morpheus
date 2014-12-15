@@ -2,6 +2,7 @@
 
 module.exports = {
   list: function(context, payload, done) {
+    context.dispatch('RESET_CONTENT_LIST');
     context.dispatch('APP_START', {
       siteTitle: context.config.siteTitle,
       siteDescription: context.config.siteDescription,
@@ -17,13 +18,13 @@ module.exports = {
       }
       context.dispatch('SET_SITE_URL', context.config.siteUrl);
       context.dispatch('UPDATE_PAGE_TITLE', context.config.siteTitle);
-      console.log("metaaa", result.meta);
       context.dispatch('UPDATE_META', result.meta);
       context.dispatch('GET_CONTENT_LIST_SUCCESS', result.data);
       done();
     });
   },
   single: function(context, payload, done) {
+    context.dispatch('RESET_CONTENT');
       context.service.read('content', {
         slug: payload.slug,
         actionType: 'single'
