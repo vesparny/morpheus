@@ -4,7 +4,6 @@ var Promise = require('es6-promise').Promise; //jshint ignore:line
 var _s = require('underscore.string');
 var marked = require('marked');
 var serverUtils = require('../utils').server;
-var errors = require('../errors');
 
 function buildContent(item, siteUrl) {
   item.fullUrl = siteUrl + item.permalink;
@@ -28,21 +27,16 @@ var actions = {
       slug: params.slug,
       siteUrl: config.get('siteUrl')
     }).then(function(result) {
-      try {
         var data = buildContent(result.rawData, config.get('siteUrl'));
         delete result.rawData;
         result.data = data;
         callback(null, result);
-      } catch (err) {
-        return callback(new errors.InternalServer(err.message));
-      }
     }).catch(function(err) {
       callback(err);
     });
   },
   list: function(repository, params, config, callback) {
     repository.find(params).then(function(result) {
-      try {
         var data = [];
         result.rawData.forEach(function(el) {
           var content = buildContent(el, config.get('siteUrl'));
@@ -51,9 +45,6 @@ var actions = {
         delete result.rawData;
         result.data = data;
         callback(null, result);
-      } catch (err) {
-        return callback(new errors.InternalServer(err.message));
-      }
     }).catch(function(err) {
       callback(err);
     });
