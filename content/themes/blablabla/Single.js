@@ -46,7 +46,7 @@ var Single = React.createClass({
       });
     }
   },
-  componentWillUnmount: function(){
+  componentWillReceiveProps: function(){
     this.getStore(ContentStore).initialize();
   },
   render: function() {

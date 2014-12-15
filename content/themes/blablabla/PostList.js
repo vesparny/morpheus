@@ -33,13 +33,23 @@ var PostList = React.createClass({
       cssClass: 'home'
     };
   },
+  getDefaultProps: function() {
+    return {
+      page: '1'
+    };
+  },
   componentDidMount: function() {
     if(!this.state.posts.length){
       this.props.context.executeAction(ContentActions.list);
     }
   },
-  componentWillUnmount: function(){
-    this.getStore(ContentListStore).initialize();
+  componentWillReceiveProps: function(props){
+    if (props.page !== this.props.page) {
+      this.getStore(ContentListStore).initialize();
+      this.props.context.executeAction(ContentActions.list, {
+        page:props.page
+      });
+    }
   },
   _onChange: function() {
     this.setState(this.getStateFromStores());

@@ -38,13 +38,13 @@ var App = React.createClass({
     if (this.state.error) {
       return <ErrorPage context={this.props.context} error={this.state.error}/>;
     }
-    if (this.state.currentPageName === 'home' || this.state.currentPageName === 'page') {
-      return <PostList context={this.props.context} siteUrl={this.state.siteUrl} page={this.state.page} pageCount={this.state.pageCount} totalCount={this.state.totalCount}/>;
+    if (this.state.route.name === 'home' || this.state.route.name === 'page') {
+      return <PostList context={this.props.context} siteUrl={this.state.siteUrl} page={this.state.route.params.page} pageCount={this.state.pageCount} totalCount={this.state.totalCount}/>;
     }
-    if (this.state.currentPageName === 'single') {
+    if (this.state.route.name === 'single') {
       return <Single context={this.props.context} slug={this.state.route.params.slug} siteUrl={this.state.siteUrl}/>;
     }
-    if (this.state.currentPageName === 'tag') {
+    if (this.state.route.name === 'tag') {
       return <TagPage context={this.props.context} slug={this.state.route.params.tag} siteUrl={this.state.siteUrl}/>;
     }
     return '';

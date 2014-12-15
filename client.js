@@ -3,8 +3,8 @@
 'use strict';
 
 var React = require('react');
-var debug = require('debug');
-debug.enable('*');
+//var debug = require('debug');
+//debug.enable('*');
 window.React = React;
 var appContext = require('./context');
 var dehydratedState = window.App; // Sent from the server
