@@ -16,6 +16,7 @@ module.exports = function() {
   var sslRedirection = require('./middlewares/ssl-redirection');
   var navigation = require('./middlewares/navigation');
   var notFound = require('./middlewares/not-found');
+  var navigateAction = require('flux-router-component').navigateAction;
   var helmet = require('helmet');
   var appContext = require('./context');
   var flash = require('./flash');
@@ -59,30 +60,12 @@ module.exports = function() {
 
   server.use(sslRedirection);
 
-  server.use(function(req, res, next) { // jshint ignore:line
-    var context = res.locals.context = appContext.createContext({
-      req: req
-    });
-
-    if (req.path.indexOf('/api/') === 0) {
-      return next();
-    }
-    context.getActionContext().executeAction(navigateAction, {
-      url: req.url
-    }, function(err) {
-      if (err) {
-        next(err);
-      } else {
-        next();
-      }
-    });
-  });
+  server.use(navigation.call(null, appContext));
 
   routes(server);
 
-  server.use(errors.call(errors, flash.getLogger('express-loader')));
+  server.use(errors.call(null, flash.getLogger('express-loader')));
   // Assume 404 since no middleware responded
-  server.use(notFound.call(notFound, flash.getLogger('express-loader')));
-
+  server.use(notFound.call(null, flash.getLogger('express-loader')));
   return server;
 };
