@@ -13,13 +13,14 @@ module.exports = function() {
   var multer = require('multer');
   var routes = require('./routes');
   var errors = require('./middlewares/errors');
+  var sslRedirection = require('./middlewares/ssl-redirection');
+  var navigation = require('./middlewares/navigation');
   var notFound = require('./middlewares/not-found');
-  var navigateAction = require('flux-router-component').navigateAction;
   var helmet = require('helmet');
-  var appContex = require('./context');
+  var appContext = require('./context');
   var flash = require('./flash');
   var server = express();
-  var fetchrPlugin = appContex.getPlugin('FetchrPlugin');
+  var fetchrPlugin = appContext.getPlugin('FetchrPlugin');
 
   flash.logger.info('creating express application');
   expressState.extend(server);
@@ -56,19 +57,10 @@ module.exports = function() {
   fetchrPlugin.registerService(flash.services.content);
   server.use(fetchrPlugin.getXhrPath(), fetchrPlugin.getMiddleware());
 
-  if (flash.config.useSSL) {
-    server.use(function(req, res, next) {
-      if (req.headers['x-forwarded-proto'] === 'http') {
-        return res.redirect(301, 'https://' + req.headers.host + req.path);
-      } else {
-        return next();
-      }
-    });
-  }
+  server.use(sslRedirection);
 
-  server.use(function(req, res, next) {
-    res.locals.fluxibleApp = appContex;
-    var context = res.locals.context = appContex.createContext({
+  server.use(function(req, res, next) { // jshint ignore:line
+    var context = res.locals.context = appContext.createContext({
       req: req
     });
 
@@ -91,5 +83,6 @@ module.exports = function() {
   server.use(errors.call(errors, flash.getLogger('express-loader')));
   // Assume 404 since no middleware responded
   server.use(notFound.call(notFound, flash.getLogger('express-loader')));
+
   return server;
 };
