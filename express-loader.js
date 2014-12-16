@@ -58,7 +58,7 @@ module.exports = function() {
 
   server.use(function(req, res, next) {
     if (req.headers['x-forwarded-proto'] === 'http') {
-      return res.redirect(301, 'https://' + req.headers.host + '/');
+      return res.redirect(301, 'https://' + req.headers.host + req.path);
     } else {
       return next();
     }
