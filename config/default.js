@@ -5,7 +5,7 @@ var appRoot = process.cwd();
 
 module.exports = {
   log: {
-    level: 'info',
+    level: 'debug',
     file: path.resolve(appRoot, 'content/logs/log.log'),
   },
   'repository-strategy': {
@@ -13,9 +13,10 @@ module.exports = {
   },
   appRoot: appRoot,
   configDir: path.resolve(appRoot, 'config'),
-  siteUrl:'http://localhost:3000',
-  siteTitle:'welcome',
-  siteDescription:'to the next generation blogging platform',
-  port:3000,
-  ip:'127.0.0.1'
+  siteUrl: 'http://localhost:3000',
+  useSSL: false,
+  siteTitle: 'welcome',
+  siteDescription: 'to the next generation blogging platform',
+  port: 3000,
+  ip: '127.0.0.1'
 };

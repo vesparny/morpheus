@@ -56,13 +56,15 @@ module.exports = function() {
   fetchrPlugin.registerService(flash.services.content);
   server.use(fetchrPlugin.getXhrPath(), fetchrPlugin.getMiddleware());
 
-  server.use(function(req, res, next) {
-    if (req.headers['x-forwarded-proto'] === 'http') {
-      return res.redirect(301, 'https://' + req.headers.host + req.path);
-    } else {
-      return next();
-    }
-  });
+  if (flash.config.useSSL) {
+    server.use(function(req, res, next) {
+      if (req.headers['x-forwarded-proto'] === 'http') {
+        return res.redirect(301, 'https://' + req.headers.host + req.path);
+      } else {
+        return next();
+      }
+    });
+  }
 
   server.use(function(req, res, next) {
     res.locals.fluxibleApp = appContex;
