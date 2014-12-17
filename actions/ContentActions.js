@@ -25,6 +25,7 @@ module.exports = {
   },
   single: function(context, payload, done) {
     context.dispatch('RESET_CONTENT');
+    context.dispatch('RESET_CONTENT_LIST');
       context.service.read('content', {
         slug: payload.slug,
         actionType: 'single'
