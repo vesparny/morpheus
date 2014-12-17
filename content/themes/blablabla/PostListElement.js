@@ -15,6 +15,7 @@ var PostListElement = React.createClass({
   },
   render: function() {
     var post = this.props.post || {};
+    var date = post.date;
     var to = '/'+post.slug;
     var tags = this.props.post.tags && <Tags tags={this.props.post.tags} context={this.props.context} />;
     return (
@@ -30,7 +31,7 @@ var PostListElement = React.createClass({
         <Gravatar email={post.email}/>
         {post.author}
         {tags}
-        <time className="post-date" dateTime={post.date}>{post.date}</time>
+        <time className="post-date" dateTime={date}>{date}</time>
         </footer>
       </article>
     );

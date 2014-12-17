@@ -2,10 +2,9 @@
 type: post
 author: Alessandro Arnodo
 email: alessandro@arnodo.net
-tags: markdown
-slug: '3'
-permalink: /3
-title: '3'
+slug: markdown-example
+permalink: /markdown-example
+title: Markdown example
 ---
 
 # An exhibit of Markdown

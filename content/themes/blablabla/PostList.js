@@ -5,7 +5,7 @@
 var React = require('react');
 var PostListElement = require('./PostListElement');
 var ContentActions = require('../../../actions/ContentActions');
-
+var cx = require('react/lib/cx');
 var ContentListStore = require('../../../stores/ContentListStore');
 var StoreMixin = require('fluxible-app').StoreMixin;
 var Loader = require('./Loader');
@@ -59,7 +59,10 @@ var PostList = React.createClass({
     this.state.posts.forEach(function(post, index){
       posts.push(<PostListElement key={index} post={post} context={this.props.context}/>);
     }.bind(this));
-    var classes = 'wrapper '+this.state.cssClass;
+    var classesMap = {};
+    classesMap.wrapper = true;
+    classesMap[this.state.cssClass] = true;
+    var classes = cx(classesMap);
     return (
       <div className={classes}>
       <Header context={this.props.context}/>

@@ -4,6 +4,8 @@ var Promise = require('es6-promise').Promise; //jshint ignore:line
 var _s = require('underscore.string');
 var marked = require('marked');
 var serverUtils = require('../utils').server;
+var _ = require('lodash');
+var path = require('path');
 
 function buildContent(item, siteUrl) {
   item.fullUrl = siteUrl + item.permalink;
@@ -25,26 +27,30 @@ var actions = {
   single: function(repository, params, config, callback) {
     repository.findOne({
       slug: params.slug,
-      siteUrl: config.get('siteUrl')
+      siteUrl: config.get('siteUrl'),
+      contentPath: config.contentPath
     }).then(function(result) {
-        var data = buildContent(result.rawData, config.get('siteUrl'));
-        delete result.rawData;
-        result.data = data;
-        callback(null, result);
+      var data = buildContent(result.rawData, config.get('siteUrl'));
+      delete result.rawData;
+      result.data = data;
+      callback(null, result);
     }).catch(function(err) {
       callback(err);
     });
   },
   list: function(repository, params, config, callback) {
-    repository.find(params).then(function(result) {
-        var data = [];
-        result.rawData.forEach(function(el) {
-          var content = buildContent(el, config.get('siteUrl'));
-          data.push(content);
-        });
-        delete result.rawData;
-        result.data = data;
-        callback(null, result);
+    repository.find(_.extend(params, {
+      postPerPage: config.postPerPage,
+      contentPath: config.contentPath
+    })).then(function(result) {
+      var data = [];
+      result.rawData.forEach(function(el) {
+        var content = buildContent(el, config.get('siteUrl'));
+        data.push(content);
+      });
+      delete result.rawData;
+      result.data = data;
+      callback(null, result);
     }).catch(function(err) {
       callback(err);
     });
@@ -61,7 +67,14 @@ var actions = {
 };
 
 var postService = function(config) {
-  var repositories = require(config.appRoot + '/' + config.get('repository-strategy.type'))();
+  var repositories = require(path.resolve(config.appRoot, config.get('repository-strategy.type')))();
+  if (config.highlightCode) {
+    marked.setOptions({
+      highlight: function (code) {
+        return require('highlight.js').highlightAuto(code).value;
+      }
+    });
+  }
   return {
     name: 'content',
     read: function(req, resource, params, conf, callback) {

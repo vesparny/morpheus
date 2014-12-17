@@ -18,11 +18,13 @@ var ApplicationStore = createStore({
     this.pageTitle = '';
     this.siteTitle = '';
     this.siteDescription = '';
+    this.authors = {};
     this.error = null;
   },
   appStart: function(data) {
     this.siteTitle = data.siteTitle;
     this.siteDescription = data.siteDescription;
+    this.authors = data.authors;
     this.emitChange();
   },
   updateMeta: function(meta) {
@@ -53,6 +55,9 @@ var ApplicationStore = createStore({
   getSiteUrl: function() {
     return this.siteUrl;
   },
+  getAuthors: function() {
+    return this.authors;
+  },
   setSiteUrl: function(url) {
     this.siteUrl = url;
     this.emitChange();
@@ -69,6 +74,7 @@ var ApplicationStore = createStore({
   },
   getState: function() {
     return {
+      authors : this.authors,
       route: this.route,
       siteUrl: this.siteUrl,
       pageTitle: this.pageTitle,
@@ -85,6 +91,7 @@ var ApplicationStore = createStore({
     return this.getState();
   },
   rehydrate: function(state) {
+    this.authors = state.authors;
     this.route = state.route;
     this.siteUrl = state.siteUrl;
     this.pageTitle = state.pageTitle;

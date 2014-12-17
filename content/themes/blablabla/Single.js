@@ -15,6 +15,7 @@ var Tags = require('./Tags');
 var StoreMixin = require('fluxible-app').StoreMixin;
 var gravatar = require('gravatar');
 var NavLink = require('flux-router-component').NavLink;
+var ApplicationStore = require('../../../stores/ApplicationStore');
 
 var Single = React.createClass({
   mixins: [StoreMixin],
@@ -58,6 +59,7 @@ var Single = React.createClass({
   },
   render: function() {
     var showLoader = !this.state.single.title;
+    var date = this.state.single.date;
     var style = {
       'backgroundImage': 'url('+gravatar.url(this.state.single.email, {s:250}, true)+')'
     };
@@ -67,6 +69,7 @@ var Single = React.createClass({
     var classes = cx(classesMap);
     var footer  = '';
     var header = '';
+    var authors = this.props.context.getStore(ApplicationStore).getAuthors();
     if (this.state.single.type === 'post') {
       footer =
       <footer className="post-footer">
@@ -77,8 +80,7 @@ var Single = React.createClass({
         <h4>{this.state.single.author}</h4>
 
         <div className="author-meta">
-        <p>Just another code Monkey</p>
-
+        <p>{authors[this.state.single.email].meta}</p>
         </div>
         </section>
         <section className="share">
@@ -101,7 +103,7 @@ var Single = React.createClass({
       <header className="post-header">
       <h1 className="post-title">{this.state.single.title}</h1>
       <section className="post-meta">
-      <time className="post-date" >{this.state.single.date}</time>
+      <time className="post-date" dateTime={date}>{date}</time>
       <Tags tags={this.state.single.tags} context={this.props.context}/>
       </section>
       </header>

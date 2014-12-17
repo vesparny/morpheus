@@ -5,13 +5,19 @@
 var React = require('react');
 var moment = require('moment');
 var ApplicationStore = require('../../../stores/ApplicationStore');
+var cx = require('react/lib/cx');
 
 var Footer = React.createClass({
   render: function() {
-    var classString = 'footer site-footer clearfix';
+    var classesMap = {
+      'footer': true,
+      'site-footer': true,
+      'clearfix': true
+    };
+    var classes = cx(classesMap);
     var year = moment().format('YYYY');
     return (
-      <footer className={classString}>
+      <footer className={classes}>
          <section className="copyright">{this.props.context.getStore(ApplicationStore).getSiteTitle()} &copy; {year}</section>
          <section className="poweredby">
           <span className="engine">Built with love using <a href="https://github.com/vesparny/morpheus" >{this.props.context.getStore(ApplicationStore).getSiteTitle()}</a></span>

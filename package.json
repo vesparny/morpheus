@@ -1,7 +1,7 @@
 {
   "name": "morpheus",
-  "version": "0.0.0",
-  "description": "The next generation blogging platform.",
+  "version": "0.0.1-alpha",
+  "description": "The next generation web publishing platform.",
   "main": "server.js",
   "repository": {
     "type": "git",

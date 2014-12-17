@@ -20,7 +20,8 @@ Morpheus.prototype.init = function() {
 
   clientConfig.data = {
     siteTitle: config.get('siteTitle'),
-    siteDescription: config.get('siteDescription')
+    siteDescription: config.get('siteDescription'),
+    authors: config.get('authors')
   };
 };
 
