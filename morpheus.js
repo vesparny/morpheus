@@ -8,12 +8,12 @@ var loggerFactory = new LoggerFactory(config);
 var servicesLoader = require('./services/');
 var clientConfig = require('./client-config');
 
-function Flash() {
+function Morpheus() {
   this.config = {};
   this.services = {};
 }
 
-Flash.prototype.init = function() {
+Morpheus.prototype.init = function() {
   this.config = config;
   //load services
   this.services = servicesLoader(this.config);
@@ -24,11 +24,11 @@ Flash.prototype.init = function() {
   };
 };
 
-Flash.prototype.logger = loggerFactory.create('flash');
+Morpheus.prototype.logger = loggerFactory.create('morpheus');
 
-Flash.prototype.getLogger = loggerFactory.create.bind(loggerFactory);
+Morpheus.prototype.getLogger = loggerFactory.create.bind(loggerFactory);
 
-Flash.prototype.run = function(callback) {
+Morpheus.prototype.run = function(callback) {
   var that = this;
   var expressApp = expressLoader();
   var params = {
@@ -45,6 +45,6 @@ Flash.prototype.run = function(callback) {
 
 };
 
-var flash = new Flash();
-flash.init();
-module.exports = flash;
+var morpheus = new Morpheus();
+morpheus.init();
+module.exports = morpheus;

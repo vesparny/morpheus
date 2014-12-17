@@ -1,8 +1,8 @@
 'use strict';
 
 require('node-jsx').install();
-var flash = require('./flash');
+var morpheus = require('./morpheus');
 
-flash.run(function(data) {
-  flash.logger.info('Worker %s is running flash@%s on port %d', process.pid, data.version, data.port);
+morpheus.run(function(data) {
+  morpheus.logger.info('Worker %s is running morpheus@%s on port %d', process.pid, data.version, data.port);
 });

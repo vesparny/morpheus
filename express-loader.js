@@ -16,14 +16,13 @@ module.exports = function() {
   var sslRedirection = require('./middlewares/ssl-redirection');
   var navigation = require('./middlewares/navigation');
   var notFound = require('./middlewares/not-found');
-  var navigateAction = require('flux-router-component').navigateAction;
   var helmet = require('helmet');
   var appContext = require('./context');
-  var flash = require('./flash');
+  var morpheus = require('./morpheus');
   var server = express();
   var fetchrPlugin = appContext.getPlugin('FetchrPlugin');
 
-  flash.logger.info('creating express application');
+  morpheus.logger.info('creating express application');
   expressState.extend(server);
   server.set('state namespace', 'App');
   server.use(favicon(__dirname + '/content/themes/blablabla/assets/favicon.ico'));
@@ -55,7 +54,7 @@ module.exports = function() {
   server.use(helmet.ienoopen());
   server.disable('x-powered-by');
 
-  fetchrPlugin.registerService(flash.services.content);
+  fetchrPlugin.registerService(morpheus.services.content);
   server.use(fetchrPlugin.getXhrPath(), fetchrPlugin.getMiddleware());
 
   server.use(sslRedirection);
@@ -64,8 +63,8 @@ module.exports = function() {
 
   routes(server);
 
-  server.use(errors.call(null, flash.getLogger('express-loader')));
+  server.use(errors.call(null, morpheus.getLogger('express-loader')));
   // Assume 404 since no middleware responded
-  server.use(notFound.call(null, flash.getLogger('express-loader')));
+  server.use(notFound.call(null, morpheus.getLogger('express-loader')));
   return server;
 };

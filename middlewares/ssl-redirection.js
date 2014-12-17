@@ -1,9 +1,9 @@
 'use strict';
 
-var flash = require('../flash');
+var morpheus = require('../morpheus');
 
 module.exports = function(req, res, next) {
-  if (flash.config.useSSL) {
+  if (morpheus.config.useSSL) {
     if (req.headers['x-forwarded-proto'] === 'http') {
       return res.redirect(301, 'https://' + req.headers.host + req.path);
     } else {

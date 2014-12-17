@@ -1,11 +1,11 @@
 {
-  "name": "flash",
+  "name": "morpheus",
   "version": "0.0.0",
   "description": "The next generation blogging platform.",
   "main": "server.js",
   "repository": {
     "type": "git",
-    "url": "https://github.com/vesparny/flash"
+    "url": "https://github.com/vesparny/morpheus"
   },
   "keywords": [
     "react",
@@ -16,9 +16,9 @@
   "author": "Alessandro Arnodo",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/vesparny/flash/issues"
+    "url": "https://github.com/vesparny/morpheus/issues"
   },
-  "homepage": "https://github.com/vesparny/flash",
+  "homepage": "https://github.com/vesparny/morpheus",
   "dependencies": {
     "body-parser": "~1.10.0",
     "bunyan": "~1.2.3",

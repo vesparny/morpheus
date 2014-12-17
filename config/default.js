@@ -15,8 +15,8 @@ module.exports = {
   configDir: path.resolve(appRoot, 'config'),
   siteUrl: 'http://localhost:3000',
   useSSL: false,
-  siteTitle: 'welcome',
-  siteDescription: 'to the next generation blogging platform',
+  siteTitle: 'Morpheus',
+  siteDescription: '- say hi to the next generation web publishing platform -',
   port: 3000,
   ip: '127.0.0.1'
 };

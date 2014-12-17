@@ -4,8 +4,8 @@
   padding: 0.5rem 15px;
   border-top: $silver 1px solid;
   font-family: "Open Sans", sans-serif;
-  @include font-size(14);
-  line-height: 1.75em;
+  font-size: rem-calc(13);
+  line-height: 1.75rem;
   color: $gray;
   section {
     @include vertical-align();
@@ -30,5 +30,4 @@
   display: block;
   width: 45%;
   float: left;
-
 }
