@@ -24,7 +24,7 @@ module.exports = function() {
 
   morpheus.logger.info('creating express application');
   expressState.extend(server);
-  server.set('state namespace', 'App');
+  server.set('state namespace', 'Morpheus');
   server.use(morganLogger('dev'));
   server.use(methodOverride());
   server.use(session({
@@ -45,7 +45,7 @@ module.exports = function() {
   }));
   server.use(multer());
   server.use('/content/images', express.static(path.join(morpheus.config.appRoot, '/content/images/')));
-  server.use(favicon(path.join(morpheus.config.appRoot, '/content/themes/', morpheus.config.theme, '/assets/favicon.ico')));
+  server.use(favicon(path.join(morpheus.config.appRoot, '/content/favicon.ico')));
   server.use(express.static(path.join(morpheus.config.appRoot, '/content/themes/', morpheus.config.theme)));
 
   // Use helmet to secure Express headers

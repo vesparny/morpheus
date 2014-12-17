@@ -17,7 +17,7 @@ module.exports = function(server) {
       var markup = React.renderToString(AppComponent({ //jshint ignore:line
         context: context.getComponentContext()
       }));
-      res.expose(fluxibleApp.dehydrate(context), 'App');
+      res.expose(fluxibleApp.dehydrate(context), 'Morpheus');
       serverUtils.render(res, markup);
     });
   });
@@ -37,7 +37,7 @@ module.exports = function(server) {
       var markup = React.renderToString(AppComponent({ //jshint ignore:line
         context: context.getComponentContext()
       }));
-      res.expose(fluxibleApp.dehydrate(context), 'App');
+      res.expose(fluxibleApp.dehydrate(context), 'Morpheus');
       serverUtils.render(res, markup);
     });
   });
@@ -55,7 +55,7 @@ module.exports = function(server) {
       var markup = React.renderToString(AppComponent({ //jshint ignore:line
         context: context.getComponentContext()
       }));
-      res.expose(fluxibleApp.dehydrate(context), 'App');
+      res.expose(fluxibleApp.dehydrate(context), 'Morpheus');
       serverUtils.render(res, markup);
     });
   });
@@ -73,7 +73,7 @@ module.exports = function(server) {
       var markup = React.renderToString(AppComponent({ //jshint ignore:line
         context: context.getComponentContext()
       }));
-      res.expose(fluxibleApp.dehydrate(context), 'App');
+      res.expose(fluxibleApp.dehydrate(context), 'Morpheus');
       serverUtils.render(res, markup);
     });
   });

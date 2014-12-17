@@ -7,7 +7,7 @@ var debug = require('debug');
 debug.enable('*');
 window.React = React;
 var appContext = require('./context');
-var dehydratedState = window.App; // Sent from the server
+var dehydratedState = window.Morpheus; // Sent from the server
 window.React = React; // For chrome dev tool support
 appContext.rehydrate(dehydratedState, function(err, context) {
   if (err) {
