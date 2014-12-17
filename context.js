@@ -7,9 +7,8 @@ var fetchrPlugin = require('fluxible-plugin-fetchr');
 var routes = require('./client-routes');
 var clientConfig = require('./client-config.js');
 
-
 var context = new FluxibleApp({
-  appComponent: React.createFactory(require(clientConfig.data.themePath + '/App'))
+  appComponent: React.createFactory(require('./content/themes/blablabla/App'))
 });
 
 context.plug(routrPlugin({
@@ -22,6 +21,7 @@ context.plug(fetchrPlugin({
 
 function configPlugin (options){
   var config = options.config;
+
   return {
     name: 'configPlugin',
     plugContext: function () {
@@ -41,6 +41,7 @@ function configPlugin (options){
     }
   };
 }
+
 context.plug(configPlugin({
   config:clientConfig.data
 }));

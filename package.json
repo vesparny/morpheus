@@ -23,7 +23,6 @@
     "body-parser": "~1.10.0",
     "bunyan": "~1.2.3",
     "bunyan-format": "~0.1.1",
-    "config": "~1.9.0",
     "connect-fs2": "~0.1.5",
     "debug": "~2.1.0",
     "downsize": "0.0.8",

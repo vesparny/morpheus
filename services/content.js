@@ -28,7 +28,7 @@ var actions = {
     repository.findOne({
       slug: params.slug,
       siteUrl: config.get('siteUrl'),
-      contentPath: config.contentPath
+      contentPath: config.get('contentPath')
     }).then(function(result) {
       var data = buildContent(result.rawData, config.get('siteUrl'));
       delete result.rawData;
@@ -40,8 +40,8 @@ var actions = {
   },
   list: function(repository, params, config, callback) {
     repository.find(_.extend(params, {
-      postPerPage: config.postPerPage,
-      contentPath: config.contentPath
+      postPerPage: config.get('postPerPage'),
+      contentPath: config.get('contentPath')
     })).then(function(result) {
       var data = [];
       result.rawData.forEach(function(el) {
@@ -67,7 +67,7 @@ var actions = {
 };
 
 var postService = function(config) {
-  var repositories = require(path.resolve(config.appRoot, config.get('repository-strategy.type')))();
+  var repositories = require(path.resolve(config.get('appRoot'), config.get('repository-strategy').type))();
   if (config.highlightCode) {
     marked.setOptions({
       highlight: function (code) {

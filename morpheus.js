@@ -1,13 +1,12 @@
 'use strict';
 
 var expressLoader = require('./express-loader');
-var config = require('config');
+var config = require('./config');
 var LoggerFactory = require('./logger-factory');
 var pkg = require('./package.json');
 var loggerFactory = new LoggerFactory(config);
 var servicesLoader = require('./services/');
 var clientConfig = require('./client-config');
-var path = require('path');
 
 function Morpheus() {
   this.config = {};
@@ -22,8 +21,7 @@ Morpheus.prototype.init = function() {
   clientConfig.data = {
     siteTitle: config.get('siteTitle'),
     siteDescription: config.get('siteDescription'),
-    authors: config.get('authors'),
-    themePath: path.resolve(config.get('appRoot'), 'content/themes', config.get('theme'))
+    authors: config.get('authors')
   };
 };
 
