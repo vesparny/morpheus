@@ -42,7 +42,6 @@
     "highlight.js": "~8.4.0",
     "inherits": "~2.0.1",
     "lodash": "~2.4.1",
-    "lokijs": "~1.0.2",
     "marked": "~0.3.2",
     "method-override": "~2.3.0",
     "moment": "~2.8.4",
@@ -51,7 +50,6 @@
     "node-jsx": "~0.12.4",
     "react": "~0.12.1",
     "serve-favicon": "~2.1.5",
-    "superagent": "~0.21.0",
     "underscore.string": "~2.4.0",
     "validator": "^3.24.0"
   },

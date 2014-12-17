@@ -7,6 +7,7 @@ var pkg = require('./package.json');
 var loggerFactory = new LoggerFactory(config);
 var servicesLoader = require('./services/');
 var clientConfig = require('./client-config');
+var path = require('path');
 
 function Morpheus() {
   this.config = {};
@@ -21,7 +22,8 @@ Morpheus.prototype.init = function() {
   clientConfig.data = {
     siteTitle: config.get('siteTitle'),
     siteDescription: config.get('siteDescription'),
-    authors: config.get('authors')
+    authors: config.get('authors'),
+    themePath: path.resolve(config.get('appRoot'), 'content/themes', config.get('theme'))
   };
 };
 

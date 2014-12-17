@@ -25,7 +25,6 @@ module.exports = function(server) {
   server.get('/page/:page', function(req, res, next) {
     var page = req.params.page || 0;
     if (!validator.isInt(page)) {
-      console.log("next");
       return next();
     }
     var context = res.locals.context;

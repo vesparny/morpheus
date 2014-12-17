@@ -9,7 +9,7 @@ var clientConfig = require('./client-config.js');
 
 
 var context = new FluxibleApp({
-  appComponent: React.createFactory(require('./content/themes/blablabla/App'))
+  appComponent: React.createFactory(require(clientConfig.data.themePath + '/App'))
 });
 
 context.plug(routrPlugin({
