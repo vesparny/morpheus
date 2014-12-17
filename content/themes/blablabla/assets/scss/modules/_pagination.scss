@@ -18,9 +18,8 @@
 .newer-posts {
   position: absolute;
   display: inline-block;
-  padding: 0 15px;
+  padding: 0 5px;
   text-decoration: none;
-  border-radius: 4px;
   transition: border ease 0.3s;
 }
 .older-posts {
@@ -38,6 +37,7 @@
 .newer-posts:hover {
   color: #889093;
   border-color: #98a0a4;
+  border-bottom: 1px solid;
 }
 .extra-pagination {
   display: none;
