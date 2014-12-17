@@ -3,7 +3,7 @@
 'use strict';
 
 var React = require('react');
-var NavLink = require('flux-router-component').NavLink;
+//var NavLink = require('flux-router-component').NavLink;
 
 var Tag = React.createClass({
   propTypes:{
@@ -11,7 +11,8 @@ var Tag = React.createClass({
   },
   render: function() {
     return (
-      <NavLink href={'/tag/'+this.props.tag.path} routeName={'tag'} context={this.props.context} >{this.props.tag.name}</NavLink>
+      <span className="tag-text">{this.props.tag.name}</span>
+      //<NavLink href={'/tag/'+this.props.tag.path} routeName={'tag'} context={this.props.context} >{this.props.tag.name}</NavLink>
     );
   }
 });
