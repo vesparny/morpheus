@@ -2,7 +2,7 @@
 
 var React = require('react');
 var ContentActions = require('../../shared/actions/ContentActions');
-var serverUtils = require('../../shared/utils').server;
+var serverUtils = require('../../server/utils');
 var validator = require('validator');
 
 module.exports = function(server) {

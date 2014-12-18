@@ -7,8 +7,16 @@ var fetchrPlugin = require('fluxible-plugin-fetchr');
 var routes = require('../client/client-routes');
 var clientConfig = require('../client/client-config.js');
 
+var appComponent;
+
+if (typeof window === 'undefined') {
+  appComponent = React.createFactory(require('../content/themes/'+clientConfig.get('theme')+'/App'));
+}else{
+  appComponent = React.createFactory(require('../content/themes/THEMETOBEREPLACED/App'));
+
+}
 var context = new FluxibleApp({
-  appComponent: React.createFactory(require('../content/themes/blablabla/App'))
+  appComponent: appComponent
 });
 
 context.plug(routrPlugin({

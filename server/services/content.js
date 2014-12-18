@@ -3,7 +3,7 @@
 var Promise = require('es6-promise').Promise; //jshint ignore:line
 var _s = require('underscore.string');
 var marked = require('marked');
-var serverUtils = require('../../shared/utils').server;
+var serverUtils = require('../../server/utils');
 var _ = require('lodash');
 var path = require('path');
 

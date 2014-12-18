@@ -76,6 +76,7 @@
     "run-sequence": "~1.0.2",
     "should": "~4.4.0",
     "sinon": "~1.12.1",
+    "through2": "^0.6.3",
     "vinyl-buffer": "~1.0.0",
     "vinyl-source-stream": "~1.0.0",
     "watchify": "~2.2.1"

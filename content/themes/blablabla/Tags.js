@@ -4,7 +4,7 @@
 
 var React = require('react');
 var Tag = require('./Tag');
-var clientUtils = require('../../../shared/utils').client;
+var clientUtils = require('../../../client/utils');
 
 var Tags = React.createClass({
   propTypes:{

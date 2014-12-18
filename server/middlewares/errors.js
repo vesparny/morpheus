@@ -1,7 +1,7 @@
 'use strict';
 
 var util = require('util');
-var serverUtils = require('../../shared/utils').server;
+var serverUtils = require('../../server/utils');
 var React = require('react');
 var ContentActions = require('../../shared/actions/ContentActions');
 

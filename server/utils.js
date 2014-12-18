@@ -2,7 +2,8 @@
 
 var downsize = require('downsize');
 var React = require('react');
-var HtmlComponent = React.createFactory(require('../../content/themes/blablabla/Html'));
+var config = require('../shared/configuration');
+var HtmlComponent = React.createFactory(require('../content/themes/'+ config.get('theme')+ '/Html'));
 
 module.exports = {
   detectEnvironment: function() {
