@@ -5,6 +5,9 @@ var React = require('react');
 var scriptIsAdded = false;
 
 var Clicky = React.createClass({
+  propTypes:{
+    code: React.PropTypes.number.isRequired
+  },
   componentDidMount: function() {
     if (!scriptIsAdded) {
       return this.addScript();
@@ -21,7 +24,7 @@ var Clicky = React.createClass({
     s = document.getElementsByTagName('script')[0];
     s.parentNode.insertBefore(el, s);
     try {
-      window.clicky.init(100796735);
+      window.clicky.init(this.props.code);
     } catch (e) {}
   },
   render: function() {

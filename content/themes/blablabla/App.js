@@ -11,7 +11,7 @@ var ApplicationStore = require('../../../shared/stores/ApplicationStore');
 var RouterMixin = require('flux-router-component').RouterMixin;
 var StoreMixin = require('fluxible-app').StoreMixin;
 var canUseDOM = require('react/lib/ExecutionEnvironment').canUseDOM;
-
+var Clicky = require('../../../shared/core-components/Clicky');
 
 var App = React.createClass({
   mixins: [RouterMixin, StoreMixin],
@@ -36,16 +36,36 @@ var App = React.createClass({
   render: function(){
     this.handleDomChanges();
     if (this.state.error) {
-      return <ErrorPage context={this.props.context} error={this.state.error}/>;
+      return (
+        <div>
+          <ErrorPage context={this.props.context} error={this.state.error}/>;
+          <Clicky code={100796735}/>
+        </div>
+      );
     }
     if (this.state.route.name === 'home' || this.state.route.name === 'page') {
-      return <PostList context={this.props.context} siteUrl={this.state.siteUrl} page={this.state.route.params.page} pageCount={this.state.pageCount} totalCount={this.state.totalCount}/>;
+      return (
+        <div>
+        <PostList context={this.props.context} siteUrl={this.state.siteUrl} page={this.state.route.params.page} pageCount={this.state.pageCount} totalCount={this.state.totalCount}/>;
+        <Clicky code={100796735}/>
+        </div>
+      );
     }
     if (this.state.route.name === 'single') {
-      return <Single context={this.props.context} slug={this.state.route.params.slug} siteUrl={this.state.siteUrl}/>;
+      return (
+        <div>
+        <Single context={this.props.context} slug={this.state.route.params.slug} siteUrl={this.state.siteUrl}/>;
+        <Clicky code={100796735}/>
+        </div>
+      );
     }
     if (this.state.route.name === 'tag') {
-      return <TagPage context={this.props.context} slug={this.state.route.params.tag} siteUrl={this.state.siteUrl}/>;
+      return (
+        <div>
+        <TagPage context={this.props.context} slug={this.state.route.params.tag} siteUrl={this.state.siteUrl}/>;
+        <Clicky code={100796735}/>
+        </div>
+      );
     }
     return '';
   }

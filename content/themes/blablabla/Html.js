@@ -2,7 +2,6 @@
 
 var React = require('react');
 var ApplicationStore = require('../../../shared/stores/ApplicationStore');
-var Clicky = require('../../../shared/core-components/Clicky');
 
 var Html = React.createClass({
   render: function(){
@@ -20,7 +19,6 @@ var Html = React.createClass({
       <body dangerouslySetInnerHTML={{__html: this.props.markup}}></body>
     <script dangerouslySetInnerHTML={{__html: this.props.state}}></script>
     <script src="/assets/dist/bundle.js"></script>
-    <Clicky />
     </html>
     )
   }
