@@ -6,9 +6,12 @@ var browserify = require('browserify');
 var source = require('vinyl-source-stream');
 var buffer = require('vinyl-buffer');
 var reactify = require('reactify');
+var envify = require('envify');
 var del = require('del');
 var watchify = require('watchify');
 var runSequence = require('run-sequence');
+var argv = require('minimist')(process.argv.slice(2));
+
 var config = {
   client: './client.js',
   mainScss: './content/themes/blablabla/assets/scss/main.scss',
@@ -22,13 +25,27 @@ gulp.task('clean', function(cb) {
 });
 
 gulp.task('browserify', function() {
-  browserify(config.client)
+  return browserify(config.client)
+    .transform(envify)
     .transform(reactify)
     .bundle()
     .pipe(source(config.bundle))
     .pipe(buffer())
-    //.pipe($.uglify())
+    .pipe($.if(argv.env === 'production', $.uglify()))
+    .pipe($.rev())
+    .pipe($.if(argv.env === 'production', $.rename(function (path) {
+      path.basename += '.min';
+    })))
+    .pipe(gulp.dest(config.dist))
+    .pipe($.rev.manifest())
     .pipe(gulp.dest(config.dist));
+});
+
+gulp.task('replace', function() {
+  var manifest = require(config.dist +'/rev-manifest.json');
+  return gulp.src('./content/themes/blablabla/Html.js')
+  .pipe($.replace(/bundle.*\.js/, manifest['bundle.js']))
+  .pipe(gulp.dest('./content/themes/blablabla'));
 });
 
 gulp.task('watchify', function() {
@@ -40,11 +57,11 @@ gulp.task('watchify', function() {
       .on('error', $.notify.onError())
       .pipe(source(config.bundle))
       .pipe(buffer())
-      //.pipe($.uglify())
       .pipe(gulp.dest(config.dist));
   }
 
-  bundler.transform(reactify)
+  bundler.transform(envify)
+  .transform(reactify)
     .on('update', rebundle);
   return rebundle();
 });
@@ -52,11 +69,16 @@ gulp.task('watchify', function() {
 gulp.task('styles', function() {
   return gulp.src(config.mainScss)
     .pipe($.changed(config.dist))
-    .pipe($.rubySass())
+    .pipe($.rubySass({
+      sourceMap: false
+    }))
     .on('error', function(err) {
       console.log(err.message);
     })
-    //.pipe($.csso())
+    .pipe($.if(argv.env === 'production' && '*.css', $.cssmin()))
+    .pipe($.if(argv.env === 'production', $.rename(function (path) {
+      path.basename += '.min';
+    })))
     .pipe(gulp.dest(config.dist));
 });
 
@@ -64,10 +86,6 @@ gulp.task('watchers', function() {
   gulp.watch(config.scss, ['styles']);
 });
 
-
-gulp.task('watch', ['clean'], function(cb) {
-  runSequence('styles', 'watchify', 'server', 'watchers', cb);
-});
 
 gulp.task('server', function() {
   $.nodemon({
@@ -79,6 +97,16 @@ gulp.task('server', function() {
     });
 });
 
+gulp.task('build', ['clean'], function(cb) {
+  process.env.NODE_ENV = argv.env || 'development';
+  runSequence('styles', 'browserify','replace', 'server', 'watchers', cb);
+});
+
+gulp.task('watch', ['clean'], function(cb) {
+  process.env.NODE_ENV = argv.env || 'development';
+  runSequence('styles', 'watchify', 'server', 'watchers', cb);
+});
+
 gulp.task('default', function() {
-  gulp.start('watch');
+  console.log('run gulp build || gulp watch');
 });

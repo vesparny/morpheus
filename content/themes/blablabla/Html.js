@@ -19,7 +19,7 @@ var Html = React.createClass({
     </head>
       <body dangerouslySetInnerHTML={{__html: this.props.markup}}></body>
     <script dangerouslySetInnerHTML={{__html: this.props.state}}></script>
-    <script src="/assets/dist/bundle.js"></script>
+    <script src="/assets/dist/undefined"></script>
     <Clicky />
     </html>
     )
