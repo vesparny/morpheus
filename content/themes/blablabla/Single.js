@@ -16,6 +16,7 @@ var StoreMixin = require('fluxible-app').StoreMixin;
 var gravatar = require('gravatar');
 var NavLink = require('flux-router-component').NavLink;
 var ApplicationStore = require('../../../shared/stores/ApplicationStore');
+var Disqus = require('../../../shared/core-components/Disqus');
 
 var Single = React.createClass({
   mixins: [StoreMixin],
@@ -118,6 +119,7 @@ var Single = React.createClass({
             {header}
           <section className="post-content" dangerouslySetInnerHTML={{__html: this.state.single.content}}></section>
           {footer}
+          <Disqus code={1234}/>
         </div>
       </article>
     </div>
