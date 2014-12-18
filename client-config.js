@@ -1,5 +1,5 @@
 'use strict';
 
-var clientConfig = {};
-clientConfig.data = {};
-module.exports = clientConfig;
+
+var config = require('./configuration');
+module.exports = config;

@@ -1,7 +1,7 @@
 'use strict';
 
 var expressLoader = require('./express-loader');
-var config = require('./config');
+var config = require('./configuration');
 var LoggerFactory = require('./logger-factory');
 var pkg = require('./package.json');
 var loggerFactory = new LoggerFactory(config);
