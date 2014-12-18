@@ -37,14 +37,23 @@ gulp.task('browserify', function() {
       path.basename += '.min';
     })))
     .pipe(gulp.dest(config.dist))
-    .pipe($.rev.manifest())
+    .pipe($.rev.manifest({path: 'manifest-js.json'}))
     .pipe(gulp.dest(config.dist));
 });
 
 gulp.task('replace', function() {
-  var manifest = require(config.dist +'/rev-manifest.json');
+  var manifestCss = require(config.dist +'/manifest-css.json');
+  var manifestJs = require(config.dist +'/manifest-js.json');
   return gulp.src('./content/themes/blablabla/Html.js')
-  .pipe($.replace(/bundle.*\.js/, manifest['bundle.js']))
+  .pipe($.replace(/bundle.*\.js/, manifestJs['bundle.js']))
+  .pipe($.replace(/main.*\.css/, manifestCss['main.css']))
+  .pipe(gulp.dest('./content/themes/blablabla'));
+});
+
+gulp.task('replaceDev', function() {
+  return gulp.src('./content/themes/blablabla/Html.js')
+  .pipe($.replace(/bundle.*\.js/, 'bundle.js'))
+  .pipe($.replace(/main.*\.css/, 'main.css'))
   .pipe(gulp.dest('./content/themes/blablabla'));
 });
 
@@ -76,10 +85,13 @@ gulp.task('styles', function() {
       console.log(err.message);
     })
     .pipe($.if(argv.env === 'production' && '*.css', $.cssmin()))
-    .pipe($.if(argv.env === 'production', $.rename(function (path) {
+    .pipe($.if(argv.env === 'production' && '*.css', $.rev()))
+    .pipe($.if(argv.env === 'production' && '*.css', $.rename(function (path) {
       path.basename += '.min';
     })))
-    .pipe(gulp.dest(config.dist));
+    .pipe(gulp.dest(config.dist))
+    .pipe($.if(argv.env === 'production' && '*.css', $.rev.manifest({path: 'manifest-css.json'})))
+    .pipe($.if(argv.env === 'production' && '*.css', gulp.dest(config.dist)));
 });
 
 gulp.task('watchers', function() {
@@ -104,7 +116,7 @@ gulp.task('build', ['clean'], function(cb) {
 
 gulp.task('watch', ['clean'], function(cb) {
   process.env.NODE_ENV = argv.env || 'development';
-  runSequence('styles', 'watchify', 'server', 'watchers', cb);
+  runSequence('styles', 'watchify', 'replaceDev', 'server', 'watchers', cb);
 });
 
 gulp.task('default', function() {
