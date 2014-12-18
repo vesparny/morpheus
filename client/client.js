@@ -5,7 +5,6 @@
 var React = require('react');
 var debug = require('debug');
 debug.enable('*');
-window.React = React;
 var appContext = require('../shared/context');
 var dehydratedState = window.Morpheus; // Sent from the server
 window.React = React; // For chrome dev tool support
