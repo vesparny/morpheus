@@ -4,11 +4,11 @@ var React = require('react');
 var FluxibleApp = require('fluxible-app');
 var routrPlugin = require('fluxible-plugin-routr');
 var fetchrPlugin = require('fluxible-plugin-fetchr');
-var routes = require('./client-routes');
-var clientConfig = require('./client-config.js');
+var routes = require('../client/client-routes');
+var clientConfig = require('../client/client-config.js');
 
 var context = new FluxibleApp({
-  appComponent: React.createFactory(require('./content/themes/blablabla/App'))
+  appComponent: React.createFactory(require('../content/themes/blablabla/App'))
 });
 
 context.plug(routrPlugin({

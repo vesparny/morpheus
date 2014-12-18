@@ -1,8 +1,8 @@
 'use strict';
 
 var React = require('react');
-var ContentActions = require('../actions/ContentActions');
-var serverUtils = require('../utils').server;
+var ContentActions = require('../../shared/actions/ContentActions');
+var serverUtils = require('../../shared/utils').server;
 var validator = require('validator');
 
 module.exports = function(server) {

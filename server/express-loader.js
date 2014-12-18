@@ -17,8 +17,8 @@ module.exports = function() {
   var navigation = require('./middlewares/navigation');
   var notFound = require('./middlewares/not-found');
   var helmet = require('helmet');
-  var appContext = require('./context');
-  var morpheus = require('./morpheus');
+  var appContext = require('../shared/context');
+  var morpheus = require('../morpheus');
   var server = express();
   var fetchrPlugin = appContext.getPlugin('FetchrPlugin');
 
@@ -29,7 +29,7 @@ module.exports = function() {
   server.use(methodOverride());
   server.use(session({
     store: new FSStore({
-      dir: __dirname + '/content/sessions'
+      dir: path.join(morpheus.config.get('appRoot'), '/content/sessions')
     }),
     resave: true,
     saveUninitialized: true,
@@ -45,7 +45,7 @@ module.exports = function() {
   }));
   server.use(multer());
   server.use('/content/images', express.static(path.join(morpheus.config.get('appRoot'), '/content/images/')));
-  server.use(favicon(path.join(morpheus.config.get('appRoot'), '/content/favicon.ico')));
+  server.use(favicon(path.join(morpheus.config.get('appRoot'), 'content/favicon.ico')));
   server.use(express.static(path.join(morpheus.config.get('appRoot'), '/content/themes/', morpheus.config.get('theme'))));
 
   // Use helmet to secure Express headers

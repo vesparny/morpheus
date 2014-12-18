@@ -1,9 +1,9 @@
 'use strict';
 
 var util = require('util');
-var serverUtils = require('../utils').server;
+var serverUtils = require('../../shared/utils').server;
 var React = require('react');
-var ContentActions = require('../actions/ContentActions');
+var ContentActions = require('../../shared/actions/ContentActions');
 
 module.exports = function(log) {
   return function(req, res) { // jshint ignore:line

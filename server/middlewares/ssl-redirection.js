@@ -1,6 +1,6 @@
 'use strict';
 
-var morpheus = require('../morpheus');
+var morpheus = require('../../morpheus');
 
 module.exports = function(req, res, next) {
   if (morpheus.config.useSSL) {

@@ -4,7 +4,7 @@
 
 var React = require('react');
 var NavLink = require('flux-router-component').NavLink;
-var ApplicationStore = require('../../../stores/ApplicationStore');
+var ApplicationStore = require('../../../shared/stores/ApplicationStore');
 
 var Header = React.createClass({
   propTypes:{

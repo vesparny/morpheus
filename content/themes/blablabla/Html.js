@@ -1,8 +1,8 @@
 'use strict';
 
 var React = require('react');
-var ApplicationStore = require('../../../stores/ApplicationStore');
-var Clicky = require('../../../core-components/Clicky');
+var ApplicationStore = require('../../../shared/stores/ApplicationStore');
+var Clicky = require('../../../shared/core-components/Clicky');
 
 var Html = React.createClass({
   render: function(){

@@ -1,12 +1,12 @@
 'use strict';
 
-var expressLoader = require('./express-loader');
-var config = require('./configuration');
-var LoggerFactory = require('./logger-factory');
+var expressLoader = require('./server/express-loader');
+var config = require('./shared/configuration');
+var LoggerFactory = require('./server/logger-factory');
 var pkg = require('./package.json');
 var loggerFactory = new LoggerFactory(config);
-var servicesLoader = require('./services/');
-var clientConfig = require('./client-config');
+var servicesLoader = require('./server/services/');
+var clientConfig = require('./client/client-config');
 
 function Morpheus() {
   this.config = {};

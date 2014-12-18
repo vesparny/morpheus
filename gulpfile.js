@@ -13,7 +13,7 @@ var runSequence = require('run-sequence');
 var argv = require('minimist')(process.argv.slice(2));
 
 var config = {
-  client: './client.js',
+  client: './client/client.js',
   mainScss: './content/themes/blablabla/assets/scss/main.scss',
   scss: './content/themes/blablabla/assets/scss/**/*.scss',
   bundle: 'bundle.js',

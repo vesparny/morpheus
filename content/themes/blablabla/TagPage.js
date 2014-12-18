@@ -3,7 +3,7 @@
 'use strict';
 
 var React = require('react');
-var ContentListStore = require('../../../stores/ContentListStore');
+var ContentListStore = require('../../../shared/stores/ContentListStore');
 var HeaderSingle = require('./HeaderSingle');
 var Footer = require('./Footer');
 var StoreMixin = require('fluxible-app').StoreMixin;

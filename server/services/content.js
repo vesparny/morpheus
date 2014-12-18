@@ -3,7 +3,7 @@
 var Promise = require('es6-promise').Promise; //jshint ignore:line
 var _s = require('underscore.string');
 var marked = require('marked');
-var serverUtils = require('../utils').server;
+var serverUtils = require('../../shared/utils').server;
 var _ = require('lodash');
 var path = require('path');
 
@@ -67,7 +67,7 @@ var actions = {
 };
 
 var postService = function(config) {
-  var repositories = require(path.resolve(config.get('appRoot'), config.get('repository-strategy').type))();
+  var repositories = require(path.resolve(config.get('appRoot'), 'server' ,config.get('repository-strategy').type))();
   if (config.highlightCode) {
     marked.setOptions({
       highlight: function (code) {

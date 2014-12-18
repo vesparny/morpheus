@@ -4,7 +4,7 @@
 
 var React = require('react');
 var moment = require('moment');
-var ApplicationStore = require('../../../stores/ApplicationStore');
+var ApplicationStore = require('../../../shared/stores/ApplicationStore');
 var cx = require('react/lib/cx');
 
 var Footer = React.createClass({

@@ -5,9 +5,9 @@
 var React = require('react');
 var cx = require('react/lib/cx');
 var PostListElement = require('./PostListElement');
-var ContentActions = require('../../../actions/ContentActions');
-var ContentStore = require('../../../stores/ContentStore');
-var InitialStateMixin = require('../../../mixins/InitialStateMixin');
+var ContentActions = require('../../../shared/actions/ContentActions');
+var ContentStore = require('../../../shared/stores/ContentStore');
+var InitialStateMixin = require('../../../shared/mixins/InitialStateMixin');
 var Loader = require('./Loader');
 var HeaderSingle = require('./HeaderSingle');
 var Footer = require('./Footer');
@@ -15,7 +15,7 @@ var Tags = require('./Tags');
 var StoreMixin = require('fluxible-app').StoreMixin;
 var gravatar = require('gravatar');
 var NavLink = require('flux-router-component').NavLink;
-var ApplicationStore = require('../../../stores/ApplicationStore');
+var ApplicationStore = require('../../../shared/stores/ApplicationStore');
 
 var Single = React.createClass({
   mixins: [StoreMixin],
