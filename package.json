@@ -49,9 +49,9 @@
     "node-jsx": "~0.12.4",
     "object-assign": "~2.0.0",
     "react": "~0.12.1",
-    "serve-favicon": "~2.1.5",
+    "serve-favicon": "~2.2.0",
     "underscore.string": "~2.4.0",
-    "validator": "~3.24.0"
+    "validator": "~3.26.0"
   },
   "devDependencies": {
     "browserify": "~7.0.0",
