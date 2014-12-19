@@ -18,11 +18,11 @@ var Paginator = React.createClass({
     var page = parseInt(this.props.page, 10);
     page = isNaN(page) ? 1 : page;
     if (page > 1) {
-      var toPrev = page === 2  ?  '/' : '/page/'+(page - 1);
+      var toPrev = page === 2  ?  '/' : '/page/'+(page - 1)+'/';
       prev = <NavLink href={toPrev} className="newer-posts" context={this.props.context} >← Newer Posts</NavLink>;
     }
     if (page < this.props.pageCount) {
-      var toNext = '/page/'+ (page + 1);
+      var toNext = '/page/'+ (page + 1)+'/';
       next = <NavLink href={toNext} className="older-posts" context={this.props.context} >Older Posts →</NavLink>;
     }
     return (

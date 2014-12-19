@@ -17,7 +17,7 @@ var Header = React.createClass({
       <header className='main-header'>
         <nav className='main-nav overlay clearfix'>
         <a href='https://github.com/vesparny/morpheus' className="icon-morpheus blog-logo"><span className='hidden'>morpheus</span></a>
-        <NavLink href='/a-static-page' context={this.props.context} className="menu-button">A Static Page</NavLink>
+        <NavLink href='/a-static-page/' context={this.props.context} className="menu-button">A Static Page</NavLink>
         </nav>
         <div className='vertical'>
           <div className='main-header-content inner'>

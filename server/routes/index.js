@@ -24,7 +24,7 @@ module.exports = function(server) {
     });
   });
 
-  server.get('/page/:page', function(req, res, next) {
+  server.get('/page/:page/', function(req, res, next) {
     var page = req.params.page || '0';
     if (!validator.isInt(page)) {
       return next();
@@ -46,7 +46,7 @@ module.exports = function(server) {
     });
   });
 
-  server.get('/:slug', function(req, res, next) {
+  server.get('/:slug/', function(req, res, next) {
     var context = res.locals.context;
     var fluxibleApp = res.locals.fluxibleApp;
     context.getActionContext().executeAction(ContentActions.single, {
@@ -64,7 +64,7 @@ module.exports = function(server) {
     });
   });
 
-  server.get('/tag/:tag', function(req, res, next) {
+  server.get('/tag/:tag/', function(req, res, next) {
     var context = res.locals.context;
     var fluxibleApp = res.locals.fluxibleApp;
     context.getActionContext().executeAction(ContentActions.tag, {
