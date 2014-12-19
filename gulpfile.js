@@ -12,6 +12,7 @@ var watchify = require('watchify');
 var runSequence = require('run-sequence');
 var argv = require('minimist')(process.argv.slice(2));
 var through = require('through2');
+var moment = require('moment');
 process.env.NODE_ENV = argv.env || 'development';
 var configuration = require('./shared/configuration');
 
@@ -29,6 +30,8 @@ function replaceTheme(file) {
 }
 
 var config = {
+  draft: './content/drafts/welcome-to-morpheus.md',
+  posts: './content/posts/',
   client: './client/client.js',
   mainScss: './content/themes/' + configuration.get('theme') + '/assets/scss/main.scss',
   scss: './content/themes/' + configuration.get('theme') + '/assets/scss/**/*.scss',
@@ -102,7 +105,7 @@ gulp.task('styles', function() {
       sourceMap: false
     }))
     .on('error', function(err) {
-      console.log(err.message);
+      $.util.log($.util.colors.red(err.message));
     })
     .pipe($.if(argv.env === 'production' && '*.css', $.cssmin()))
     .pipe($.if(argv.env === 'production' && '*.css', $.rev()))
@@ -127,8 +130,17 @@ gulp.task('server', function() {
       ext: 'js'
     })
     .on('restart', function() {
-      console.log('restarted!');
+      $.util.log($.util.colors.red('restarted'));
     });
+});
+
+gulp.task('install', function() {
+  gulp.src(config.draft)
+    .pipe($.rename({
+      prefix: moment().format('YYYY-MM-DD HHmmss-')
+    }))
+    .pipe(gulp.dest(config.posts));
+  $.util.log($.util.colors.green('you are ready to go, run gulp watch'));
 });
 
 gulp.task('build', ['clean'], function(cb) {
@@ -140,5 +152,5 @@ gulp.task('watch', ['clean'], function(cb) {
 });
 
 gulp.task('default', function() {
-  console.log('run gulp build || gulp watch');
+  $.util.log($.util.colors.green('run gulp build || gulp watch'));
 });

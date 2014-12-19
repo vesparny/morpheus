@@ -72,6 +72,7 @@ var Single = React.createClass({
     var header = '';
     var disqus = null;
     var authors = this.props.context.getStore(ApplicationStore).getGlobals().authors;
+    var authorMeta = authors[this.state.single.email] && authors[this.state.single.email].meta;
     var disqusComments = this.props.context.getStore(ApplicationStore).getGlobals().disqusComments;
     if (this.state.single.type === 'post') {
       if (disqusComments) {
@@ -86,7 +87,7 @@ var Single = React.createClass({
         <h4>{this.state.single.author}</h4>
 
         <div className="author-meta">
-        <p>{authors[this.state.single.email].meta}</p>
+        <p>{authorMeta}</p>
         </div>
         </section>
         <section className="share">

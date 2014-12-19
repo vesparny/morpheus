@@ -63,7 +63,7 @@ var PostList = React.createClass({
       }.bind(this));
       paginator = <Paginator context={this.props.context} page={this.props.page} pageCount={this.props.pageCount} totalCount={this.props.totalCount}/>;
     }else{
-      posts.push(<div key={1} className="text-center no-posts">No posts yet!</div>);
+      posts.push(<div key={1} className="text-center no-posts">No posts yet! Did you run <code>$ gulp install</code> ?</div>);
     }
     var classesMap = {};
     classesMap.wrapper = true;

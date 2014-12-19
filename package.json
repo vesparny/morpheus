@@ -69,6 +69,7 @@
     "gulp-rev": "~2.0.1",
     "gulp-ruby-sass": "~0.7.1",
     "gulp-uglify": "~1.0.1",
+    "gulp-util": "^3.0.1",
     "jest": "~0.1.37",
     "minimist": "~1.1.0",
     "mocha": "~2.0.1",

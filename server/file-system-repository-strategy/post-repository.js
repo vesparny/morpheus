@@ -38,7 +38,7 @@ function readFile(file) {
       } else {
         var parsed = fm(data);
         var filename = path.basename(file);
-        parsed.attributes.rawDate =  moment(filename.substring(0, 19), 'YYYY-MM-DD HH:mm:ss');
+        parsed.attributes.rawDate =  moment(filename.substring(0, 19), 'YYYY-MM-DD HHmmss');
         var content = buildContent(parsed);
         resolve(content);
       }
@@ -83,8 +83,8 @@ PostRepository.prototype.find = function(options) {
         files.sort(function(a, b){
           var filenameA = path.basename(a);
           var filenameB = path.basename(b);
-          var dateA = moment(filenameA.substring(0, 19), 'YYYY-MM-DD HH:mm:ss');
-          var dateB = moment(filenameB.substring(0, 19), 'YYYY-MM-DD HH:mm:ss');
+          var dateA = moment(filenameA.substring(0, 19), 'YYYY-MM-DD HHmmss');
+          var dateB = moment(filenameB.substring(0, 19), 'YYYY-MM-DD HHmmss');
           return dateB.unix() - dateA.unix();
         });
         var sliced = files.slice((response.meta.page - 1) * response.meta.perPage, response.meta.page * response.meta.perPage);
@@ -116,7 +116,7 @@ PostRepository.prototype.findOne = function(options) {
     rawData: undefined
   };
   return new Promise(function(resolve, reject) {
-    glob(path.resolve(options.contentPath, 'posts') + '/*[0-9][0-9]:[0-9][0-9]:[0-9][0-9]-' + options.slug + '.md', function(err, files) {
+    glob(path.resolve(options.contentPath, 'posts') + '/*[0-9][0-9][0-9][0-9][0-9][0-9]-' + options.slug + '.md', function(err, files) {
       if (err) {
         reject(new errors.InternalServer());
       }

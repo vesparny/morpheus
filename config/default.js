@@ -11,27 +11,24 @@ module.exports = {
   'repository-strategy': {
     type: 'file-system-repository-strategy'
   },
-  debug: true,
+  debug: true, //useful for seeing some logs in the browser console
   appRoot: appRoot,
   configDir: path.resolve(appRoot, 'config'),
   contentPath: path.resolve(appRoot, 'content'),
-  postPerPage: 3,
-  siteUrl: 'http://localhost:3000',
-  useSSL: false,
+  postPerPage: 3, // number of posts per page
+  siteUrl: 'http://localhost:3000', // the url of your website
+  useSSL: false, // if true it redirects all incoming requests to the https url
   siteTitle: 'Morpheus',
-  highlightCode: true,
-  theme: 'blablabla',
+  highlightCode: true, // if true it highlights code blocks with hoghlightjs
+  theme: 'blablabla', // currently used theme
   siteDescription: '- say hi to the next generation web publishing platform -',
   port: 3000,
   ip: '127.0.0.1',
   authors: {
-    'alessandro@arnodo.net': {
-      meta: 'Just another code monkey!'
+    'youreamail@yourwebsite.something': {
+      meta: 'I really like to write :)'
     }
-  }
-    /*
-    ,
-    clickyAnalytics :  //your clicky numeric code
-    disqusComments : 'your disqus shortname'
-    */
+  },
+  clickyAnalytics : '', //your clicky numeric code
+  disqusComments : '' //your disqus shortname
 };
