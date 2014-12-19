@@ -17,6 +17,7 @@ var gravatar = require('gravatar');
 var NavLink = require('flux-router-component').NavLink;
 var ApplicationStore = require('../../../shared/stores/ApplicationStore');
 var Disqus = require('./Disqus');
+var Gravatar = require('./Gravatar');
 
 var Single = React.createClass({
   mixins: [StoreMixin],
@@ -110,8 +111,10 @@ var Single = React.createClass({
       <header className="post-header">
       <h1 className="post-title">{this.state.single.title}</h1>
       <section className="post-meta">
-      <time className="post-date" dateTime={date}>{date}</time>
+      <Gravatar email={this.state.single.email}/>
+      {this.state.single.author}
       <Tags tags={this.state.single.tags} context={this.props.context}/>
+      <time className="post-date" dateTime={date}>{date}</time>
       </section>
       </header>
     }

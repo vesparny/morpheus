@@ -25,7 +25,6 @@ module.exports = function(server) {
   });
 
   server.get('/page/:page', function(req, res, next) {
-    console.log("type", typeof req.params.page);
     var page = req.params.page || '0';
     if (!validator.isInt(page)) {
       return next();
