@@ -39,7 +39,7 @@ var PostList = React.createClass({
     };
   },
   componentDidMount: function() {
-    if(!this.state.posts.length){
+    if(!this.state.posts){
       this.props.context.executeAction(ContentActions.list);
     }
   },
@@ -55,10 +55,16 @@ var PostList = React.createClass({
   },
   render: function() {
     var posts = [];
-    var showLoader = this.state.posts.length === 0;
-    this.state.posts.forEach(function(post, index){
-      posts.push(<PostListElement key={index} post={post} context={this.props.context}/>);
-    }.bind(this));
+    var showLoader = this.state.posts === null;
+    var paginator = null;
+    if (this.state.posts && this.state.posts.length > 0) {
+      this.state.posts.forEach(function(post, index){
+        posts.push(<PostListElement key={index} post={post} context={this.props.context}/>);
+      }.bind(this));
+      paginator = <Paginator context={this.props.context} page={this.props.page} pageCount={this.props.pageCount} totalCount={this.props.totalCount}/>;
+    }else{
+      posts.push(<div key={1} className="text-center no-posts">No posts yet!</div>);
+    }
     var classesMap = {};
     classesMap.wrapper = true;
     classesMap[this.state.cssClass] = true;
@@ -70,7 +76,7 @@ var PostList = React.createClass({
         <div className='post-container'>
         <Loader class={!showLoader ? 'hidden' : ''}/>
         {posts}
-        <Paginator context={this.props.context} page={this.props.page} pageCount={this.props.pageCount} totalCount={this.props.totalCount}/>
+        {paginator}
         </div>
         </div>
         <Footer context={this.props.context}/>

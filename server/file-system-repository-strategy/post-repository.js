@@ -71,7 +71,12 @@ PostRepository.prototype.find = function(options) {
         reject(new errors.InternalServer());
       }
       if (files.length === 0) {
-        reject(new errors.NotFound());
+        if (options.page === '1') {
+          response.rawData = [];
+          resolve(response);
+        }else{
+          reject(new errors.NotFound());
+        }
       } else {
         response.meta.totalCount = files.length;
         response.meta.pageCount = Math.ceil(files.length / response.meta.perPage);

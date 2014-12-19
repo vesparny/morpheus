@@ -10,7 +10,7 @@ var ContentListStore = createStore({
 
   },
   initialize: function(dispatcher) { //jshint ignore:line
-    this.contentList = [];
+    this.contentList = null;
   },
   resetContentList: function(){
     this.initialize();

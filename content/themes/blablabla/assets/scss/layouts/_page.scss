@@ -365,7 +365,6 @@ links remain at a fixed width the whole time */
 .subscribe:hover .tooltip {
   opacity: 1;
   top: -33px;
-
 }
 
 .loader {
@@ -381,4 +380,9 @@ links remain at a fixed width the whole time */
 .tags {
   display: inline-block;
   margin-left: 5px;
+}
+
+.no-posts {
+  color: $gray;
+  font-weight: bold;
 }
