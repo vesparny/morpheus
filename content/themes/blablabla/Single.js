@@ -16,7 +16,7 @@ var StoreMixin = require('fluxible-app').StoreMixin;
 var gravatar = require('gravatar');
 var NavLink = require('flux-router-component').NavLink;
 var ApplicationStore = require('../../../shared/stores/ApplicationStore');
-var Disqus = require('../../../shared/core-components/Disqus');
+var Disqus = require('./Disqus');
 
 var Single = React.createClass({
   mixins: [StoreMixin],

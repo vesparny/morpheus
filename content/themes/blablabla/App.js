@@ -11,7 +11,7 @@ var ApplicationStore = require('../../../shared/stores/ApplicationStore');
 var RouterMixin = require('flux-router-component').RouterMixin;
 var StoreMixin = require('fluxible-app').StoreMixin;
 var canUseDOM = require('react/lib/ExecutionEnvironment').canUseDOM;
-var Clicky = require('../../../shared/core-components/Clicky');
+var Clicky = require('./Clicky');
 
 var App = React.createClass({
   mixins: [RouterMixin, StoreMixin],
