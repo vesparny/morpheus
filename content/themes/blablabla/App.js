@@ -30,7 +30,13 @@ var App = React.createClass({
   handleDomChanges: function(){
     if (canUseDOM) {
       window.scrollTo(0,0);
-      document.title = this.state.pageTitle;
+      document.title = this.state.pageMeta.pageTitle;
+      var metaTag = document.getElementsByTagName('meta');
+      metaTag.forEach(function(meta){
+        if (meta.getAttribute('name') === 'description') {
+            meta.content = this.state.pageDescription;
+        }
+      });
     }
   },
   render: function(){
@@ -38,7 +44,7 @@ var App = React.createClass({
     if (this.state.error) {
       return (
         <div>
-          <ErrorPage context={this.props.context} error={this.state.error}/>;
+          <ErrorPage context={this.props.context} error={this.state.error}/>
           <Clicky code={100796735}/>
         </div>
       );
@@ -46,7 +52,7 @@ var App = React.createClass({
     if (this.state.route.name === 'home' || this.state.route.name === 'page') {
       return (
         <div>
-        <PostList context={this.props.context} siteUrl={this.state.siteUrl} page={this.state.route.params.page} pageCount={this.state.pageCount} totalCount={this.state.totalCount}/>;
+        <PostList context={this.props.context} siteUrl={this.state.globals.siteUrl} page={this.state.route.params.page} pageCount={this.state.pageMeta.meta.pageCount} totalCount={this.state.pageMeta.meta.totalCount}/>
         <Clicky code={100796735}/>
         </div>
       );
@@ -54,7 +60,7 @@ var App = React.createClass({
     if (this.state.route.name === 'single') {
       return (
         <div>
-        <Single context={this.props.context} slug={this.state.route.params.slug} siteUrl={this.state.siteUrl}/>;
+        <Single context={this.props.context} slug={this.state.route.params.slug} siteUrl={this.state.globals.siteUrl}/>
         <Clicky code={100796735}/>
         </div>
       );
@@ -62,7 +68,7 @@ var App = React.createClass({
     if (this.state.route.name === 'tag') {
       return (
         <div>
-        <TagPage context={this.props.context} slug={this.state.route.params.tag} siteUrl={this.state.siteUrl}/>;
+        <TagPage context={this.props.context} slug={this.state.route.params.tag} siteUrl={this.state.globals.siteUrl}/>
         <Clicky code={100796735}/>
         </div>
       );

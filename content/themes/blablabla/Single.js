@@ -69,8 +69,8 @@ var Single = React.createClass({
     classesMap[this.state.cssClass] = true;
     var classes = cx(classesMap);
     var footer  = '';
-    var header = '';
-    var authors = this.props.context.getStore(ApplicationStore).getAuthors();
+    var header = '';    
+    var authors = this.props.context.getStore(ApplicationStore).getGlobals().authors;
     if (this.state.single.type === 'post') {
       footer =
       <footer className="post-footer">

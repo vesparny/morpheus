@@ -9,7 +9,9 @@ module.exports = function(server) {
   server.get('/', function(req, res, next) {
     var context = res.locals.context;
     var fluxibleApp = res.locals.fluxibleApp;
-    context.getActionContext().executeAction(ContentActions.list, {page:1}, function(err) {
+    context.getActionContext().executeAction(ContentActions.list, {
+      page: '1'
+    }, function(err) {
       if (err) {
         return next(err);
       }
@@ -23,13 +25,15 @@ module.exports = function(server) {
   });
 
   server.get('/page/:page', function(req, res, next) {
-    var page = req.params.page || 0;
+    var page = req.params.page || '0';
     if (!validator.isInt(page)) {
       return next();
     }
     var context = res.locals.context;
     var fluxibleApp = res.locals.fluxibleApp;
-    context.getActionContext().executeAction(ContentActions.list, {page:page}, function(err) {
+    context.getActionContext().executeAction(ContentActions.list, {
+      page: page
+    }, function(err) {
       if (err) {
         return next(err);
       }

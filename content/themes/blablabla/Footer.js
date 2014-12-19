@@ -16,11 +16,12 @@ var Footer = React.createClass({
     };
     var classes = cx(classesMap);
     var year = moment().format('YYYY');
+    var siteTitle = this.props.context.getStore(ApplicationStore).getGlobals().siteTitle;
     return (
       <footer className={classes}>
-         <section className="copyright">{this.props.context.getStore(ApplicationStore).getSiteTitle()} &copy; {year}</section>
+         <section className="copyright">{siteTitle} &copy; {year}</section>
          <section className="poweredby">
-          <span className="engine">Built with love using <a href="https://github.com/vesparny/morpheus" >{this.props.context.getStore(ApplicationStore).getSiteTitle()}</a></span>
+          <span className="engine">Built with love using <a href="https://github.com/vesparny/morpheus" >{siteTitle}</a></span>
           <span className="theme">, blablabla theme inspired by <a href="https://github.com/TryGhost/Casper" >Casper</a></span>
          </section>
     </footer>

@@ -20,8 +20,11 @@ Morpheus.prototype.init = function() {
 
   clientConfig.data = {
     siteTitle: config.get('siteTitle'),
+    siteUrl: config.get('siteUrl'),
     siteDescription: config.get('siteDescription'),
-    authors: config.get('authors')
+    authors: config.get('authors'),
+    clickyAnalytics: config.get('clickyAnalytics'),
+    disqusComments: config.get('disqusComments'),
   };
 };
 

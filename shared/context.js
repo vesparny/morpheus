@@ -12,6 +12,7 @@ var appComponent;
 if (typeof window === 'undefined') {
   appComponent = React.createFactory(require('../content/themes/'+clientConfig.get('theme')+'/App'));
 }else{
+  //this is gonna be replaced by a gulp task
   appComponent = React.createFactory(require('../content/themes/THEMETOBEREPLACED/App'));
 
 }

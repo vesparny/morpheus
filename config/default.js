@@ -27,5 +27,12 @@ module.exports = {
     'alessandro@arnodo.net': {
       meta: 'Just another code monkey!'
     }
-  }
+  },
+  clickyAnalytics : 100796735,
+  disqusComments : 'arnodo'
+  /*
+  ,
+  clickyAnalytics : 098908080980 //your clicky numeric code
+  disqusComments : 'your disqus shortname'
+  */
 };

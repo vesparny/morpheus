@@ -11,6 +11,8 @@ var Header = React.createClass({
     context: React.PropTypes.object.isRequired
   },
   render: function() {
+    var siteTitle = this.props.context.getStore(ApplicationStore).getGlobals().siteTitle;
+    var siteDescription = this.props.context.getStore(ApplicationStore).getGlobals().siteDescription;
     return (
       <header className='main-header'>
         <nav className='main-nav overlay clearfix'>
@@ -19,8 +21,8 @@ var Header = React.createClass({
         </nav>
         <div className='vertical'>
           <div className='main-header-content inner'>
-            <h1 className='page-title'>{this.props.context.getStore(ApplicationStore).getSiteTitle()}</h1>
-            <h2 className='page-description'>{this.props.context.getStore(ApplicationStore).getSiteDescription()}</h2>
+            <h1 className='page-title'>{siteTitle}</h1>
+            <h2 className='page-description'>{siteDescription}</h2>
           </div>
         </div>
       </header>

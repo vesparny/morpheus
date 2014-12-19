@@ -6,36 +6,22 @@ var ApplicationStore = createStore({
   storeName: 'ApplicationStore',
   handlers: {
     'CHANGE_ROUTE_SUCCESS': 'handleNavigate',
-    'SET_SITE_URL': 'setSiteUrl',
     'SET_ERROR': 'setError',
-    'UPDATE_PAGE_TITLE': 'updatePageTitle',
-    'UPDATE_META': 'updateMeta',
-    'APP_START': 'appStart'
+    'UPDATE_PAGE_META': 'updatePageMeta',
+    'SET_APP_GLOBALS': 'setAppGlobals'
   },
   initialize: function(dispatcher) { //jshint ignore:line
     this.route = {};
-    this.siteUrl = null;
-    this.pageTitle = '';
-    this.siteTitle = '';
-    this.siteDescription = '';
-    this.authors = {};
+    this.globals = {};
+    this.pageMeta = {};
     this.error = null;
   },
-  appStart: function(data) {
-    this.siteTitle = data.siteTitle;
-    this.siteDescription = data.siteDescription;
-    this.authors = data.authors;
+  setAppGlobals: function(globals) {
+    this.globals = globals;
     this.emitChange();
   },
-  updateMeta: function(meta) {
-    this.page = meta.page;
-    this.perPage = meta.perPage;
-    this.pageCount = meta.pageCount;
-    this.totalCount = meta.totalCount;
-    this.emitChange();
-  },
-  updatePageTitle: function(title) {
-    this.pageTitle = title;
+  updatePageMeta: function(pageMeta) {
+    this.pageMeta = pageMeta;
     this.emitChange();
   },
   setError: function(error) {
@@ -43,25 +29,7 @@ var ApplicationStore = createStore({
     this.pageTitle = 'error';
     this.emitChange();
   },
-  getPageTitle: function() {
-    return this.pageTitle;
-  },
-  getSiteTitle: function() {
-    return this.siteTitle;
-  },
-  getSiteDescription: function() {
-    return this.siteDescription;
-  },
-  getSiteUrl: function() {
-    return this.siteUrl;
-  },
-  getAuthors: function() {
-    return this.authors;
-  },
-  setSiteUrl: function(url) {
-    this.siteUrl = url;
-    this.emitChange();
-  },
+
   handleNavigate: function(route) {
     if (route.url === this.route.url) {
       return;
@@ -74,34 +42,26 @@ var ApplicationStore = createStore({
   },
   getState: function() {
     return {
-      authors : this.authors,
       route: this.route,
-      siteUrl: this.siteUrl,
-      pageTitle: this.pageTitle,
-      siteTitle: this.siteTitle,
-      siteDescription: this.siteDescription,
       error: this.error,
-      page: parseInt(this.page, 10),
-      perPage: this.perPage,
-      pageCount: this.pageCount,
-      totalCount: this.totalCount
+      pageMeta: this.pageMeta,
+      globals: this.globals
     };
+  },
+  getGlobals: function() {
+    return this.globals;
+  },
+  getPageMeta: function() {
+    return this.pageMeta;
   },
   dehydrate: function() {
     return this.getState();
   },
   rehydrate: function(state) {
-    this.authors = state.authors;
     this.route = state.route;
-    this.siteUrl = state.siteUrl;
-    this.pageTitle = state.pageTitle;
-    this.siteTitle = state.siteTitle;
-    this.siteDescription = state.siteDescription;
     this.error = state.error;
-    this.page = parseInt(state.page, 10);
-    this.perPage = state.perPage;
-    this.pageCount = state.pageCount;
-    this.totalCount = state.totalCount;
+    this.pageMeta = state.pageMeta;
+    this.globals = state.globals;
     this.emitChange();
   }
 });
