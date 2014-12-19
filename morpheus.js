@@ -25,6 +25,7 @@ Morpheus.prototype.init = function() {
     authors: config.get('authors'),
     clickyAnalytics: config.get('clickyAnalytics'),
     disqusComments: config.get('disqusComments'),
+    debug: config.get('debug')
   };
 };
 

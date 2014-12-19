@@ -32,11 +32,11 @@ var App = React.createClass({
       window.scrollTo(0,0);
       document.title = this.state.pageMeta.pageTitle;
       var metaTag = document.getElementsByTagName('meta');
-      metaTag.forEach(function(meta){
+      [].forEach.call(metaTag, function(meta){
         if (meta.getAttribute('name') === 'description') {
             meta.content = this.state.pageDescription;
         }
-      });
+      }.bind(this));
     }
   },
   render: function(){

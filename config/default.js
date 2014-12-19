@@ -11,6 +11,7 @@ module.exports = {
   'repository-strategy': {
     type: 'file-system-repository-strategy'
   },
+  debug: true,
   appRoot: appRoot,
   configDir: path.resolve(appRoot, 'config'),
   contentPath: path.resolve(appRoot, 'content'),
@@ -28,11 +29,11 @@ module.exports = {
       meta: 'Just another code monkey!'
     }
   },
-  clickyAnalytics : 100796735,
-  disqusComments : 'arnodo'
-  /*
-  ,
-  clickyAnalytics : 098908080980 //your clicky numeric code
-  disqusComments : 'your disqus shortname'
-  */
+  clickyAnalytics: 100796735,
+  disqusComments: 'arnodo'
+    /*
+    ,
+    clickyAnalytics : 098908080980 //your clicky numeric code
+    disqusComments : 'your disqus shortname'
+    */
 };
