@@ -40,12 +40,16 @@ var App = React.createClass({
     }
   },
   render: function(){
+    var clicky = null;
+    if (this.state.globals.clickyAnalytics) {
+      clicky = <Clicky code={this.state.globals.clickyAnalytics}/>;
+    }
     this.handleDomChanges();
     if (this.state.error) {
       return (
         <div>
           <ErrorPage context={this.props.context} error={this.state.error}/>
-          <Clicky code={100796735}/>
+          {clicky}
         </div>
       );
     }
@@ -53,7 +57,7 @@ var App = React.createClass({
       return (
         <div>
         <PostList context={this.props.context} siteUrl={this.state.globals.siteUrl} page={this.state.route.params.page} pageCount={this.state.pageMeta.meta.pageCount} totalCount={this.state.pageMeta.meta.totalCount}/>
-        <Clicky code={100796735}/>
+        {clicky}
         </div>
       );
     }
@@ -61,7 +65,7 @@ var App = React.createClass({
       return (
         <div>
         <Single context={this.props.context} slug={this.state.route.params.slug} siteUrl={this.state.globals.siteUrl}/>
-        <Clicky code={100796735}/>
+        {clicky}
         </div>
       );
     }
@@ -69,7 +73,7 @@ var App = React.createClass({
       return (
         <div>
         <TagPage context={this.props.context} slug={this.state.route.params.tag} siteUrl={this.state.globals.siteUrl}/>
-        <Clicky code={100796735}/>
+        {clicky}
         </div>
       );
     }

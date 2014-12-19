@@ -69,9 +69,14 @@ var Single = React.createClass({
     classesMap[this.state.cssClass] = true;
     var classes = cx(classesMap);
     var footer  = '';
-    var header = '';    
+    var header = '';
+    var disqus = null;
     var authors = this.props.context.getStore(ApplicationStore).getGlobals().authors;
+    var disqusComments = this.props.context.getStore(ApplicationStore).getGlobals().disqusComments;
     if (this.state.single.type === 'post') {
+      if (disqusComments) {
+        disqus = <Disqus shortName={disqusComments} identifier={this.state.single.slug} title={this.state.single.title} url={this.props.siteUrl + this.state.single.permalink}/>;
+      }
       footer =
       <footer className="post-footer">
         <figure className="author-image">
@@ -119,7 +124,7 @@ var Single = React.createClass({
             {header}
           <section className="post-content" dangerouslySetInnerHTML={{__html: this.state.single.content}}></section>
           {footer}
-          <Disqus code={1234}/>
+          {disqus}
         </div>
       </article>
     </div>

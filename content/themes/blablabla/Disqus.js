@@ -6,7 +6,11 @@ var scriptIsAdded = false;
 
 var Disqus = React.createClass({
   propTypes:{
-    code: React.PropTypes.number.isRequired
+    shortName: React.PropTypes.string.isRequired,
+    identifier: React.PropTypes.string.isRequired,
+    title: React.PropTypes.string.isRequired,
+    url: React.PropTypes.string.isRequired
+
   },
   componentDidMount: function() {
     if (!scriptIsAdded) {
@@ -14,10 +18,11 @@ var Disqus = React.createClass({
     }
   },
   addScript: function() {
-    var disqus_shortname = 'arnodo'; //jshint ignore:line
-    var disqus_identifier = 'mettiamo la slug qua???che è univoca';//jshint ignore:line
-    var disqus_title = 'a unique title for each page where Disqus is present';//jshint ignore:line
-    var disqus_url = 'a unique URL for each page where Disqus is present';//jshint ignore:line
+    console.log(this.props);
+    var disqus_shortname = this.props.shortName; //jshint ignore:line
+    var disqus_identifier = this.props.identifier;//jshint ignore:line
+    var disqus_title = this.props.title;//jshint ignore:line
+    var disqus_url = this.props.url;//jshint ignore:line
 
     var dsq = document.createElement('script');
     dsq.type = 'text/javascript';
