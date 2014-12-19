@@ -11,7 +11,7 @@ module.exports = {
   'repository-strategy': {
     type: 'file-system-repository-strategy'
   },
-  debug: true,
+  debug: false,
   appRoot: appRoot,
   configDir: path.resolve(appRoot, 'config'),
   contentPath: path.resolve(appRoot, 'content'),

@@ -1,6 +1,6 @@
 'use strict';
 
-var _ = require('lodash');
+var assign = require('object-assign');
 var data = null;
 var defaultConfig  = require('../config/default');
 var envConfig;
@@ -14,7 +14,6 @@ if (process.env.NODE_ENV === 'test') {
   envConfig = require('../config/test');
 }
 
-
 if (process.env.NODE_ENV === 'production') {
   envConfig = require('../config/production');
 }
@@ -25,7 +24,7 @@ function Config() {
 
 Config.prototype.load = function() {
   try {
-    data = _.merge(defaultConfig, envConfig);
+    data = assign(defaultConfig, envConfig);
     data.env = process.env.NODE_ENV;
   } catch (err) {
     throw new Error('Failed to laod configuration. Caused by: \n' + err.stack);

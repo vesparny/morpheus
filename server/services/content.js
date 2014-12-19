@@ -4,7 +4,7 @@ var Promise = require('es6-promise').Promise; //jshint ignore:line
 var _s = require('underscore.string');
 var marked = require('marked');
 var serverUtils = require('../../server/utils');
-var _ = require('lodash');
+var assign = require('object-assign');
 var path = require('path');
 
 function buildContent(item, siteUrl) {
@@ -39,7 +39,7 @@ var actions = {
     });
   },
   list: function(repository, params, config, callback) {
-    repository.find(_.extend(params, {
+    repository.find(assign(params, {
       postPerPage: config.get('postPerPage'),
       contentPath: config.get('contentPath')
     })).then(function(result) {

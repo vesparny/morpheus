@@ -34,7 +34,7 @@ var App = React.createClass({
       var metaTag = document.getElementsByTagName('meta');
       [].forEach.call(metaTag, function(meta){
         if (meta.getAttribute('name') === 'description') {
-            meta.content = this.state.pageDescription;
+            meta.content = this.state.pageMeta.pageDescription;
         }
       }.bind(this));
     }

@@ -7,6 +7,7 @@ module.exports = {
     level: 'info',
     file: path.resolve(process.env.OPENSHIFT_DATA_DIR, 'log.log'),
   },
+  debug: false,
   siteUrl: 'https://alessandro.arnodo.net',
   useSSL: true,
   port: process.env.OPENSHIFT_NODEJS_PORT,

@@ -41,17 +41,17 @@
     "helmet": "~0.5.2",
     "highlight.js": "~8.4.0",
     "inherits": "~2.0.1",
-    "lodash": "~2.4.1",
     "marked": "~0.3.2",
     "method-override": "~2.3.0",
     "moment": "~2.8.4",
     "morgan": "~1.5.0",
     "multer": "~0.1.4",
     "node-jsx": "~0.12.4",
+    "object-assign": "~2.0.0",
     "react": "~0.12.1",
     "serve-favicon": "~2.1.5",
     "underscore.string": "~2.4.0",
-    "validator": "^3.24.0"
+    "validator": "~3.24.0"
   },
   "devDependencies": {
     "browserify": "~7.0.0",
