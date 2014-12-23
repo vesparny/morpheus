@@ -9,8 +9,6 @@ module.exports = function() {
   var favicon = require('serve-favicon');
   var morganLogger = require('morgan');
   var methodOverride = require('method-override');
-  var session = require('express-session');
-  var FSStore = require('connect-fs2')(session);
   var multer = require('multer');
   var routes = require('./routes');
   var errors = require('./middlewares/errors');
@@ -29,18 +27,6 @@ module.exports = function() {
   server.enable('strict routing');
   server.use(morganLogger('dev'));
   server.use(methodOverride());
-  server.use(session({
-    store: new FSStore({
-      dir: path.join(morpheus.config.get('appRoot'), '/content/sessions')
-    }),
-    resave: true,
-    saveUninitialized: true,
-    secret: 'uwotm8',
-    cookie: {
-      secure: true,
-      maxAge: 7 * 24 * 60 * 60 * 1000
-    }
-  }));
   server.use(bodyParser.json());
   server.use(bodyParser.urlencoded({
     extended: true
