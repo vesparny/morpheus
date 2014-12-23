@@ -1,12 +1,11 @@
 'use strict';
 
 var expressLoader = require('./server/express-loader');
-var config = require('./shared/configuration');
 var LoggerFactory = require('./server/logger-factory');
 var pkg = require('./package.json');
+var config = require('./shared/config');
 var loggerFactory = new LoggerFactory(config);
 var servicesLoader = require('./server/services/');
-var clientConfig = require('./client/client-config');
 
 function Morpheus() {
   this.config = {};
@@ -15,10 +14,12 @@ function Morpheus() {
 
 Morpheus.prototype.init = function() {
   this.config = config;
+
   //load services
   this.services = servicesLoader(this.config);
 
-  clientConfig.data = {
+  //setup configuration properties used only client-side
+  config.client = {
     siteTitle: config.get('siteTitle'),
     siteUrl: config.get('siteUrl'),
     siteDescription: config.get('siteDescription'),

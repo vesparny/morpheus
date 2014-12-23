@@ -5,12 +5,12 @@ var FluxibleApp = require('fluxible-app');
 var routrPlugin = require('fluxible-plugin-routr');
 var fetchrPlugin = require('fluxible-plugin-fetchr');
 var routes = require('../client/client-routes');
-var clientConfig = require('../client/client-config.js');
+var config = require('./config');
 
 var appComponent;
 
 if (typeof window === 'undefined') {
-  appComponent = React.createFactory(require('../content/themes/'+clientConfig.get('theme')+'/App'));
+  appComponent = React.createFactory(require('../content/themes/'+config.get('theme')+'/App'));
 }else{
   //this is gonna be replaced by a gulp task
   appComponent = React.createFactory(require('../content/themes/THEMETOBEREPLACED/App'));
@@ -52,7 +52,7 @@ function configPlugin (options){
 }
 
 context.plug(configPlugin({
-  config:clientConfig.data
+  config:config.client
 }));
 
 

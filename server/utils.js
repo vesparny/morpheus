@@ -2,7 +2,7 @@
 
 var downsize = require('downsize');
 var React = require('react');
-var config = require('../shared/configuration');
+var config = require('../shared/config');
 var HtmlComponent = React.createFactory(require('../content/themes/'+ config.get('theme')+ '/Html'));
 
 module.exports = {

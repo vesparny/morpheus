@@ -36,5 +36,9 @@ Config.prototype.get = function(key) {
   return key ? data[key] : undefined;
 };
 
+//this property is used only client-side
+Config.prototype.client = {};
+
 var config = new Config();
+
 module.exports = config;

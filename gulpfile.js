@@ -14,7 +14,7 @@ var argv = require('minimist')(process.argv.slice(2));
 var through = require('through2');
 var moment = require('moment');
 process.env.NODE_ENV = argv.env || 'development';
-var configuration = require('./shared/configuration');
+var configuration = require('./shared/config');
 
 function replaceTheme(file) {
   function isRoutingFile(file) {
