@@ -66,7 +66,7 @@ gulp.task('browserify', function() {
 gulp.task('replace', function() {
   var manifestCss = require(config.dist + '/manifest-css.json');
   var manifestJs = require(config.dist + '/manifest-js.json');
-  return gulp.src('./content/themes/' + configuration.get('theme') + configuration.get('theme') + '/Html.js')
+  return gulp.src('./content/themes/' + configuration.get('theme') + '/Html.js')
     .pipe($.replace(/bundle.*\.js/, manifestJs['bundle.js']))
     .pipe($.replace(/main.*\.css/, manifestCss['main.css']))
     .pipe(gulp.dest('./content/themes/' + configuration.get('theme')));
@@ -107,16 +107,16 @@ gulp.task('styles', function() {
     .on('error', function(err) {
       $.util.log($.util.colors.red(err.message));
     })
-    .pipe($.if(argv.env === 'production' && '*.css', $.cssmin()))
-    .pipe($.if(argv.env === 'production' && '*.css', $.rev()))
-    .pipe($.if(argv.env === 'production' && '*.css', $.rename(function(path) {
+    .pipe($.if(argv.env === 'production', $.cssmin()))
+    .pipe($.if(argv.env === 'production', $.rev()))
+    .pipe($.if(argv.env === 'production', $.rename(function(path) {
       path.basename += '.min';
     })))
     .pipe(gulp.dest(config.dist))
-    .pipe($.if(argv.env === 'production' && '*.css', $.rev.manifest({
+    .pipe($.if(argv.env === 'production', $.rev.manifest({
       path: 'manifest-css.json'
     })))
-    .pipe($.if(argv.env === 'production' && '*.css', gulp.dest(config.dist)));
+    .pipe($.if(argv.env === 'production', gulp.dest(config.dist)));
 });
 
 gulp.task('watchers', function() {

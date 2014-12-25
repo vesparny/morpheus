@@ -75,4 +75,6 @@ $RECYCLE.BIN/
 .idea/
 
 #app specific
-content/themes/*/**/dist/
+content/themes/*/**/dist/*.json
+content/themes/*/**/dist/bundle.js
+content/themes/*/**/dist/main.css
