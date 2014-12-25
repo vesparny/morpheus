@@ -105,14 +105,16 @@ var path = require('path');
 module.exports = {
   log: {
     level: 'error',
-    file: path.resolve(process.env.OPENSHIFT_DATA_DIR, 'log.log'),
+    file: path.resolve(process.env.OPENSHIFT_DATA_DIR || '', 'log.log'),
   },
   debug: false,
   siteUrl: 'https://alessandro.arnodo.net',
   useSSL: true,
-  port: process.env.OPENSHIFT_NODEJS_PORT,
-  ip: process.env.OPENSHIFT_NODEJS_IP,
-  disqusComments: 'arnodo'
+  port: process.env.OPENSHIFT_NODEJS_PORT || 3000,
+  ip: process.env.OPENSHIFT_NODEJS_IP || '127.0.0.1',
+  disqusComments: 'arnodo',
+  siteTitle: 'Alessandro Arnodo',
+  siteDescription: '- Just another code monkey -',
 };
 ```
 
