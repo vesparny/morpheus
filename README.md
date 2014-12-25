@@ -1,5 +1,5 @@
-# morpheus
-### the next generation web publishing platform
+# Morpheus
+### The next generation web publishing platform
 
 **The idea is to create a new isomorphic web publishing platform, with the speed of a single page application, but server side rendered on the first load**
 
