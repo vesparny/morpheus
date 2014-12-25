@@ -1,0 +1,11 @@
+language: node_js
+node_js:
+  - '0.10'
+before_install:
+  - 'gem update --system'
+  - 'gem install sass'
+  - 'npm install -g gulp'
+  - 'npm install -g bower'
+branches:
+  only:
+    - master

@@ -17,5 +17,6 @@
   "plusplus": true,
   "eqeqeq": true,
   "validthis": false,
-  "unused": true
+  "unused": true,
+  "jasmine": true
 }

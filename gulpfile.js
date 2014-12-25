@@ -134,6 +134,19 @@ gulp.task('server', function() {
     });
 });
 
+gulp.task('test', function() {
+  return gulp.src(['test/*.js'], {
+      read: false
+    })
+    .pipe($.mocha({
+      reporter: 'spec',
+      globals: {
+        should: require('should')
+      }
+    }))
+    .on('error', $.util.log);
+});
+
 gulp.task('install', function() {
   gulp.src(config.draft)
     .pipe($.rename({

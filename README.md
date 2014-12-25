@@ -1,6 +1,7 @@
-# morpheus, the next generation web publishing platform (**THIS REPO IS WORK IN PROGRESS**)
+# morpheus
+### the next generation web publishing platform
 
-**The idea is to create a new isomorphic web publishing platform, with the speed of a single page application, but rendered on the server on the first load ( no more bad SEO impact )**
+**The idea is to create a new isomorphic web publishing platform, with the speed of a single page application, but server side rendered on the first load**
 
 ## working demo
 https://morpheusdemo-arnodo.rhcloud.com/

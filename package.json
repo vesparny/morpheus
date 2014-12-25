@@ -19,9 +19,10 @@
   },
   "homepage": "https://github.com/vesparny/morpheus",
   "scripts": {
-    "start": "node server.js"
+    "start": "node server.js",
+    "test": "./node_modules/.bin/gulp test"
   },
-  "main": "server.js"
+  "main": "server.js",
   "dependencies": {
     "body-parser": "~1.10.0",
     "bunyan": "~1.2.3",
@@ -77,11 +78,11 @@
     "mocha": "~2.0.1",
     "reactify": "~0.17.1",
     "run-sequence": "~1.0.2",
-    "should": "~4.4.0",
     "sinon": "~1.12.1",
     "through2": "^0.6.3",
     "vinyl-buffer": "~1.0.0",
     "vinyl-source-stream": "~1.0.0",
-    "watchify": "~2.2.1"
+    "watchify": "~2.2.1",
+    "gulp-mocha": "~2.0.0"
   }
 }
