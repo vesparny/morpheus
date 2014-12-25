@@ -30,9 +30,11 @@ This is why Morpheus is totally rendered on the server on the first load. Once d
 ### Tech Features
 
 * Built with express, React and Browserify
+* Blazing fast
+* Static markdown rendering
+* Disqus support out of the box
 * Server-side rendered
 * Crawlable by default
-* Static markdown rendering
 * No dababase needed
 * Do you need more? Just [ask](https://github.com/vesparny/morpheus/issues).
   
