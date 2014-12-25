@@ -61,10 +61,23 @@ gulp install
 gulp watch
 ```
 
-* [Optional] create a new post or page inside the `content` directory, then commit changes
+* Create a new post or page inside the `content` directory, then commit changes
 
 
 * Access your fresh-new website at [http://localhost:3000](http://localhost:3000)
+
+If you have an existing repository
+
+* Add the Morpheus remote to your local repository, then merge its master branch with your local branch.
+
+
+```
+git remote add morpheus https://github.com/vesparny/morpheus.git
+git fetch morpheus
+git checkout master
+git merge morpheus/master
+```
+
    
 ### In production
 
@@ -83,7 +96,12 @@ You can also override configuration in the proper environment-specific configura
 Below the production config file I use for hosting my website on OpenShift PaaS.
 
 ```javascript
-log: {
+'use strict';
+
+var path = require('path');
+
+module.exports = {
+  log: {
     level: 'error',
     file: path.resolve(process.env.OPENSHIFT_DATA_DIR, 'log.log'),
   },
@@ -92,8 +110,8 @@ log: {
   useSSL: true,
   port: process.env.OPENSHIFT_NODEJS_PORT,
   ip: process.env.OPENSHIFT_NODEJS_IP,
-  disqusComments : 'arnodo'
-```
+  disqusComments: 'arnodo'
+};```
 
 ### Contributing
 
