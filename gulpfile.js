@@ -139,10 +139,7 @@ gulp.task('test', function() {
       read: false
     })
     .pipe($.mocha({
-      reporter: 'spec',
-      globals: {
-        should: require('should')
-      }
+      reporter: 'spec'
     }))
     .on('error', $.util.log);
 });
