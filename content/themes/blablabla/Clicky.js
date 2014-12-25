@@ -14,6 +14,8 @@ var Clicky = React.createClass({
     }
   },
   addScript: function() {
+    var clicky_site_ids = clicky_site_ids || []; // jshint ignore:line
+    clicky_site_ids.push(this.props.code); // jshint ignore:line
     var el;
     var s;
     scriptIsAdded = true;
@@ -23,9 +25,6 @@ var Clicky = React.createClass({
     el.src = '//static.getclicky.com/js';
     s = document.getElementsByTagName('script')[0];
     s.parentNode.insertBefore(el, s);
-    try {
-      window.clicky.init(this.props.code);
-    } catch (e) {}
   },
   render: function() {
     return null;

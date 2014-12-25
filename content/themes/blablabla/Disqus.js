@@ -18,7 +18,6 @@ var Disqus = React.createClass({
     }
   },
   addScript: function() {
-    console.log(this.props);
     var disqus_shortname = this.props.shortName; //jshint ignore:line
     var disqus_identifier = this.props.identifier;//jshint ignore:line
     var disqus_title = this.props.title;//jshint ignore:line
