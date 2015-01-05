@@ -5,6 +5,7 @@
 var React = require('react');
 var appContext = require('../shared/context');
 var dehydratedState = window.Morpheus; // Sent from the server
+
 window.React = React; // For chrome dev tool support
 appContext.rehydrate(dehydratedState, function(err, context) {
   if (err) {
