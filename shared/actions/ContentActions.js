@@ -19,7 +19,6 @@ function buildAppGlobalsPayload(config) {
 
 module.exports = {
   list: function(context, payload, done) {
-
     context.dispatch('RESET_CONTENT_LIST');
     context.dispatch('SET_APP_GLOBALS', buildAppGlobalsPayload(context.config));
     context.service.read('content', {

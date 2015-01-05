@@ -44,6 +44,7 @@ var App = React.createClass({
     if (this.state.globals.clickyAnalytics) {
       clicky = <Clicky code={this.state.globals.clickyAnalytics}/>;
     }
+
     this.handleDomChanges();
     if (this.state.error) {
       return (
@@ -56,19 +57,20 @@ var App = React.createClass({
     if (this.state.route.name === 'home' || this.state.route.name === 'page') {
       return (
         <div>
-        <PostList context={this.props.context} siteUrl={this.state.globals.siteUrl} page={this.state.route.params.page} pageCount={this.state.pageMeta.meta.pageCount} totalCount={this.state.pageMeta.meta.totalCount}/>
+        <PostList context={this.props.context} page={this.state.route.params.page} pageCount={this.state.pageMeta.meta.pageCount} totalCount={this.state.pageMeta.meta.totalCount}/>
         {clicky}
         </div>
       );
     }
-    if (this.state.route.name === 'single') {
+    if (this.state.route.name === 'single' || this.state.route.name === 'static') {
       return (
         <div>
-        <Single context={this.props.context} slug={this.state.route.params.slug} siteUrl={this.state.globals.siteUrl}/>
+        <Single context={this.props.context} params={this.state.route.params}/>
         {clicky}
         </div>
       );
     }
+    /*
     if (this.state.route.name === 'tag') {
       return (
         <div>
@@ -77,7 +79,8 @@ var App = React.createClass({
         </div>
       );
     }
-    return '';
+    */
+    return null;
   }
 });
 

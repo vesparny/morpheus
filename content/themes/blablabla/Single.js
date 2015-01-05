@@ -27,7 +27,8 @@ var Single = React.createClass({
     }
   },
   propTypes: {
-    context: React.PropTypes.object.isRequired
+    context: React.PropTypes.object.isRequired,
+    params: React.PropTypes.object.isRequired
   },
   getInitialState: function() {
     return this.getStateFromStores();
@@ -43,16 +44,15 @@ var Single = React.createClass({
   },
   componentDidMount: function() {
     if(!this.state.single.title){
-      var slug = this.props.slug;
       this.props.context.executeAction(ContentActions.single, {
-        slug:slug
+        slug: this.props.params.title
       });
     }
   },
   componentWillReceiveProps: function(props){
     if (props.page !== this.props.page) {
       this.props.context.executeAction(ContentActions.single, {
-        slug:slug
+        slug: props.params.title
       });
     }
   },

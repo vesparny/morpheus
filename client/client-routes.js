@@ -1,5 +1,7 @@
 'use strict';
 
+var config = require('../shared/config');
+
 module.exports = {
   home: {
     path: '/',
@@ -7,9 +9,14 @@ module.exports = {
     page: 'home'
   },
   single: {
-    path: '/:slug/',
+    path: config.permalinkStructure,
     method: 'get',
     page: 'single'
+  },
+  static: {
+    path: '/:title/',
+    method: 'get',
+    page: 'static'
   },
   tag: {
     path: '/tag/:tag/',
