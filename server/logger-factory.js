@@ -32,12 +32,12 @@ function LoggerFactory(config) {
     level: 'info',
     name: 'app',
     streams: [{
-      level: this.config.get('log').level || 'info',
+      level: this.config.log.level || 'info',
       stream: formatOut
     }, {
-      level: this.config.get('log').level || 'info',
+      level: this.config.log.level || 'info',
       type: 'rotating-file',
-      path: this.config.get('log').file,
+      path: this.config.log.file,
       period: '1d',
       count: 3
     }],

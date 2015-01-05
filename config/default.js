@@ -1,20 +1,16 @@
 'use strict';
 
-var path = require('path');
-var appRoot = process.cwd();
 
 module.exports = {
   log: {
     level: 'debug',
-    file: path.resolve(appRoot, 'content/logs/log.log'),
+    file: 'morpheus.log',
   },
-  'repository-strategy': {
+  'repositoryStrategy': {
     type: 'file-system-repository-strategy'
   },
   debug: true, //useful for seeing some logs in the browser console
-  appRoot: appRoot,
-  configDir: path.resolve(appRoot, 'config'),
-  contentPath: path.resolve(appRoot, 'content'),
+  permalinkStructure:'/:year/:month/:day/:title/',
   postPerPage: 3, // number of posts per page
   siteUrl: 'http://localhost:3000', // the url of your website
   useSSL: false, // if true it redirects all incoming requests to the https url

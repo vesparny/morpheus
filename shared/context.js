@@ -6,15 +6,13 @@ var routrPlugin = require('fluxible-plugin-routr');
 var fetchrPlugin = require('fluxible-plugin-fetchr');
 var routes = require('../client/client-routes');
 var config = require('./config');
-
 var appComponent;
 
 if (typeof window === 'undefined') {
-  appComponent = React.createFactory(require('../content/themes/'+config.get('theme')+'/App'));
-}else{
-  //this is gonna be replaced by a gulp task
+  appComponent = React.createFactory(require('../content/themes/' + config.theme + '/App'));
+} else {
+  //this is necessary and it will be replaced by a gulp task
   appComponent = React.createFactory(require('../content/themes/THEMETOBEREPLACED/App'));
-
 }
 var context = new FluxibleApp({
   appComponent: appComponent
@@ -28,22 +26,22 @@ context.plug(fetchrPlugin({
   xhrPath: '/api'
 }));
 
-function configPlugin (options){
+function configPlugin(options) {
   var config = options.config;
 
   return {
     name: 'configPlugin',
-    plugContext: function () {
+    plugContext: function() {
       return {
-        plugActionContext: function (actionContext) {
+        plugActionContext: function(actionContext) {
           actionContext.config = config;
         },
-        dehydrate: function () {
+        dehydrate: function() {
           return {
             config: config
           };
         },
-        rehydrate: function (state) {
+        rehydrate: function(state) {
           config = state.config;
         }
       };
@@ -52,7 +50,7 @@ function configPlugin (options){
 }
 
 context.plug(configPlugin({
-  config:config.client
+  config: config
 }));
 
 

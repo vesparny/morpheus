@@ -27,10 +27,10 @@ var actions = {
   single: function(repository, params, config, callback) {
     repository.findOne({
       slug: params.slug,
-      siteUrl: config.get('siteUrl'),
-      contentPath: config.get('contentPath')
+      siteUrl: config.siteUrl,
+      contentPath: config.contentPath
     }).then(function(result) {
-      var data = buildContent(result.rawData, config.get('siteUrl'));
+      var data = buildContent(result.rawData, config.siteUrl);
       delete result.rawData;
       result.data = data;
       callback(null, result);
@@ -40,12 +40,12 @@ var actions = {
   },
   list: function(repository, params, config, callback) {
     repository.find(assign(params, {
-      postPerPage: config.get('postPerPage'),
-      contentPath: config.get('contentPath')
+      postPerPage: config.postPerPage,
+      contentPath: config.contentPath
     })).then(function(result) {
       var data = [];
       result.rawData.forEach(function(el) {
-        var content = buildContent(el, config.get('siteUrl'));
+        var content = buildContent(el, config.siteUrl);
         data.push(content);
       });
       delete result.rawData;
@@ -67,8 +67,8 @@ var actions = {
 };
 
 var postService = function(config) {
-  var repositories = require(path.resolve(config.get('appRoot'), 'server' ,config.get('repository-strategy').type))();
-  if (config.get('highlightCode')) {
+  var repositories = require(path.resolve(config.appRoot, 'server' ,config.repositoryStrategy.type))();
+  if (config.highlightCode) {
     marked.setOptions({
       highlight: function (code) {
         return require('highlight.js').highlightAuto(code).value;

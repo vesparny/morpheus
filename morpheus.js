@@ -14,20 +14,8 @@ function Morpheus() {
 
 Morpheus.prototype.init = function() {
   this.config = config;
-
   //load services
   this.services = servicesLoader(this.config);
-
-  //setup configuration properties used only client-side
-  config.client = {
-    siteTitle: config.get('siteTitle'),
-    siteUrl: config.get('siteUrl'),
-    siteDescription: config.get('siteDescription'),
-    authors: config.get('authors'),
-    clickyAnalytics: config.get('clickyAnalytics'),
-    disqusComments: config.get('disqusComments'),
-    debug: config.get('debug')
-  };
 };
 
 Morpheus.prototype.logger = loggerFactory.create('morpheus');
@@ -42,10 +30,10 @@ Morpheus.prototype.run = function(callback) {
     loggerFactory: loggerFactory,
     version: pkg.version
   };
-  expressApp.listen(that.config.get('port'), that.config.get('ip'), function() {
+  expressApp.listen(that.config.port, that.config.ip, function() {
     callback({
       version: params.version,
-      port: that.config.get('port'),
+      port: that.config.port,
     });
   });
 

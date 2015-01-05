@@ -32,9 +32,9 @@ module.exports = function() {
     extended: true
   }));
   server.use(multer());
-  server.use('/content/images', express.static(path.join(morpheus.config.get('appRoot'), '/content/images/')));
-  server.use(favicon(path.join(morpheus.config.get('appRoot'), 'content/favicon.ico')));
-  server.use(express.static(path.join(morpheus.config.get('appRoot'), '/content/themes/', morpheus.config.get('theme'))));
+  server.use('/content/images', express.static(path.join(morpheus.config.appRoot, '/content/images/')));
+  server.use(favicon(path.join(morpheus.config.appRoot, 'content/favicon.ico')));
+  server.use(express.static(path.join(morpheus.config.appRoot, '/content/themes/', morpheus.config.theme)));
 
   // Use helmet to secure Express headers
   server.use(helmet.xframe());

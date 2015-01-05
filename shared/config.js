@@ -1,9 +1,9 @@
 'use strict';
 
 var assign = require('object-assign');
-var data = null;
-var defaultConfig  = require('../config/default');
+var defaultConfig = require('../config/default');
 var envConfig;
+var path = require('path');
 
 //this if waterfall sucks, but it's needed for browserify
 if (process.env.NODE_ENV === 'development') {
@@ -18,27 +18,15 @@ if (process.env.NODE_ENV === 'production') {
   envConfig = require('../config/production');
 }
 
-function Config() {
-  this.load();
+function buildConfig(isNode) {
+  var data = assign(defaultConfig, envConfig);
+  data.env = process.env.NODE_ENV;
+  if (isNode) {
+    data.appRoot = process.cwd();
+    data.log.file = path.resolve(data.appRoot, 'content/logs', data.log.file);
+    data.contentPath = path.resolve(data.appRoot, 'content');
+  }
+  return data;
 }
 
-Config.prototype.load = function() {
-  try {
-    data = assign(defaultConfig, envConfig);
-    data.env = process.env.NODE_ENV;
-  } catch (err) {
-    throw new Error('Failed to laod configuration. Caused by: \n' + err.stack);
-  }
-};
-
-
-Config.prototype.get = function(key) {
-  return key ? data[key] : undefined;
-};
-
-//this property is used only client-side
-Config.prototype.client = {};
-
-var config = new Config();
-
-module.exports = config;
+module.exports = buildConfig(typeof window === 'undefined');
