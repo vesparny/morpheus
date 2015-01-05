@@ -24,7 +24,7 @@ function replaceTheme(file) {
     return through();
   }
   return through(function(buf, enc, next) {
-    this.push(buf.toString('utf8').replace(/THEMETOBEREPLACED/g, configuration.get('theme')));
+    this.push(buf.toString('utf8').replace(/THEMETOBEREPLACED/g, configuration.theme));
     next();
   });
 }
@@ -33,10 +33,10 @@ var config = {
   draft: './content/drafts/welcome-to-morpheus.md',
   posts: './content/posts/',
   client: './client/client.js',
-  mainScss: './content/themes/' + configuration.get('theme') + '/assets/scss/main.scss',
-  scss: './content/themes/' + configuration.get('theme') + '/assets/scss/**/*.scss',
+  mainScss: './content/themes/' + configuration.theme + '/assets/scss/main.scss',
+  scss: './content/themes/' + configuration.theme + '/assets/scss/**/*.scss',
   bundle: 'bundle.js',
-  dist: './content/themes/' + configuration.get('theme') + '/assets/dist'
+  dist: './content/themes/' + configuration.theme + '/assets/dist'
 };
 
 gulp.task('clean', function(cb) {
@@ -66,17 +66,17 @@ gulp.task('browserify', function() {
 gulp.task('replace', function() {
   var manifestCss = require(config.dist + '/manifest-css.json');
   var manifestJs = require(config.dist + '/manifest-js.json');
-  return gulp.src('./content/themes/' + configuration.get('theme') + '/Html.js')
+  return gulp.src('./content/themes/' + configuration.theme + '/Html.js')
     .pipe($.replace(/bundle.*\.js/, manifestJs['bundle.js']))
     .pipe($.replace(/main.*\.css/, manifestCss['main.css']))
-    .pipe(gulp.dest('./content/themes/' + configuration.get('theme')));
+    .pipe(gulp.dest('./content/themes/' + configuration.theme));
 });
 
 gulp.task('replaceDev', function() {
-  return gulp.src('./content/themes/' + configuration.get('theme') + '/Html.js')
+  return gulp.src('./content/themes/' + configuration.theme + '/Html.js')
     .pipe($.replace(/bundle.*\.js/, 'bundle.js'))
     .pipe($.replace(/main.*\.css/, 'main.css'))
-    .pipe(gulp.dest('./content/themes/' + configuration.get('theme')));
+    .pipe(gulp.dest('./content/themes/' + configuration.theme));
 });
 
 gulp.task('watchify', function() {
