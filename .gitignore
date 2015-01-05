@@ -78,3 +78,4 @@ $RECYCLE.BIN/
 content/themes/*/**/dist/*.json
 content/themes/*/**/dist/bundle.js
 content/themes/*/**/dist/main.css
+content/themes/*/**/dist/*.map
