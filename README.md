@@ -93,7 +93,7 @@ Below is a list of the things to work on immediately, with links to the relevant
 - [ ] Tag listing page ([#7](https://github.com/vesparny/morpheus/issues/7))
 - [ ] Setup testing ([#8](https://github.com/vesparny/morpheus/issues/8))
 - [ ] Reserve some routes for future development ([#9](https://github.com/vesparny/morpheus/issues/9))
-- [ ] Reserve some routes for future development ([#10](https://github.com/vesparny/morpheus/issues/10))
+- [ ] Split react components ([#10](https://github.com/vesparny/morpheus/issues/10))
 - [ ] Create wiki taking inspiration from [Jekyll](http://jekyllrb.com/docs/home/) ([#11](https://github.com/vesparny/morpheus/issues/11))
 - [ ] Create beautiful 404 and 500 pages and handle error also on the frontend ([#12](https://github.com/vesparny/morpheus/issues/12))
 - [ ] Split Morpheus in smaller npm packages ([#13](https://github.com/vesparny/morpheus/issues/13))
