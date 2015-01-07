@@ -48,7 +48,7 @@ module.exports = function(server) {
 
   server.get('/:title/', function(req, res, next) {
     makeCall(req, res, next, {
-      action:ContentActions.list,
+      action:ContentActions.single,
       params:{
         slug: req.params.title
       }
@@ -67,7 +67,7 @@ module.exports = function(server) {
   if (config.permalinkStructure !== '/:title/') {
     server.get(config.permalinkStructure, function(req, res, next) {
       makeCall(req, res, next, {
-        action:ContentActions.list,
+        action:ContentActions.single,
         params:{
           slug: req.params.title
         }
