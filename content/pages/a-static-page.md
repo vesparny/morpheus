@@ -1,11 +1,10 @@
- ---
+---
 type: page
 slug: a-static-page
-permalink: /a-static-page
 title: A static page
 ---
 
-#  hello from a static page
+#  Hello from a static page
 
 **this is a static page**
 

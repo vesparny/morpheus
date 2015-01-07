@@ -314,11 +314,9 @@
     display: none;
   }
 
-  footer .copyright {
-    width: 30%;
-  }
-
-  footer .poweredby {
-    width: 70%;
+  footer .copyright, footer .poweredby {
+    width: 100%;
+    float: none;
+    text-align: center;
   }
 }

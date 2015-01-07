@@ -81,4 +81,10 @@ You can write plain old HTML and it'll still work! Very flexible.
 
 <input type="text" placeholder="I'm an input field!" />
 
+and embed whatever you want!
+
+<div class="videoWrapper">
+  <iframe width="420" height="315" src="//www.youtube.com/embed/dbD5v2xijqw" frameborder="0" allowfullscreen></iframe>
+</div>
+
 Have fun :)

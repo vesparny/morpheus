@@ -10,7 +10,7 @@ var inherits = require('inherits');
 var errors = require('../errors');
 var moment = require('moment');
 
-function buildContent(item) {
+function buildContent(item, permalinkStructure) {
   var content = {};
   content.author = item.attributes.author;
   content.tags = item.attributes.tags;
@@ -18,17 +18,30 @@ function buildContent(item) {
   content.type = item.attributes.type;
   content.email = item.attributes.email;
   content.title = item.attributes.title;
-  content.permalink = item.attributes.permalink;
+  content.permalink = '/' + item.attributes.slug + '/';
   content.body = item.body || '';
   content.tags = item.attributes.tags ? item.attributes.tags.split(',') : [];
   if (item.attributes.type === 'post') {
     content.rawDate = item.attributes.rawDate;
     content.date = content.rawDate.format('DD MMMM YYYY');
+    var availablePatterns = {
+      year:'YYYY',
+      month:'MM',
+      day: 'DD'
+    };
+    var splitted = permalinkStructure.replace(/[\/]|[\/:]/g,' ').split(' ');
+    var pre = '';
+    splitted.forEach(function(el){
+      if (availablePatterns[el]){
+        pre += content.rawDate.format(availablePatterns[el]) + '/';
+      }
+    });
+    content.permalink = '/' + pre + item.attributes.slug + '/';
   }
   return content;
 }
 
-function readFile(file) {
+function readFile(file, permalinkStructure) {
   return new Promise(function(resolve, reject) {
     fs.readFile(file, {
       encoding: 'utf-8'
@@ -38,8 +51,8 @@ function readFile(file) {
       } else {
         var parsed = fm(data);
         var filename = path.basename(file);
-        parsed.attributes.rawDate =  moment(filename.substring(0, 19), 'YYYY-MM-DD HHmmss');
-        var content = buildContent(parsed);
+        parsed.attributes.rawDate =  moment(filename.substring(0, 17), 'YYYY-MM-DD HHmmss');
+        var content = buildContent(parsed, permalinkStructure);
         resolve(content);
       }
     });
@@ -83,8 +96,8 @@ PostRepository.prototype.find = function(options) {
         files.sort(function(a, b){
           var filenameA = path.basename(a);
           var filenameB = path.basename(b);
-          var dateA = moment(filenameA.substring(0, 19), 'YYYY-MM-DD HHmmss');
-          var dateB = moment(filenameB.substring(0, 19), 'YYYY-MM-DD HHmmss');
+          var dateA = moment(filenameA.substring(0, 17), 'YYYY-MM-DD HHmmss');
+          var dateB = moment(filenameB.substring(0, 17), 'YYYY-MM-DD HHmmss');
           return dateB.unix() - dateA.unix();
         });
         var sliced = files.slice((response.meta.page - 1) * response.meta.perPage, response.meta.page * response.meta.perPage);
@@ -93,7 +106,7 @@ PostRepository.prototype.find = function(options) {
         }
         var promiseArray = [];
         sliced.forEach(function(file) {
-          promiseArray.push(readFile(file));
+          promiseArray.push(readFile(file, options.permalinkStructure));
         });
 
         Promise.all(promiseArray).then(function(data) {
@@ -127,7 +140,7 @@ PostRepository.prototype.findOne = function(options) {
           reject(err);
         });
       } else {
-        readFile(files[0]).then(function(data) {
+        readFile(files[0], options.permalinkStructure).then(function(data) {
           response.rawData = data;
           resolve(response);
         }).catch(function(err) {

@@ -28,7 +28,8 @@ var actions = {
     repository.findOne({
       slug: params.slug,
       siteUrl: config.siteUrl,
-      contentPath: config.contentPath
+      contentPath: config.contentPath,
+      permalinkStructure: config.permalinkStructure
     }).then(function(result) {
       var data = buildContent(result.rawData, config.siteUrl);
       delete result.rawData;
@@ -41,7 +42,8 @@ var actions = {
   list: function(repository, params, config, callback) {
     repository.find(assign(params, {
       postPerPage: config.postPerPage,
-      contentPath: config.contentPath
+      contentPath: config.contentPath,
+      permalinkStructure: config.permalinkStructure
     })).then(function(result) {
       var data = [];
       result.rawData.forEach(function(el) {

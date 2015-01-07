@@ -59,6 +59,7 @@ module.exports = {
       done();
     });
   },
+  /*
   tag: function(context, payload, done) {
     context.service.read('content', {
       tag: payload.tag,
@@ -68,7 +69,7 @@ module.exports = {
       context.dispatch('UPDATE_PAGE_TITLE', single.title);
       done();
     });
-  },
+  },*/
   error: function(context, payload, done) {
     context.dispatch('SET_ERROR', payload.err);
     done();

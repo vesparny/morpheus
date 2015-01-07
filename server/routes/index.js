@@ -4,14 +4,14 @@ var React = require('react');
 var ContentActions = require('../../shared/actions/ContentActions');
 var serverUtils = require('../../server/utils');
 var validator = require('validator');
+var config = require('../../shared/config');
 
 module.exports = function(server) {
-  server.get('/', function(req, res, next) {
+
+  function makeCall(req, res, next, options) {
     var context = res.locals.context;
     var fluxibleApp = res.locals.fluxibleApp;
-    context.getActionContext().executeAction(ContentActions.list, {
-      page: '1'
-    }, function(err) {
+    context.getActionContext().executeAction(options.action, options.params, function(err) {
       if (err) {
         return next(err);
       }
@@ -21,6 +21,15 @@ module.exports = function(server) {
       }));
       res.expose(fluxibleApp.dehydrate(context), 'Morpheus');
       serverUtils.render(res, markup);
+    });
+  }
+
+  server.get('/', function(req, res, next) {
+    makeCall(req, res, next, {
+      action:ContentActions.list,
+      params:{
+        page: '1'
+      }
     });
   });
 
@@ -29,56 +38,41 @@ module.exports = function(server) {
     if (!validator.isInt(page)) {
       return next();
     }
-    var context = res.locals.context;
-    var fluxibleApp = res.locals.fluxibleApp;
-    context.getActionContext().executeAction(ContentActions.list, {
-      page: page
-    }, function(err) {
-      if (err) {
-        return next(err);
+    makeCall(req, res, next, {
+      action:ContentActions.list,
+      params:{
+        page: page
       }
-      var AppComponent = fluxibleApp.getAppComponent();
-      var markup = React.renderToString(AppComponent({ //jshint ignore:line
-        context: context.getComponentContext()
-      }));
-      res.expose(fluxibleApp.dehydrate(context), 'Morpheus');
-      serverUtils.render(res, markup);
     });
   });
 
-  server.get('/:slug/', function(req, res, next) {
-    var context = res.locals.context;
-    var fluxibleApp = res.locals.fluxibleApp;
-    context.getActionContext().executeAction(ContentActions.single, {
-      slug: req.params.slug
-    }, function(err) {
-      if (err) {
-        return next(err);
+  server.get('/:title/', function(req, res, next) {
+    makeCall(req, res, next, {
+      action:ContentActions.list,
+      params:{
+        slug: req.params.title
       }
-      var AppComponent = fluxibleApp.getAppComponent();
-      var markup = React.renderToString(AppComponent({ //jshint ignore:line
-        context: context.getComponentContext()
-      }));
-      res.expose(fluxibleApp.dehydrate(context), 'Morpheus');
-      serverUtils.render(res, markup);
     });
   });
 
   server.get('/tag/:tag/', function(req, res, next) {
-    var context = res.locals.context;
-    var fluxibleApp = res.locals.fluxibleApp;
-    context.getActionContext().executeAction(ContentActions.tag, {
-      tag: req.params.tag
-    }, function(err) {
-      if (err) {
-        return next(err);
+    makeCall(req, res, next, {
+      action:ContentActions.tag,
+      params:{
+        slug: req.params.title
       }
-      var AppComponent = fluxibleApp.getAppComponent();
-      var markup = React.renderToString(AppComponent({ //jshint ignore:line
-        context: context.getComponentContext()
-      }));
-      res.expose(fluxibleApp.dehydrate(context), 'Morpheus');
-      serverUtils.render(res, markup);
     });
   });
+
+  if (config.permalinkStructure !== '/:title/') {
+    server.get(config.permalinkStructure, function(req, res, next) {
+      makeCall(req, res, next, {
+        action:ContentActions.list,
+        params:{
+          slug: req.params.title
+        }
+      });
+    });
+
+  }
 };

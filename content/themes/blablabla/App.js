@@ -5,7 +5,6 @@
 var React = require('react');
 var PostList = require('./PostList');
 var Single = require('./Single');
-var TagPage = require('./TagPage');
 var ErrorPage = require('./Error');
 var ApplicationStore = require('../../../shared/stores/ApplicationStore');
 var RouterMixin = require('flux-router-component').RouterMixin;
@@ -62,7 +61,7 @@ var App = React.createClass({
         </div>
       );
     }
-    if (this.state.route.name === 'single' || this.state.route.name === 'static') {
+    if (this.state.route.name === 'post' || this.state.route.name === 'static') {
       return (
         <div>
         <Single context={this.props.context} params={this.state.route.params}/>

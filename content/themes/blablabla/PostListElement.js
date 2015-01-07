@@ -16,7 +16,7 @@ var PostListElement = React.createClass({
   render: function() {
     var post = this.props.post || {};
     var date = post.date;
-    var to = '/'+post.slug+'/';
+    var to = post.permalink;
     var tags = this.props.post.tags && <Tags tags={this.props.post.tags} context={this.props.context} />;
     return (
     <article className="post">
