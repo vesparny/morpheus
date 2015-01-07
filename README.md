@@ -51,7 +51,7 @@ git pull -s recursive -X theirs morpheus master
 
 ```shell
 npm install
-gulp install #this is important, will create an example post.
+gulp install #this is important, it will create an example post.
 gulp watch
 ```
 
@@ -73,7 +73,7 @@ git checkout master
 git merge morpheus/master
 ```
 
-### What’s none
+### What’s done
 
 - [x] The basic technology stack (React express and browserify)
 - [x] Post and pages displaying, markdown render, posts pagination.
@@ -97,6 +97,8 @@ Below is a list of the things to work on immediately, with links to the relevant
 - [ ] Create wiki taking inspiration from [Jekyll](http://jekyllrb.com/docs/home/) ([#11](https://github.com/vesparny/morpheus/issues/11))
 - [ ] Create beautiful 404 and 500 pages and handle error also on the frontend ([#12](https://github.com/vesparny/morpheus/issues/12))
 - [ ] Split Morpheus in smaller npm packages ([#13](https://github.com/vesparny/morpheus/issues/13))
+- [ ] Publish to npm ([#14](https://github.com/vesparny/morpheus/issues/14))
+
 
 Please feel free to join the discussions ;)
 
