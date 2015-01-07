@@ -9,6 +9,8 @@ title: Welcome to morpheus
 You're live! Nice. We've put together a little post to introduce you to Morpheus and Markdown.
 You can manage your content by creating posts and pages inside the `/content/` .folder
 
+More details about options, configurations and so on, are available in the [README file](https://github.com/vesparny/morpheus#readme).
+
 *Note: Feel free to play with this page.*
 
 ## Basic formatting
