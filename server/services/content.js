@@ -70,13 +70,6 @@ var actions = {
 
 var postService = function(config) {
   var repositories = require(path.resolve(config.appRoot, 'server' ,config.repositoryStrategy.type))();
-  if (config.highlightCode) {
-    marked.setOptions({
-      highlight: function (code) {
-        return require('highlight.js').highlightAuto(code).value;
-      }
-    });
-  }
   return {
     name: 'content',
     read: function(req, resource, params, conf, callback) {

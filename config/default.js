@@ -15,7 +15,6 @@ module.exports = {
   siteUrl: 'http://localhost:3000', // the url of your website
   useSSL: false, // if true it redirects all incoming requests to the https url
   siteTitle: 'Morpheus',
-  highlightCode: true, // if true it highlights code blocks with hoghlightjs
   theme: 'blablabla', // currently used theme
   siteDescription: '- say hi to the next generation web publishing platform -',
   port: 3000,

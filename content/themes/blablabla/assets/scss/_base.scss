@@ -120,11 +120,10 @@ hr {
   padding: 0;
 }
 blockquote {
-  -moz-box-sizing: border-box;
   box-sizing: border-box;
-  margin: rem-calc(17.5) 0 rem-calc(17.5) rem-calc(-22);
-  padding: 0 0 0 1.75em;
-  border-left: #4a4a4a rem-calc(4) solid;
+  margin: 1.75em 0px 1.75em -2.2em;
+  padding: 0px 0px 0px 1.75em;
+  border-left: 0.4em solid #4A4A4A;
 }
 blockquote p {
   margin: rem-calc(8) 0;
@@ -164,7 +163,6 @@ pre {
   margin: 0 0 1.75em;
   border: #e3edf3 1px solid;
   width: 100%;
-  padding: 10px;
   font-family: Inconsolata, monospace, sans-serif;
   @include font-size(16);
   white-space: pre;

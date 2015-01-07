@@ -28,7 +28,10 @@ var App = React.createClass({
   },
   handleDomChanges: function(){
     if (canUseDOM) {
+      //scroll
       window.scrollTo(0,0);
+
+      //handle metas
       document.title = this.state.pageMeta.pageTitle;
       var metaTag = document.getElementsByTagName('meta');
       [].forEach.call(metaTag, function(meta){
@@ -36,6 +39,12 @@ var App = React.createClass({
             meta.content = this.state.pageMeta.pageDescription;
         }
       }.bind(this));
+
+      //hljs
+      var aCodes = document.getElementsByTagName('code');
+      for (var i=0; i < aCodes.length; i+=1) {
+        window.hljs.highlightBlock(aCodes[i]);
+      }
     }
   },
   render: function(){
