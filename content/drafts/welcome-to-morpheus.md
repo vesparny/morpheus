@@ -4,7 +4,6 @@ author: Your Name
 email: youreamail@yourwebsite.something
 tags: general
 slug: welcome-to-morpheus
-permalink: /welcome-to-morpheus
 title: Welcome to morpheus
 ---
 You're live! Nice. We've put together a little post to introduce you to Morpheus and Markdown.
