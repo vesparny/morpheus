@@ -77,7 +77,7 @@ var Single = React.createClass({
     var disqusComments = this.props.context.getStore(ApplicationStore).getGlobals().disqusComments;
     if (this.state.single.type === 'post') {
       if (disqusComments) {
-        disqus = <Disqus shortName={disqusComments} identifier={this.state.single.slug} title={this.state.single.title} url={this.props.siteUrl + this.state.single.permalink}/>;
+        disqus = <Disqus shortName={disqusComments} identifier={this.state.single.slug} title={this.state.single.title} url={ this.props.context.getStore(ApplicationStore).getGlobals().siteUrl + this.state.single.permalink}/>;
       }
       footer =
       <footer className="post-footer">
