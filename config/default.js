@@ -10,7 +10,7 @@ module.exports = {
     type: 'file-system-repository-strategy'
   },
   debug: true, //useful for seeing some logs in the browser console
-  permalinkStructure:'/:year/:month/:day/:title/',
+  permalinkStructure:'/:year/:month/:day/:title/', //you can also use /:title/ or '/:year/:month/:title/'
   postPerPage: 3, // number of posts per page
   siteUrl: 'http://localhost:3000', // the url of your website
   useSSL: false, // if true it redirects all incoming requests to the https url
