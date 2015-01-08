@@ -60,14 +60,14 @@ function readFile(file, permalinkStructure) {
 }
 
 
-function PostRepository() {
+function ContentRepository() {
   AbstractRepository.call(this);
-  this.name = 'post-repository';
+  this.name = 'content-repository';
 }
 
-inherits(PostRepository, AbstractRepository);
+inherits(ContentRepository, AbstractRepository);
 
-PostRepository.prototype.find = function(options) {
+ContentRepository.prototype.find = function(options) {
   options = options || {};
   var response = {
     meta: {
@@ -121,7 +121,7 @@ PostRepository.prototype.find = function(options) {
   });
 };
 
-PostRepository.prototype.getPostsForFeed = function(options) {
+ContentRepository.prototype.getPostsForFeed = function(options) {
   options = options || {};
   return new Promise(function(resolve, reject) {
     glob(path.resolve(options.contentPath, 'posts') + '/**/*.md', function(err, files) {
@@ -149,7 +149,7 @@ PostRepository.prototype.getPostsForFeed = function(options) {
   });
 };
 
-PostRepository.prototype.findOne = function(options) {
+ContentRepository.prototype.findOne = function(options) {
   options = options || {};
   var that = this;
   var response = {
@@ -179,7 +179,7 @@ PostRepository.prototype.findOne = function(options) {
   });
 };
 
-PostRepository.prototype.findPage = function(options) {
+ContentRepository.prototype.findPage = function(options) {
   options = options || {};
   var response = {
     meta: {},
@@ -204,10 +204,10 @@ PostRepository.prototype.findPage = function(options) {
   });
 };
 
-PostRepository.prototype.findTag = function(options) {
+ContentRepository.prototype.findTag = function(options) {
   var tag = options.tag;
   return Promise.resolve(tag);
 };
 
 
-module.exports = PostRepository;
+module.exports = ContentRepository;

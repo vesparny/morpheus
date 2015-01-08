@@ -20,7 +20,7 @@ var rssService = {
       ttl: '60'
     });
     return new Promise(function(resolve, reject) {
-      repositories.post.getPostsForFeed({
+      repositories.content.getPostsForFeed({
         contentPath: config.contentPath,
         permalinkStructure: config.permalinkStructure
       }).then(function(posts) {

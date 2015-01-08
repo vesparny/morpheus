@@ -1,8 +1,8 @@
 'use strict';
 
-var PostRepository = require('./post-repository');
+var ContentRepository = require('./content-repository');
 module.exports = function (){
   return {
-    post: new PostRepository()
+    content: new ContentRepository()
   };
 };

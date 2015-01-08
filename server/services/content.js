@@ -68,14 +68,14 @@ var actions = {
   }
 };
 
-var postService = function(config) {
+var contentService = function(config) {
   var repositories = require(path.resolve(config.appRoot, 'server', config.repositoryStrategy.type))();
   return {
     name: 'content',
     read: function(req, resource, params, conf, callback) {
-      actions[params.actionType](repositories.post, params || {}, config, callback);
+      actions[params.actionType](repositories.content, params || {}, config, callback);
     }
   };
 };
 
-module.exports = postService;
+module.exports = contentService;
