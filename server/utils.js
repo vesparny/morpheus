@@ -4,6 +4,8 @@ var downsize = require('downsize');
 var React = require('react');
 var config = require('../shared/config');
 var HtmlComponent = React.createFactory(require('../content/themes/'+ config.theme+ '/Html'));
+var marked = require('marked');
+var Promise = require('es6-promise').Promise; // jshint ignore:line
 
 module.exports = {
   detectEnvironment: function() {
@@ -29,5 +31,16 @@ module.exports = {
     });
     res.write('<!doctype>' + html);
     res.end();
+  },
+  toMarkdown: function(md){
+    return new Promise(function(resolve, reject) {
+      marked(md, function (err, content) {
+        if (err) {
+          reject(err);
+        }else{
+          resolve(content);
+        }
+      });
+    });
   }
 };

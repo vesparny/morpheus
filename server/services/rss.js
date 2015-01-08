@@ -5,7 +5,7 @@ var Promise = require('es6-promise').Promise; // jshint ignore:line
 var config = require('../../shared/config');
 var path = require('path');
 var repositories = require(path.resolve(config.appRoot, 'server', config.repositoryStrategy.type))();
-var marked = require('marked');
+var serverUtils = require('../../server/utils');
 var cheerio = require('cheerio');
 var url = require('url');
 
@@ -24,8 +24,8 @@ var rssService = {
         contentPath: config.contentPath,
         permalinkStructure: config.permalinkStructure
       }).then(function(posts) {
+        var promiseArray = [];
         posts.forEach(function(post){
-          var body = marked(post.body);
           var item = {
             title: post.title,
             guid: post.slug,
@@ -34,20 +34,27 @@ var rssService = {
             categories: post.tags,
             author: post.author,
           };
-          var htmlContent = cheerio.load(body, {decodeEntities: false});
-          // convert relative resource urls to absolute
-          ['href', 'src'].forEach(function (attributeName) {
-            htmlContent('[' + attributeName + ']').each(function (index, el) {
-              el = htmlContent(el);
-              var attributeValue = el.attr(attributeName);
-              attributeValue = url.resolve(config.siteUrl, attributeValue);
-              el.attr(attributeName, attributeValue);
+          promiseArray.push(serverUtils.toMarkdown(post.body));
+          Promise.all(promiseArray).then(function(data) {
+            data.forEach(function(content){
+              var htmlContent = cheerio.load(content, {decodeEntities: false});
+              // convert relative resource urls to absolute
+              ['href', 'src'].forEach(function (attributeName) {
+                htmlContent('[' + attributeName + ']').each(function (index, el) {
+                  el = htmlContent(el);
+                  var attributeValue = el.attr(attributeName);
+                  attributeValue = url.resolve(config.siteUrl, attributeValue);
+                  el.attr(attributeName, attributeValue);
+                });
+              });
+              item.description = htmlContent.html();
+              feed.item(item);
             });
+            resolve(feed);
+          }).catch(function(err){
+            reject(err);
           });
-          item.description = htmlContent.html();
-          feed.item(item);
         });
-        resolve(feed);
       }).catch(function(err){
         reject(err);
       });

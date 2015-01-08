@@ -2,25 +2,33 @@
 
 var Promise = require('es6-promise').Promise; //jshint ignore:line
 var _s = require('underscore.string');
-var marked = require('marked');
 var serverUtils = require('../../server/utils');
 var assign = require('object-assign');
 var path = require('path');
+var Promise = require('es6-promise').Promise; // jshint ignore:line
 
 function buildContent(item, siteUrl) {
-  item.fullUrl = siteUrl + item.permalink;
-  item.excerpt = serverUtils.excerpt(marked(item.body));
-  item.content = marked(item.body);
-  delete item.body;
-  var tags = [];
-  item.tags.forEach(function(tag) {
-    tags.push({
-      path: _s.slugify(tag),
-      name: tag
+    return new Promise(function(resolve, reject) {
+      var tags = [];
+      item.tags.forEach(function(tag) {
+        tags.push({
+          path: _s.slugify(tag),
+          name: tag
+        });
+      });
+      item.tags = tags;
+      item.fullUrl = siteUrl + item.permalink;
+      serverUtils.toMarkdown(item.body).then(function(content){
+        item.excerpt = serverUtils.excerpt(content);
+        serverUtils.toMarkdown(item.body).then(function(bodyContent){
+          item.content = bodyContent;
+          delete item.body;
+          resolve(item);
+        });
+      }).catch(function(err){
+        reject(err);
+      });
     });
-  });
-  item.tags = tags;
-  return item;
 }
 
 var actions = {
@@ -31,10 +39,13 @@ var actions = {
       contentPath: config.contentPath,
       permalinkStructure: config.permalinkStructure
     }).then(function(result) {
-      var data = buildContent(result.rawData, config.siteUrl);
-      delete result.rawData;
-      result.data = data;
-      callback(null, result);
+      buildContent(result.rawData, config.siteUrl).then(function(content){
+        delete result.rawData;
+        result.data = content;
+        callback(null, result);
+      }).catch(function(err){
+        callback(err);
+      });
     }).catch(function(err) {
       callback(err);
     });
@@ -45,14 +56,17 @@ var actions = {
       contentPath: config.contentPath,
       permalinkStructure: config.permalinkStructure
     })).then(function(result) {
-      var data = [];
+      var promiseArray = [];
       result.rawData.forEach(function(el) {
-        var content = buildContent(el, config.siteUrl);
-        data.push(content);
+        promiseArray.push(buildContent(el, config.siteUrl));
       });
-      delete result.rawData;
-      result.data = data;
-      callback(null, result);
+      Promise.all(promiseArray).then(function(data) {
+        delete result.rawData;
+        result.data = data;
+        callback(null, result);
+      }).catch(function(err){
+        callback(err);
+      });
     }).catch(function(err) {
       callback(err);
     });
