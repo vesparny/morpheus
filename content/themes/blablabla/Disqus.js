@@ -2,8 +2,6 @@
 
 var React = require('react');
 
-var scriptIsAdded = false;
-
 var Disqus = React.createClass({
   propTypes:{
     shortName: React.PropTypes.string.isRequired,
@@ -13,23 +11,20 @@ var Disqus = React.createClass({
 
   },
   componentDidMount: function() {
-    if (!scriptIsAdded) {
-      return this.addScript();
-    }
+    return this.addScript();
   },
   addScript: function() {
-    var disqus_shortname = this.props.shortName; //jshint ignore:line
-    var disqus_identifier = this.props.identifier;//jshint ignore:line
-    var disqus_title = this.props.title;//jshint ignore:line
-    var disqus_url = this.props.url;//jshint ignore:line
-
+    window.disqus_shortname = this.props.shortName; //jshint ignore:line
+    window.disqus_identifier = this.props.identifier;//jshint ignore:line
+    window.disqus_title = this.props.title;//jshint ignore:line
+    window.disqus_url = this.props.url;//jshint ignore:line
     if (window.DISQUS) {
       window.DISQUS.reset({
         reload: true,
         config: function () {
-          this.page.identifier = disqus_identifier; // jshint ignore:line
-          this.page.url = disqus_url; // jshint ignore:line
-          this.page.title = disqus_title; // jshint ignore:line
+          this.page.identifier = window.disqus_identifier; // jshint ignore:line
+          this.page.url = window.disqus_url; // jshint ignore:line
+          this.page.title = window.disqus_title; // jshint ignore:line
         }
       });
     }else{
