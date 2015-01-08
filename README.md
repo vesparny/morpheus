@@ -20,14 +20,14 @@ You can see **Morpheus** running on my own [website](http://alessandro.arnodo.ne
 ### What and Why
 
 At the time being, developers are building entire applications in the browser using JavaScript. The big part of the logic is living on the client and it talks to the server to an API.
-  
+
 Once the application is fully loaded, the user can gain a good experience navigating between pages without the need of fully reloading each time.
-  
+
 This is good, what happens when your website is run by a crawler (google bot or whatever)? If the website can only be executed on the client it won't be able to serve HTML to crawlers, and this will have negative impacts on SEO.
-  
+
 This is why Morpheus is totally rendered on the server on the first load. Once done, React will attach events to the DOM, and the user will feel the benefits of a single page application, without having to wait for tedious spinners before seeing the content.
 
-  
+
 ### Getting started
 
 Morpheus doesn't need a database, it just renders static markdown files.
@@ -81,13 +81,14 @@ git merge morpheus/master
 - [x] Comments managed with [Disqus](https://disqus.com/).
 - [x] Configurable permalinks.
 - [x] fully working default theme (it's called **blablabla**)
+- [x] RSS support
+
 
 ### What’s next
 
 Below is a list of the things to work on immediately, with links to the relevant discussion.
 
 - [ ] Logo design ([#3](https://github.com/vesparny/morpheus/issues/3))
-- [ ] Rss support ([#4](https://github.com/vesparny/morpheus/issues/4))
 - [ ] Sitemap generation ([#5](https://github.com/vesparny/morpheus/issues/5))
 - [ ] Authors page ([#6](https://github.com/vesparny/morpheus/issues/6))
 - [ ] Tag listing page ([#7](https://github.com/vesparny/morpheus/issues/7))
@@ -103,7 +104,7 @@ Below is a list of the things to work on immediately, with links to the relevant
 Please feel free to join the discussions ;)
 
 
-   
+
 ### Run in production
 
 * build the app for production, commit your production ready build, and run it.

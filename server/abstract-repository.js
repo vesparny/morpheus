@@ -6,20 +6,24 @@ function throwMethodUndefined(methodName) {
 
 function AbstractRepository() {}
 
-AbstractRepository.prototype.find = function(entityName, options) { //jshint ignore:line
+AbstractRepository.prototype.find = function(options) { //jshint ignore:line
   throwMethodUndefined('find');
 };
 
-AbstractRepository.prototype.findOne = function(entityName, options) { //jshint ignore:line
+AbstractRepository.prototype.findOne = function(options) { //jshint ignore:line
   throwMethodUndefined('findOne');
 };
 
-AbstractRepository.prototype.findPage = function(entityName, options) { //jshint ignore:line
+AbstractRepository.prototype.findPage = function(options) { //jshint ignore:line
   throwMethodUndefined('findPage');
 };
 
-AbstractRepository.prototype.findTag = function(entityName, options) { //jshint ignore:line
+AbstractRepository.prototype.findTag = function(options) { //jshint ignore:line
   throwMethodUndefined('findTag');
+};
+
+AbstractRepository.prototype.getPostsForFeed = function(options) { //jshint ignore:line
+  throwMethodUndefined('getPostsForFeed');
 };
 
 module.exports = AbstractRepository;

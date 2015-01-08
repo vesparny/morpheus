@@ -125,9 +125,14 @@
     height: 26px;
   }
   .menu-button {
-    height: 44px;
-    line-height: 41px;
+    width: 100%;
     border-radius: 0;
+    font-size: rem-calc(12);
+    float: none;
+  }
+  .menu-button.fright {
+    width: 100%;
+    float: none;
   }
   .menu-button:hover {
     border-color: #ebeef0;

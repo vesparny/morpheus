@@ -21,6 +21,10 @@
   color: $blue;
 }
 
+.menu-button.fright {
+  float: right;
+}
+
 .back-button:before {
   position: relative;
   bottom: -2px;
@@ -28,11 +32,7 @@
   line-height: 0;
   margin-right: 8px;
 }
-.subscribe-button:before {
-  font-size: 9px;
-  margin-right: 6px;
 
-}
 /* Special styles when overlaid on an image*/
 .main-nav.overlay {
   position: absolute;
@@ -56,4 +56,9 @@
 .menu-button.inverted:hover {
   color: $light-black;
   transition: all 0.1s ease;
+}
+
+.menu-button.icon-feed:before {
+  font-size: rem-calc(10);
+  margin-right: 6px;
 }

@@ -69,7 +69,7 @@ var actions = {
 };
 
 var postService = function(config) {
-  var repositories = require(path.resolve(config.appRoot, 'server' ,config.repositoryStrategy.type))();
+  var repositories = require(path.resolve(config.appRoot, 'server', config.repositoryStrategy.type))();
   return {
     name: 'content',
     read: function(req, resource, params, conf, callback) {

@@ -11,12 +11,13 @@ var Header = React.createClass({
     context: React.PropTypes.object.isRequired
   },
   render: function() {
+    var siteUrl = this.props.context.getStore(ApplicationStore).getGlobals().siteUrl;
     var siteTitle = this.props.context.getStore(ApplicationStore).getGlobals().siteTitle;
     var siteDescription = this.props.context.getStore(ApplicationStore).getGlobals().siteDescription;
     return (
       <header className='main-header'>
         <nav className='main-nav overlay clearfix'>
-        <a href='https://github.com/vesparny/morpheus' className="icon-morpheus blog-logo"><span className='hidden'>morpheus</span></a>
+        <a className="menu-button fright icon-feed" href={siteUrl + '/rss/'}>Subscribe</a>
         <NavLink href='/a-static-page/' context={this.props.context} className="menu-button">A Static Page</NavLink>
         </nav>
         <div className='vertical'>

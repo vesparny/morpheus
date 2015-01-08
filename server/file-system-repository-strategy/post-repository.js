@@ -25,14 +25,14 @@ function buildContent(item, permalinkStructure) {
     content.rawDate = item.attributes.rawDate;
     content.date = content.rawDate.format('DD MMMM YYYY');
     var availablePatterns = {
-      year:'YYYY',
-      month:'MM',
+      year: 'YYYY',
+      month: 'MM',
       day: 'DD'
     };
-    var splitted = permalinkStructure.replace(/[\/]|[\/:]/g,' ').split(' ');
+    var splitted = permalinkStructure.replace(/[\/]|[\/:]/g, ' ').split(' ');
     var pre = '';
-    splitted.forEach(function(el){
-      if (availablePatterns[el]){
+    splitted.forEach(function(el) {
+      if (availablePatterns[el]) {
         pre += content.rawDate.format(availablePatterns[el]) + '/';
       }
     });
@@ -51,7 +51,7 @@ function readFile(file, permalinkStructure) {
       } else {
         var parsed = fm(data);
         var filename = path.basename(file);
-        parsed.attributes.rawDate =  moment(filename.substring(0, 17), 'YYYY-MM-DD HHmmss');
+        parsed.attributes.rawDate = moment(filename.substring(0, 17), 'YYYY-MM-DD HHmmss');
         var content = buildContent(parsed, permalinkStructure);
         resolve(content);
       }
@@ -87,13 +87,13 @@ PostRepository.prototype.find = function(options) {
         if (options.page === '1') {
           response.rawData = [];
           resolve(response);
-        }else{
+        } else {
           reject(new errors.NotFound());
         }
       } else {
         response.meta.totalCount = files.length;
         response.meta.pageCount = Math.ceil(files.length / response.meta.perPage);
-        files.sort(function(a, b){
+        files.sort(function(a, b) {
           var filenameA = path.basename(a);
           var filenameB = path.basename(b);
           var dateA = moment(filenameA.substring(0, 17), 'YYYY-MM-DD HHmmss');
@@ -117,6 +117,34 @@ PostRepository.prototype.find = function(options) {
         });
       }
 
+    });
+  });
+};
+
+PostRepository.prototype.getPostsForFeed = function(options) {
+  options = options || {};
+  return new Promise(function(resolve, reject) {
+    glob(path.resolve(options.contentPath, 'posts') + '/**/*.md', function(err, files) {
+      if (err) {
+        reject(new errors.InternalServer());
+      }
+      files.sort(function(a, b) {
+        var filenameA = path.basename(a);
+        var filenameB = path.basename(b);
+        var dateA = moment(filenameA.substring(0, 17), 'YYYY-MM-DD HHmmss');
+        var dateB = moment(filenameB.substring(0, 17), 'YYYY-MM-DD HHmmss');
+        return dateB.unix() - dateA.unix();
+      });
+      var sliced = files.slice(0, 10);
+      var promiseArray = [];
+      sliced.forEach(function(file) {
+        promiseArray.push(readFile(file, options.permalinkStructure));
+      });
+      Promise.all(promiseArray).then(function(data) {
+        resolve(data);
+      }).catch(function(err) {
+        reject(new errors.InternalServer(err.message));
+      });
     });
   });
 };

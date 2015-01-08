@@ -5,6 +5,7 @@ var ContentActions = require('../../shared/actions/ContentActions');
 var serverUtils = require('../../server/utils');
 var validator = require('validator');
 var config = require('../../shared/config');
+var rssService = require('../services/rss');
 
 module.exports = function(server) {
 
@@ -30,6 +31,15 @@ module.exports = function(server) {
       params:{
         page: '1'
       }
+    });
+  });
+
+  server.get('/rss/', function(req, res, next) {
+    rssService.getFeed().then(function(feed){
+      res.set('Content-Type', 'text/xml; charset=UTF-8');
+      res.send(feed.xml());
+    }).catch(function(err){
+      return next(err);
     });
   });
 
