@@ -12,6 +12,7 @@ commits.
 
 
 1. [Fork](https://help.github.com/articles/fork-a-repo) the project, clone your
+
 fork, and configure the remotes:
 
 ```bash
@@ -23,20 +24,16 @@ cd morpheus
 git remote add upstream https://github.com/vesparny/morpheus.git
 ```
 
-2. Create a new topic branch (off the develop branch) to
-contain your feature, change, or fix:
+2. Create a new topic branch (off the develop branch) to contain your feature, change, or fix:
 
 ```bash
 git checkout develop
 git checkout -b <topic-branch-name>
 ```
 
-3. Commit your changes in logical chunks. Please adhere to these [git commit
-message guidelines](http://tbaggery.com/2008/04/19/a-note-about-git-commit-messages.html)
+3. Commit your changes in logical chunks. Please adhere to these [git commit message guidelines](http://tbaggery.com/2008/04/19/a-note-about-git-commit-messages.html)
 
-4. When you are ready, clean up. Squash together minor commits. Use Git's
-[interactive rebase](https://help.github.com/articles/about-git-rebase)
-feature to tidy up your commits before making them public.
+4. When you are ready, clean up. Squash together minor commits. Use Git's [interactive rebase](https://help.github.com/articles/about-git-rebase) feature to tidy up your commits before making them public.
 
 ```bash
 git rebase -i
