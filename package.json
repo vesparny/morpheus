@@ -84,6 +84,7 @@
     "vinyl-source-stream": "~1.0.0",
     "watchify": "~2.2.1",
     "gulp-mocha": "~2.0.0",
-    "should": "~4.4.4"
+    "should": "~4.4.4",
+    "supertest": "~0.15.0"
   }
 }
