@@ -41,6 +41,8 @@ module.exports = function() {
   server.use(helmet.xssFilter());
   server.use(helmet.nosniff());
   server.use(helmet.ienoopen());
+
+  // powered by Morpheus
   server.use(helmet.hidePoweredBy({ setTo: 'Morpheus ' + morpheus.config.version }));
 
   fetchrPlugin.registerService(morpheus.services.content);
