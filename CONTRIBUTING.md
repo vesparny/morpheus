@@ -11,9 +11,7 @@ help. They should remain focused in scope and avoid containing unrelated
 commits.
 
 
-1. [Fork](https://help.github.com/articles/fork-a-repo) the project, clone your
-
-fork, and configure the remotes:
+1. [Fork](https://help.github.com/articles/fork-a-repo) the project, clone your fork, and configure the remotes:
 
 ```bash
 # Clone your fork of the repo into the current directory
