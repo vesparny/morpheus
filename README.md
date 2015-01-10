@@ -142,13 +142,13 @@ module.exports = {
 };
 ```
 
-### Core Team
-
-Currently the only person on the core development team is Alessandro Arnodo ([@vesparny](http://twitter.com/vesparny)). I will be looking for more people to join the core development team.
-
 ### Contributing
 
 PR and issues reporting are always welcome :) See more in CONTRIBUTING.md file.
+
+### Contributors
+
+All this wouldn't have been possible without these great [contributors](https://github.com/vesparny/morpheus/graphs/contributors)! So THANK YOU!
 
 ### License
 
