@@ -59,7 +59,6 @@
   },
   "devDependencies": {
     "browserify": "7.1.0",
-    "chai": "~1.10.0",
     "del": "~1.1.1",
     "gulp": "~3.8.10",
     "gulp-changed": "~1.1.0",
@@ -84,6 +83,7 @@
     "vinyl-buffer": "~1.0.0",
     "vinyl-source-stream": "~1.0.0",
     "watchify": "~2.2.1",
-    "gulp-mocha": "~2.0.0"
+    "gulp-mocha": "~2.0.0",
+    "should": "~4.4.4"
   }
 }
