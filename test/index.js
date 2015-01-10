@@ -1,10 +1,9 @@
 'use strict';
 
-/* jshint -W079 */
-var expect = require('chai').expect;
+var should = require('should');
 
 describe('index', function() {
     it('I should write some test', function() {
-      expect(true).to.be.equal(true);
+      (true).should.be.true;
     });
 });
