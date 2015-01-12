@@ -4,6 +4,7 @@ var util = require('util');
 var serverUtils = require('../../server/utils');
 var React = require('react');
 var ContentActions = require('../../shared/actions/ContentActions');
+var serialize = require('serialize-javascript');
 
 module.exports = function(log) {
   return function(err, req, res, next) { // jshint ignore:line
@@ -35,7 +36,7 @@ module.exports = function(log) {
             context: context.getComponentContext(),
             enableScroll: false
           }));
-          res.expose(fluxibleApp.dehydrate(context), 'App');
+          res.locals.state = 'window.Morpheus=' + serialize(fluxibleApp.dehydrate(context)) + ';';
           serverUtils.render(res, markup);
         });
       },
