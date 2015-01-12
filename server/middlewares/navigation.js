@@ -1,6 +1,7 @@
 'use strict';
 
 var navigateAction = require('flux-router-component').navigateAction;
+var serialize = require('serialize-javascript');
 
 module.exports = function(appContext){
   return function(req, res, next) { // jshint ignore:line

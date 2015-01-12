@@ -6,6 +6,7 @@ var serverUtils = require('../../server/utils');
 var validator = require('validator');
 var config = require('../../shared/config');
 var rssService = require('../services/rss');
+var serialize = require('serialize-javascript');
 
 module.exports = function(server) {
 
@@ -16,11 +17,11 @@ module.exports = function(server) {
       if (err) {
         return next(err);
       }
+      res.locals.state = 'window.Morpheus=' + serialize(fluxibleApp.dehydrate(context)) + ';';
       var AppComponent = fluxibleApp.getAppComponent();
       var markup = React.renderToString(AppComponent({ //jshint ignore:line
         context: context.getComponentContext()
       }));
-      res.expose(fluxibleApp.dehydrate(context), 'Morpheus');
       serverUtils.render(res, markup);
     });
   }

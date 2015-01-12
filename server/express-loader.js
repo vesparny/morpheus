@@ -3,7 +3,6 @@
 module.exports = function() {
   var express = require('express');
   var slashes = require('connect-slashes');
-  var expressState = require('express-state');
   var path = require('path');
   var bodyParser = require('body-parser');
   var favicon = require('serve-favicon');
@@ -22,8 +21,6 @@ module.exports = function() {
   var fetchrPlugin = appContext.getPlugin('FetchrPlugin');
 
   morpheus.logger.info('creating express application');
-  expressState.extend(server);
-  server.set('state namespace', 'Morpheus');
   server.enable('strict routing');
   server.use(morganLogger('dev'));
   server.use(methodOverride());
