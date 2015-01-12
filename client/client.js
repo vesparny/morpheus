@@ -11,6 +11,7 @@ appContext.rehydrate(dehydratedState, function(err, context) {
   }
   var mountNode = document.body;
   React.render(appContext.getAppComponent()({
-    context: context.getComponentContext()
+    context: context.getComponentContext(),
+    enableScroll: false
   }), mountNode, function() {});
 });

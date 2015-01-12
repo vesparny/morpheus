@@ -17,7 +17,7 @@ module.exports = function(log) {
       err.message = util.format('page %s not found', req.protocol + '://' + req.get('host') + req.originalUrl);
     }
     if (err.statusCode === 500) {
-      err.message = err.message ? 'Internal Server Error - '+ err.message : 'Internal Server Error';
+      err.message = err.message ? 'Internal Server Error - ' + err.message : 'Internal Server Error';
     }
     res.status(err.statusCode);
     res.format({
@@ -32,7 +32,8 @@ module.exports = function(log) {
         }, function() {
           var AppComponent = fluxibleApp.getAppComponent();
           var markup = React.renderToString(AppComponent({ //jshint ignore:line
-            context: context.getComponentContext()
+            context: context.getComponentContext(),
+            enableScroll: false
           }));
           res.expose(fluxibleApp.dehydrate(context), 'App');
           serverUtils.render(res, markup);

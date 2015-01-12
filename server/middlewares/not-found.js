@@ -22,7 +22,8 @@ module.exports = function(log) {
         }, function() {
           var AppComponent = fluxibleApp.getAppComponent();
           var markup = React.renderToString(AppComponent({ //jshint ignore:line
-            context: context.getComponentContext()
+            context: context.getComponentContext(),
+            enableScroll: false
           }));
           res.expose(fluxibleApp.dehydrate(context), 'App');
           serverUtils.render(res, markup);

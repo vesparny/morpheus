@@ -20,7 +20,8 @@ module.exports = function(server) {
       res.locals.state = 'window.Morpheus=' + serialize(fluxibleApp.dehydrate(context)) + ';';
       var AppComponent = fluxibleApp.getAppComponent();
       var markup = React.renderToString(AppComponent({ //jshint ignore:line
-        context: context.getComponentContext()
+        context: context.getComponentContext(),
+        enableScroll: false
       }));
       serverUtils.render(res, markup);
     });
@@ -28,18 +29,18 @@ module.exports = function(server) {
 
   server.get('/', function(req, res, next) {
     makeCall(req, res, next, {
-      action:ContentActions.list,
-      params:{
+      action: ContentActions.list,
+      params: {
         page: '1'
       }
     });
   });
 
   server.get('/rss/', function(req, res, next) {
-    rssService.getFeed().then(function(feed){
+    rssService.getFeed().then(function(feed) {
       res.set('Content-Type', 'text/xml; charset=UTF-8');
       res.send(feed.xml());
-    }).catch(function(err){
+    }).catch(function(err) {
       return next(err);
     });
   });
@@ -50,8 +51,8 @@ module.exports = function(server) {
       return next();
     }
     makeCall(req, res, next, {
-      action:ContentActions.list,
-      params:{
+      action: ContentActions.list,
+      params: {
         page: page
       }
     });
@@ -59,8 +60,8 @@ module.exports = function(server) {
 
   server.get('/:title/', function(req, res, next) {
     makeCall(req, res, next, {
-      action:ContentActions.single,
-      params:{
+      action: ContentActions.single,
+      params: {
         slug: req.params.title
       }
     });
@@ -68,8 +69,8 @@ module.exports = function(server) {
 
   server.get('/tag/:tag/', function(req, res, next) {
     makeCall(req, res, next, {
-      action:ContentActions.tag,
-      params:{
+      action: ContentActions.tag,
+      params: {
         slug: req.params.title
       }
     });
@@ -78,8 +79,8 @@ module.exports = function(server) {
   if (config.permalinkStructure !== '/:title/') {
     server.get(config.permalinkStructure, function(req, res, next) {
       makeCall(req, res, next, {
-        action:ContentActions.single,
-        params:{
+        action: ContentActions.single,
+        params: {
           slug: req.params.title
         }
       });
