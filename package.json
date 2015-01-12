@@ -46,7 +46,6 @@
     "marked": "~0.3.2",
     "method-override": "~2.3.1",
     "moment": "~2.9.0",
-    "morgan": "~1.5.1",
     "multer": "~0.1.6",
     "node-jsx": "~0.12.4",
     "object-assign": "~2.0.0",

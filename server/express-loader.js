@@ -6,12 +6,13 @@ module.exports = function() {
   var path = require('path');
   var bodyParser = require('body-parser');
   var favicon = require('serve-favicon');
-  var morganLogger = require('morgan');
   var methodOverride = require('method-override');
   var multer = require('multer');
   var routes = require('./routes');
   var errors = require('./middlewares/errors');
   var sslRedirection = require('./middlewares/ssl-redirection');
+  var requestLogger = require('./middlewares/request-logger');
+
   var robotstxt = require('./middlewares/robots');
   var navigation = require('./middlewares/navigation');
   var notFound = require('./middlewares/not-found');
@@ -23,8 +24,8 @@ module.exports = function() {
 
   morpheus.logger.info('creating express application');
   server.enable('strict routing');
+  server.use(requestLogger.call(null, morpheus.getLogger('express-loader')));
   server.use(robotstxt);
-  server.use(morganLogger('dev'));
   server.use(methodOverride());
   server.use(bodyParser.json());
   server.use(bodyParser.urlencoded({
