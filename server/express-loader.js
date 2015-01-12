@@ -12,6 +12,7 @@ module.exports = function() {
   var routes = require('./routes');
   var errors = require('./middlewares/errors');
   var sslRedirection = require('./middlewares/ssl-redirection');
+  var robotstxt = require('./middlewares/robots');
   var navigation = require('./middlewares/navigation');
   var notFound = require('./middlewares/not-found');
   var helmet = require('helmet');
@@ -22,6 +23,7 @@ module.exports = function() {
 
   morpheus.logger.info('creating express application');
   server.enable('strict routing');
+  server.use(robotstxt);
   server.use(morganLogger('dev'));
   server.use(methodOverride());
   server.use(bodyParser.json());
@@ -40,7 +42,9 @@ module.exports = function() {
   server.use(helmet.ienoopen());
 
   // powered by Morpheus
-  server.use(helmet.hidePoweredBy({ setTo: 'Morpheus ' + morpheus.config.version }));
+  server.use(helmet.hidePoweredBy({
+    setTo: 'Morpheus ' + morpheus.config.version
+  }));
 
   fetchrPlugin.registerService(morpheus.services.content);
   server.use(fetchrPlugin.getXhrPath(), fetchrPlugin.getMiddleware());
