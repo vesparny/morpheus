@@ -36,7 +36,6 @@ Morpheus.prototype.run = function(callback) {
       port: that.config.port,
     });
   });
-
 };
 
 var morpheus = new Morpheus();
