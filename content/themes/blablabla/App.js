@@ -47,7 +47,6 @@ var App = React.createClass({
     }
   },
   render: function(){
-    console.log(this.state.meta);
     var clicky = null;
     if (this.state.globals.clickyAnalytics) {
       clicky = <Clicky code={this.state.globals.clickyAnalytics}/>;
