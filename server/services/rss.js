@@ -25,6 +25,7 @@ var rssService = {
         permalinkStructure: config.permalinkStructure
       }).then(function(posts) {
         var promiseArray = [];
+        var itemsArray = [];
         posts.forEach(function(post){
           var item = {
             title: post.title,
@@ -34,26 +35,28 @@ var rssService = {
             categories: post.tags,
             author: post.author,
           };
+          itemsArray.push(item);
           promiseArray.push(serverUtils.toMarkdown(post.body));
-          Promise.all(promiseArray).then(function(data) {
-            data.forEach(function(content){
-              var htmlContent = cheerio.load(content, {decodeEntities: false});
-              // convert relative resource urls to absolute
-              ['href', 'src'].forEach(function (attributeName) {
-                htmlContent('[' + attributeName + ']').each(function (index, el) {
-                  el = htmlContent(el);
-                  var attributeValue = el.attr(attributeName);
-                  attributeValue = url.resolve(config.siteUrl, attributeValue);
-                  el.attr(attributeName, attributeValue);
-                });
+        });
+        Promise.all(promiseArray).then(function(data) {
+          data.forEach(function(content, index){
+            var currentItem = itemsArray[index];
+            var htmlContent = cheerio.load(content, {decodeEntities: false});
+            // convert relative resource urls to absolute
+            ['href', 'src'].forEach(function (attributeName) {
+              htmlContent('[' + attributeName + ']').each(function (index, el) {
+                el = htmlContent(el);
+                var attributeValue = el.attr(attributeName);
+                attributeValue = url.resolve(config.siteUrl, attributeValue);
+                el.attr(attributeName, attributeValue);
               });
-              item.description = htmlContent.html();
-              feed.item(item);
             });
-            resolve(feed);
-          }).catch(function(err){
-            reject(err);
+            currentItem.description = htmlContent.html();
+            feed.item(currentItem);
           });
+          resolve(feed);
+        }).catch(function(err){
+          reject(err);
         });
       }).catch(function(err){
         reject(err);
