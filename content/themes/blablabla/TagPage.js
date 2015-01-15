@@ -4,7 +4,7 @@ var React = require('react');
 var ContentListStore = require('../../../shared/stores/ContentListStore');
 var HeaderSingle = require('./HeaderSingle');
 var Footer = require('./Footer');
-var StoreMixin = require('fluxible-app').StoreMixin;
+var StoreMixin = require('fluxible').StoreMixin;
 
 
 var Single = React.createClass({

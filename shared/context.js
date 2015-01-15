@@ -1,7 +1,7 @@
 'use strict';
 
 var React = require('react');
-var FluxibleApp = require('fluxible-app');
+var FluxibleApp = require('fluxible');
 var routrPlugin = require('fluxible-plugin-routr');
 var fetchrPlugin = require('fluxible-plugin-fetchr');
 var routes = require('../client/client-routes');
