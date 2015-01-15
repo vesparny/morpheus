@@ -2,6 +2,7 @@
 type: page
 slug: a-static-page
 title: A static page
+description: This is a static page
 ---
 
 #  Hello from a static page

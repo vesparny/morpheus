@@ -9,9 +9,10 @@ var Header = React.createClass({
     context: React.PropTypes.object.isRequired
   },
   render: function() {
-    var siteUrl = this.props.context.getStore(ApplicationStore).getGlobals().siteUrl;
-    var siteTitle = this.props.context.getStore(ApplicationStore).getGlobals().siteTitle;
-    var siteDescription = this.props.context.getStore(ApplicationStore).getGlobals().siteDescription;
+    var siteGlobal = this.props.context.getStore(ApplicationStore).getState().globals;
+    var siteUrl = siteGlobal.siteUrl;
+    var siteTitle = siteGlobal.siteTitle;
+    var siteDescription = siteGlobal.siteDescription;
     return (
       <header className='main-header'>
         <nav className='main-nav overlay clearfix'>

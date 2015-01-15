@@ -2,43 +2,38 @@
 
 var React = require('react');
 var ApplicationStore = require('../../../shared/stores/ApplicationStore');
+var MetaStore = require('../../../shared/stores/MetaStore');
 
 var Html = React.createClass({
   render: function(){
-    var pageTitle = this.props.context.getStore(ApplicationStore).getPageMeta().pageTitle;
-    var keywords = this.props.context.getStore(ApplicationStore).getPageMeta().keywords || [];
-    var pageDescription = this.props.context.getStore(ApplicationStore).getPageMeta().pageDescription;
-    var siteUrl = this.props.context.getStore(ApplicationStore).getGlobals().siteUrl;
-    var siteTitle = this.props.context.getStore(ApplicationStore).getGlobals().siteTitle;
-    console.log(this.props.context.getStore(ApplicationStore));
+    var siteGlobals = this.props.context.getStore(ApplicationStore).getState().globals;
+    var siteMeta = this.props.context.getStore(MetaStore).getState().meta;
+
+    var siteUrl = siteGlobals.siteUrl;
+    var siteTitle = siteGlobals.siteTitle;
+
     return (
 
     <html lang="en">
     <head>
       <meta charSet="utf-8" />
-      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-      <title>{pageTitle}</title>
-      <meta name="description" content={pageDescription} />
-      <meta name="keywords" content={keywords.join('')} />
+      <title>{siteMeta.metaTitle || siteTitle}</title>
+      <meta name="description" content={siteMeta.metaDescription} />
+      <meta name="viewport" content="width=device-width,initial-scale=1" />
 
-      <meta itemprop="name" content={pageTitle} />
-      <meta itemprop="description" content={pageDescription} />
+      <meta itemProp="name" content={siteMeta.metaTitle || siteTitle} />
+      <meta itemProp="description" content={siteMeta.metaDescription} />
 
-      <link rel="canonical" href="http://demo.ghost.io/style-test/" />
-      <meta name="generator" content="Ghost 0.5" />
-      <link rel="alternate" type="application/rss+xml" title={siteTitle} href={siteUrl + '/rss/'} />
+      <meta name="generator" content="Morpheus + TODO version" />
 
-      <meta name="twitter:card" content="summary" />
-      <meta name="twitter:title" content={pageTitle} />
-      <meta name="twitter:description" content={pageDescription} />
-      <meta name="twitter:url" content="http://demo.ghost.io/style-test/" />
-      <meta name="twitter:creator" content="@vesparny" />
-
-      <meta property="og:type" content="article" />
-      <meta property="og:title" content={pageTitle} />
-      <meta property="og:url" content="http://www.html5rocks.com/en/tutorials/es6/promises/" />
-      <meta property="og:description" content={pageDescription} />
+      <meta property="og:type" content={siteMeta.ogType} />
+      <meta property="og:title" content={siteMeta.metaTitle || siteTitle} />
+      <meta property="og:url" content={siteMeta.fullUrl} />
+      <meta property="og:description" content={siteMeta.metaDescription} />
+      <meta property="og:image" content={siteMeta.metaImage} />
       <meta property="og:site_name" content={siteTitle} />
+
+      <link rel="alternate" type="application/rss+xml" title={siteTitle + " RSS"} href={siteUrl + "/rss/"} />
 
       <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Merriweather:300,700,700italic,300italic|Open+Sans:700,400" />
       <link rel="stylesheet" href="/assets/dist/main.css" />

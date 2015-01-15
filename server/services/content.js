@@ -39,8 +39,8 @@ var actions = {
       contentPath: config.contentPath,
       permalinkStructure: config.permalinkStructure
     }).then(function(result) {
-      buildContent(result.rawData, config.siteUrl).then(function(content){
-        delete result.rawData;
+      buildContent(result.content, config.siteUrl).then(function(content){
+        delete result.content;
         result.data = content;
         callback(null, result);
       }).catch(function(err){
@@ -57,11 +57,11 @@ var actions = {
       permalinkStructure: config.permalinkStructure
     })).then(function(result) {
       var promiseArray = [];
-      result.rawData.forEach(function(el) {
+      result.content.forEach(function(el) {
         promiseArray.push(buildContent(el, config.siteUrl));
       });
       Promise.all(promiseArray).then(function(data) {
-        delete result.rawData;
+        delete result.content;
         result.data = data;
         callback(null, result);
       }).catch(function(err){

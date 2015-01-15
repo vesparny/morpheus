@@ -5,6 +5,7 @@ email: youreamail@yourwebsite.something
 tags: general
 slug: welcome-to-morpheus
 title: Welcome to morpheus
+description: This is an example post
 ---
 You're live! Nice. We've put together a little post to introduce you to Morpheus and Markdown.
 You can manage your content by creating posts and pages inside the `/content/` .folder

@@ -23,13 +23,13 @@ var ContentStore = createStore({
   getAll: function() {
     return this.posts;
   },
-  getContent: function() {
-    return this.content;
-  },
-  dehydrate: function() {
+  getState: function() {
     return {
       content: this.content
     };
+  },
+  dehydrate: function() {
+    return this.getState();
   },
   rehydrate: function(state) {
     this.content = state.content;

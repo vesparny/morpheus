@@ -14,7 +14,7 @@ var Footer = React.createClass({
     };
     var classes = cx(classesMap);
     var year = moment().format('YYYY');
-    var siteTitle = this.props.context.getStore(ApplicationStore).getGlobals().siteTitle;
+    var siteTitle = this.props.context.getStore(ApplicationStore).getState().globals.siteTitle;
     return (
       <footer className={classes}>
          <section className="copyright">{siteTitle} &copy; {year}</section>

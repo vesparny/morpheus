@@ -7,21 +7,15 @@ var ApplicationStore = createStore({
   handlers: {
     'CHANGE_ROUTE_SUCCESS': 'handleNavigate',
     'SET_ERROR': 'setError',
-    'UPDATE_PAGE_META': 'updatePageMeta',
     'SET_APP_GLOBALS': 'setAppGlobals'
   },
   initialize: function(dispatcher) { //jshint ignore:line
     this.route = {};
     this.globals = {};
-    this.pageMeta = {};
     this.error = null;
   },
   setAppGlobals: function(globals) {
     this.globals = globals;
-    this.emitChange();
-  },
-  updatePageMeta: function(pageMeta) {
-    this.pageMeta = pageMeta;
     this.emitChange();
   },
   setError: function(error) {
@@ -29,7 +23,6 @@ var ApplicationStore = createStore({
     this.pageTitle = 'error';
     this.emitChange();
   },
-
   handleNavigate: function(route) {
     if (route.url === this.route.url) {
       return;
@@ -44,15 +37,8 @@ var ApplicationStore = createStore({
     return {
       route: this.route,
       error: this.error,
-      pageMeta: this.pageMeta,
       globals: this.globals
     };
-  },
-  getGlobals: function() {
-    return this.globals;
-  },
-  getPageMeta: function() {
-    return this.pageMeta;
   },
   dehydrate: function() {
     return this.getState();
@@ -60,7 +46,6 @@ var ApplicationStore = createStore({
   rehydrate: function(state) {
     this.route = state.route;
     this.error = state.error;
-    this.pageMeta = state.pageMeta;
     this.globals = state.globals;
     this.emitChange();
   }

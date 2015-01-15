@@ -5,36 +5,37 @@ var PostList = require('./PostList');
 var Single = require('./Single');
 var ErrorPage = require('./Error');
 var ApplicationStore = require('../../../shared/stores/ApplicationStore');
+var MetaStore = require('../../../shared/stores/MetaStore');
 var RouterMixin = require('flux-router-component').RouterMixin;
 var StoreMixin = require('fluxible-app').StoreMixin;
 var canUseDOM = require('react/lib/ExecutionEnvironment').canUseDOM;
 var Clicky = require('./Clicky');
+var assign = require('object-assign');
 
 var App = React.createClass({
   mixins: [RouterMixin, StoreMixin],
   statics: {
-    storeListeners: [ApplicationStore]
+    storeListeners: [ApplicationStore, MetaStore]
   },
   propTypes:{
     context:React.PropTypes.object.isRequired
   },
   getInitialState: function () {
-    return this.getStore(ApplicationStore).getState();
+    return assign(this.getStore(ApplicationStore).getState(), this.getStore(MetaStore).getState());
   },
   onChange: function () {
-    this.setState(this.getStore(ApplicationStore).getState());
+    this.setState(assign(this.getStore(ApplicationStore).getState(), this.getStore(MetaStore).getState()));
   },
   handleDomChanges: function(){
     if (canUseDOM) {
       //scroll
       window.scrollTo(0,0);
-
       //handle metas
-      document.title = this.state.pageMeta.pageTitle;
+      document.title = this.state.meta.title || this.state.globals.siteTitle;
       var metaTag = document.getElementsByTagName('meta');
       [].forEach.call(metaTag, function(meta){
         if (meta.getAttribute('name') === 'description') {
-            meta.content = this.state.pageMeta.pageDescription;
+            meta.content = this.state.meta.description;
         }
       }.bind(this));
 
@@ -46,6 +47,7 @@ var App = React.createClass({
     }
   },
   render: function(){
+    console.log(this.state.meta);
     var clicky = null;
     if (this.state.globals.clickyAnalytics) {
       clicky = <Clicky code={this.state.globals.clickyAnalytics}/>;
@@ -63,7 +65,7 @@ var App = React.createClass({
     if (this.state.route.name === 'home' || this.state.route.name === 'page') {
       return (
         <div>
-        <PostList context={this.props.context} page={this.state.route.params.page} pageCount={this.state.pageMeta.meta.pageCount} totalCount={this.state.pageMeta.meta.totalCount}/>
+        <PostList context={this.props.context} page={this.state.route.params.page} pageCount={this.state.meta.pagination.pageCount} totalCount={this.state.meta.pagination.totalCount}/>
         {clicky}
         </div>
       );

@@ -20,13 +20,13 @@ var ContentListStore = createStore({
     this.contentList = contentList;
     this.emitChange();
   },
-  getContentList: function() {
-    return this.contentList;
-  },
-  dehydrate: function() {
+  getState: function() {
     return {
       contentList: this.contentList
     };
+  },
+  dehydrate: function() {
+    return this.getState();
   },
   rehydrate: function(state) {
     this.contentList = state.contentList;

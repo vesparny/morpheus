@@ -9,20 +9,16 @@ var fm = require('front-matter');
 var inherits = require('inherits');
 var errors = require('../errors');
 var moment = require('moment');
+var assign = require('object-assign');
 
 function buildContent(item, permalinkStructure) {
-  var content = {};
-  content.author = item.attributes.author;
-  content.tags = item.attributes.tags;
-  content.slug = item.attributes.slug;
-  content.type = item.attributes.type;
-  content.email = item.attributes.email;
-  content.title = item.attributes.title;
-  content.permalink = '/' + item.attributes.slug + '/';
+  var content = assign({}, item.attributes);
+  content.permalink = '/' + content.slug + '/';
+
+  //sanitize
   content.body = item.body || '';
-  content.tags = item.attributes.tags ? item.attributes.tags.split(',') : [];
-  if (item.attributes.type === 'post') {
-    content.rawDate = item.attributes.rawDate;
+  content.tags = content.tags ? content.tags.split(',') : [];
+  if (content.type === 'post') {
     content.date = content.rawDate.format('DD MMMM YYYY');
     var availablePatterns = {
       year: 'YYYY',
@@ -76,7 +72,7 @@ ContentRepository.prototype.find = function(options) {
       pageCount: 0,
       totalCount: 0
     },
-    rawData: undefined
+    content: undefined
   };
   return new Promise(function(resolve, reject) {
     glob(path.resolve(options.contentPath, 'posts') + '/**/*.md', function(err, files) {
@@ -110,7 +106,7 @@ ContentRepository.prototype.find = function(options) {
         });
 
         Promise.all(promiseArray).then(function(data) {
-          response.rawData = data;
+          response.content = data;
           resolve(response);
         }).catch(function(err) {
           reject(new errors.InternalServer(err.message));
@@ -154,7 +150,7 @@ ContentRepository.prototype.findOne = function(options) {
   var that = this;
   var response = {
     meta: {},
-    rawData: undefined
+    content: undefined
   };
   return new Promise(function(resolve, reject) {
     glob(path.resolve(options.contentPath, 'posts') + '/*[0-9][0-9][0-9][0-9][0-9][0-9]-' + options.slug + '.md', function(err, files) {
@@ -169,7 +165,7 @@ ContentRepository.prototype.findOne = function(options) {
         });
       } else {
         readFile(files[0], options.permalinkStructure).then(function(data) {
-          response.rawData = data;
+          response.content = data;
           resolve(response);
         }).catch(function(err) {
           reject(new errors.InternalServer(err.message));
@@ -183,7 +179,7 @@ ContentRepository.prototype.findPage = function(options) {
   options = options || {};
   var response = {
     meta: {},
-    data: undefined
+    content: undefined
   };
   return new Promise(function(resolve, reject) {
     glob(path.resolve(options.contentPath, 'pages') + '/' + options.slug + '.md', function(err, files) {
@@ -194,7 +190,7 @@ ContentRepository.prototype.findPage = function(options) {
         reject(new errors.NotFound());
       } else {
         readFile(files[0]).then(function(data) {
-          response.rawData = data;
+          response.content = data;
           resolve(response);
         }).catch(function(err) {
           reject(new errors.InternalServer(err.message));

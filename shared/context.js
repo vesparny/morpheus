@@ -57,5 +57,6 @@ context.plug(configPlugin({
 context.registerStore(require('./stores/ContentStore'));
 context.registerStore(require('./stores/ContentListStore'));
 context.registerStore(require('./stores/ApplicationStore'));
+context.registerStore(require('./stores/MetaStore'));
 
 module.exports = context;

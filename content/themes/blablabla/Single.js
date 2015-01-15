@@ -33,7 +33,7 @@ var Single = React.createClass({
   },
   getStateFromStores: function () {
     return {
-      single: this.getStore(ContentStore).getContent(),
+      single: this.getStore(ContentStore).getState().content,
       cssClass: 'single'
     };
   },
@@ -70,12 +70,13 @@ var Single = React.createClass({
     var footer  = '';
     var header = '';
     var disqus = null;
-    var authors = this.props.context.getStore(ApplicationStore).getGlobals().authors;
+    var siteGlobals = this.props.context.getStore(ApplicationStore).getState().globals;
+    var authors = siteGlobals.authors;
     var authorMeta = authors[this.state.single.email] && authors[this.state.single.email].meta;
-    var disqusComments = this.props.context.getStore(ApplicationStore).getGlobals().disqusComments;
+    var disqusComments = siteGlobals.disqusComments;
     if (this.state.single.type === 'post') {
       if (disqusComments) {
-        disqus = <Disqus shortName={disqusComments} identifier={this.state.single.slug} title={this.state.single.title} url={ this.props.context.getStore(ApplicationStore).getGlobals().siteUrl + this.state.single.permalink}/>;
+        disqus = <Disqus shortName={disqusComments} identifier={this.state.single.slug} title={this.state.single.title} url={ this.props.context.getStore(ApplicationStore).getState().globals.siteUrl + this.state.single.permalink}/>;
       }
       footer =
       <footer className="post-footer">

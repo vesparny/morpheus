@@ -1,5 +1,7 @@
 'use strict';
 
+var assign = require('object-assign');
+
 function buildAppGlobalsPayload(config) {
   var debug = require('debug');
   if (config.debug) {
@@ -30,10 +32,10 @@ module.exports = {
         return done(err);
       }
       context.dispatch('GET_CONTENT_LIST_SUCCESS', result.data);
-      context.dispatch('UPDATE_PAGE_META', {
-        pageDescription: context.config.siteDescription,
-        pageTitle: context.config.siteTitle + (payload.page && payload.page !== '1' ? ' - Page ' + payload.page : ''),
-        meta: result.meta
+      context.dispatch('SET_META', {
+        description: context.config.siteDescription,
+        title: context.config.siteTitle + (payload.page && payload.page !== '1' ? ' - Page ' + payload.page : ''),
+        pagination: result.meta
       });
       done();
     });
@@ -51,11 +53,9 @@ module.exports = {
         return done(err);
       }
       context.dispatch('GET_CONTENT_SUCCESS', result.data);
-      context.dispatch('UPDATE_PAGE_META', {
-        pageDescription: result.data.title,
-        pageTitle: result.data.title,
-        meta: result.meta
-      });
+      context.dispatch('SET_META', assign(result.data, {
+        pagination: result.meta
+      }));
       done();
     });
   },

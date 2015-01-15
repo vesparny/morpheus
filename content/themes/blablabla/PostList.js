@@ -27,7 +27,7 @@ var PostList = React.createClass({
   },
   getStateFromStores: function () {
     return {
-      posts: this.getStore(ContentListStore).getContentList(),
+      posts: this.getStore(ContentListStore).getState().contentList,
       cssClass: 'home'
     };
   },
