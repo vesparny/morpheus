@@ -14,7 +14,7 @@ function buildAppGlobalsPayload(config) {
     siteUrl: config.siteUrl,
     siteDescription: config.siteDescription,
     authors: config.authors,
-    clickyAnalytics: config.clickyAnalytics,
+    googleAnalytics: config.googleAnalytics,
     disqusComments: config.disqusComments
   };
 }

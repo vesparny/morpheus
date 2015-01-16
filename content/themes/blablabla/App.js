@@ -8,7 +8,7 @@ var ApplicationStore = require('../../../shared/stores/ApplicationStore');
 var MetaStore = require('../../../shared/stores/MetaStore');
 var RouterMixin = require('flux-router-component').RouterMixin;
 var StoreMixin = require('fluxible').StoreMixin;
-var Clicky = require('./Clicky');
+var GoogleAnalytics = require('./GoogleAnalytics');
 var assign = require('object-assign');
 
 var App = React.createClass({
@@ -44,19 +44,21 @@ var App = React.createClass({
       for (var i=0; i < aCodes.length; i+=1) {
         window.hljs.highlightBlock(aCodes[i]);
       }
+
+      //ga
+      if (window._gaq) {
+        window._gaq.push(['_trackPageview', window.location.pathname]);
+      }
     }
   },
   render: function(){
-    var clicky = null;
-    if (this.state.globals.clickyAnalytics) {
-      clicky = <Clicky code={this.state.globals.clickyAnalytics}/>;
-    }
+    var ga = this.state.globals.googleAnalytics ? <GoogleAnalytics code={this.state.globals.googleAnalytics} /> : null;
 
     if (this.state.error) {
       return (
         <div>
           <ErrorPage context={this.props.context} error={this.state.error}/>
-          {clicky}
+            {ga}
         </div>
       );
     }
@@ -64,7 +66,7 @@ var App = React.createClass({
       return (
         <div>
         <PostList context={this.props.context} page={this.state.route.params.page} pageCount={this.state.meta.pagination.pageCount} totalCount={this.state.meta.pagination.totalCount}/>
-        {clicky}
+          {ga}
         </div>
       );
     }
@@ -72,7 +74,7 @@ var App = React.createClass({
       return (
         <div>
         <Single context={this.props.context} params={this.state.route.params}/>
-        {clicky}
+          {ga}
         </div>
       );
     }

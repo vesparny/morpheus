@@ -5,6 +5,7 @@ var ApplicationStore = require('../../../shared/stores/ApplicationStore');
 var MetaStore = require('../../../shared/stores/MetaStore');
 
 var Html = React.createClass({
+
   render: function(){
     var siteGlobals = this.props.context.getStore(ApplicationStore).getState().globals;
     var siteMeta = this.props.context.getStore(MetaStore).getState().meta;

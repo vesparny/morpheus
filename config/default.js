@@ -24,6 +24,6 @@ module.exports = {
       meta: 'I really like to write :)'
     }
   },
-  clickyAnalytics : '', //your clicky numeric code
+  googleAnalytics : 'kmkmkmk', //your google analytics tracking code
   disqusComments : '' //your disqus shortname
 };
