@@ -15,7 +15,8 @@ function buildAppGlobalsPayload(config) {
     siteDescription: config.siteDescription,
     authors: config.authors,
     googleAnalytics: config.googleAnalytics,
-    disqusComments: config.disqusComments
+    disqusComments: config.disqusComments,
+    version: config.version  
   };
 }
 

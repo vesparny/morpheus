@@ -43,9 +43,7 @@ module.exports = function() {
   server.use(helmet.ienoopen());
 
   // powered by Morpheus
-  server.use(helmet.hidePoweredBy({
-    setTo: 'Morpheus ' + morpheus.config.version
-  }));
+  server.use(helmet.hidePoweredBy());
 
   fetchrPlugin.registerService(morpheus.services.content);
   server.use(fetchrPlugin.getXhrPath(), fetchrPlugin.getMiddleware());

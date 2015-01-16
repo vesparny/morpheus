@@ -26,7 +26,7 @@ var Html = React.createClass({
       <meta itemProp="name" content={siteMeta.metaTitle} />
       <meta itemProp="description" content={siteMeta.metaDescription || description} />
 
-      <meta name="generator" content="Morpheus + TODO version" />
+      <meta name="generator" content={"Morpheus " + siteGlobals.version} />
 
       <meta property="og:type" content={siteMeta.ogType} />
       <meta property="og:title" content={siteMeta.metaTitle} />
