@@ -25,6 +25,12 @@ var App = React.createClass({
   onChange: function () {
     this.setState(assign(this.getStore(ApplicationStore).getState(), this.getStore(MetaStore).getState()));
   },
+  componentDidMount: function() {
+    if (this.state.globals.googleAnalytics) {
+      //ga
+      window.ga('send', 'pageview', window.location.pathname);
+    }
+  },
   componentDidUpdate: function(prevProps, prevState) {// jshint ignore:line
     var newState = this.state;
     if (document.title !== (newState.meta.title || newState.globals.siteTitle)) {
@@ -45,9 +51,9 @@ var App = React.createClass({
         window.hljs.highlightBlock(aCodes[i]);
       }
 
-      //ga
-      if (window._gaq) {
-        window._gaq.push(['_trackPageview', window.location.pathname]);
+      if (this.state.globals.googleAnalytics) {
+        //ga
+        window.ga('send', 'pageview', window.location.pathname);
       }
     }
   },

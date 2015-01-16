@@ -24,6 +24,6 @@ module.exports = {
       meta: 'I really like to write :)'
     }
   },
-  googleAnalytics : 'kmkmkmk', //your google analytics tracking code
+  googleAnalytics : 'UA-XXXXX', //your google analytics tracking code
   disqusComments : '' //your disqus shortname
 };
