@@ -11,6 +11,7 @@ module.exports = function() {
   var routes = require('./routes');
   var errors = require('./middlewares/errors');
   var sslRedirection = require('./middlewares/ssl-redirection');
+  var sanitize = require('./middlewares/sanitize');
   var requestLogger = require('./middlewares/request-logger');
   var fluxibleContext = require('./middlewares/fluxible-context');
   var robotstxt = require('./middlewares/robots');
@@ -51,6 +52,8 @@ module.exports = function() {
 
   fetchrPlugin.registerService(morpheus.services.content);
   server.use(fetchrPlugin.getXhrPath(), fetchrPlugin.getMiddleware());
+
+  server.use(sanitize);
 
   server.use(slashes());
 
