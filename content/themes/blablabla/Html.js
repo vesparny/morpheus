@@ -11,7 +11,7 @@ var Html = React.createClass({
 
     var siteUrl = siteGlobals.siteUrl;
     var title = siteMeta.title || siteGlobals.siteTitle;
-    var description = siteMeta.description || siteGlobals.siteDescription
+    var description = siteMeta.description || siteGlobals.siteDescription;
 
     return (
 

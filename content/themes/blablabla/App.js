@@ -8,7 +8,6 @@ var ApplicationStore = require('../../../shared/stores/ApplicationStore');
 var MetaStore = require('../../../shared/stores/MetaStore');
 var RouterMixin = require('flux-router-component').RouterMixin;
 var StoreMixin = require('fluxible').StoreMixin;
-var canUseDOM = require('react/lib/ExecutionEnvironment').canUseDOM;
 var Clicky = require('./Clicky');
 var assign = require('object-assign');
 
@@ -26,16 +25,17 @@ var App = React.createClass({
   onChange: function () {
     this.setState(assign(this.getStore(ApplicationStore).getState(), this.getStore(MetaStore).getState()));
   },
-  handleDomChanges: function(){
-    if (canUseDOM) {
-      //scroll
-      window.scrollTo(0,0);
-      //handle metas
+  componentDidUpdate: function(prevProps, prevState) {// jshint ignore:line
+    var newState = this.state;
+    if (document.title !== (newState.meta.title || newState.globals.siteTitle)) {
       document.title = this.state.meta.title || this.state.globals.siteTitle;
+      window.scrollTo(0,0);
+
+      //handle metas
       var metaTag = document.getElementsByTagName('meta');
       [].forEach.call(metaTag, function(meta){
         if (meta.getAttribute('name') === 'description') {
-            meta.content = this.state.meta.description;
+          meta.content = this.state.meta.description;
         }
       }.bind(this));
 
@@ -52,7 +52,6 @@ var App = React.createClass({
       clicky = <Clicky code={this.state.globals.clickyAnalytics}/>;
     }
 
-    this.handleDomChanges();
     if (this.state.error) {
       return (
         <div>
