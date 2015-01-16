@@ -12,7 +12,7 @@ module.exports = function() {
   var errors = require('./middlewares/errors');
   var sslRedirection = require('./middlewares/ssl-redirection');
   var requestLogger = require('./middlewares/request-logger');
-
+  var fluxibleContext = require('./middlewares/fluxible-context');
   var robotstxt = require('./middlewares/robots');
   var navigation = require('./middlewares/navigation');
   var notFound = require('./middlewares/not-found');
@@ -45,6 +45,10 @@ module.exports = function() {
   // powered by Morpheus
   server.use(helmet.hidePoweredBy());
 
+  server.use(sslRedirection);
+
+  server.use(fluxibleContext.call(null, appContext));
+
   fetchrPlugin.registerService(morpheus.services.content);
   server.use(fetchrPlugin.getXhrPath(), fetchrPlugin.getMiddleware());
 
@@ -52,7 +56,7 @@ module.exports = function() {
 
   server.use(sslRedirection);
 
-  server.use(navigation.call(null, appContext));
+  server.use(navigation);
 
   routes(server);
 
