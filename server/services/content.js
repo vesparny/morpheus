@@ -18,9 +18,9 @@ function buildContent(item, siteUrl) {
       });
       item.tags = tags;
       item.fullUrl = siteUrl + item.permalink;
-      serverUtils.toMarkdown(item.body).then(function(content){
+      serverUtils.md2html(item.body).then(function(content){
         item.excerpt = serverUtils.excerpt(content);
-        serverUtils.toMarkdown(item.body).then(function(bodyContent){
+        serverUtils.md2html(item.body).then(function(bodyContent){
           item.content = bodyContent;
           delete item.body;
           resolve(item);

@@ -32,7 +32,7 @@ module.exports = {
     res.write('<!doctype>' + html);
     res.end();
   },
-  toMarkdown: function(md){
+  md2html: function(md){
     return new Promise(function(resolve, reject) {
       marked(md, function (err, content) {
         if (err) {
