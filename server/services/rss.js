@@ -36,7 +36,7 @@ var rssService = {
             author: post.author,
           };
           itemsArray.push(item);
-          promiseArray.push(serverUtils.toMarkdown(post.body));
+          promiseArray.push(serverUtils.md2html(post.body));
         });
         Promise.all(promiseArray).then(function(data) {
           data.forEach(function(content, index){
