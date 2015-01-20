@@ -58,7 +58,7 @@ gulp watch
 * Access your fresh-new website at [http://localhost:3000](http://localhost:3000)
 
 * Create a new post or page inside the `content/posts` or `content/pages` folder, then commit changes.
-Please note that the filename structure must follow the convention `yyyy-mm-dd HHmmss-post-tile.md`
+Please note that the filename structure must follow the convention `yyyy-mm-dd-HHmmss-post-title.md`
 Any page or post that contains a YAML front matter block will be processed by Morpheus as a special file. The front matter must be the first thing in the file and must take the form of valid YAML set between triple-dashed lines. Take a look at the example post and page for more details.
 
 If you have an existing repository

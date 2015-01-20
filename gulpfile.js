@@ -147,7 +147,7 @@ gulp.task('test', function() {
 gulp.task('install', function() {
   gulp.src(config.draft)
     .pipe($.rename({
-      prefix: moment().format('YYYY-MM-DD HHmmss-')
+      prefix: moment().format('YYYY-MM-DD-HHmmss-')
     }))
     .pipe(gulp.dest(config.posts));
   $.util.log($.util.colors.green('you are ready to go, run gulp watch'));
