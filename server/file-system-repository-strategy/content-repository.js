@@ -47,7 +47,7 @@ function readFile(file, permalinkStructure) {
       } else {
         var parsed = fm(data);
         var filename = path.basename(file);
-        parsed.attributes.rawDate = moment(filename.substring(0, 17), 'YYYY-MM-DD HHmmss');
+        parsed.attributes.rawDate = moment(filename.substring(0, 17), 'YYYY-MM-DD-HHmmss');
         var content = buildContent(parsed, permalinkStructure);
         resolve(content);
       }
@@ -92,8 +92,8 @@ ContentRepository.prototype.find = function(options) {
         files.sort(function(a, b) {
           var filenameA = path.basename(a);
           var filenameB = path.basename(b);
-          var dateA = moment(filenameA.substring(0, 17), 'YYYY-MM-DD HHmmss');
-          var dateB = moment(filenameB.substring(0, 17), 'YYYY-MM-DD HHmmss');
+          var dateA = moment(filenameA.substring(0, 17), 'YYYY-MM-DD-HHmmss');
+          var dateB = moment(filenameB.substring(0, 17), 'YYYY-MM-DD-HHmmss');
           return dateB.unix() - dateA.unix();
         });
         var sliced = files.slice((response.meta.page - 1) * response.meta.perPage, response.meta.page * response.meta.perPage);
@@ -127,8 +127,8 @@ ContentRepository.prototype.getPostsForFeed = function(options) {
       files.sort(function(a, b) {
         var filenameA = path.basename(a);
         var filenameB = path.basename(b);
-        var dateA = moment(filenameA.substring(0, 17), 'YYYY-MM-DD HHmmss');
-        var dateB = moment(filenameB.substring(0, 17), 'YYYY-MM-DD HHmmss');
+        var dateA = moment(filenameA.substring(0, 17), 'YYYY-MM-DD-HHmmss');
+        var dateB = moment(filenameB.substring(0, 17), 'YYYY-MM-DD-HHmmss');
         return dateB.unix() - dateA.unix();
       });
       var sliced = files.slice(0, 10);
