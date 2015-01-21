@@ -29,7 +29,7 @@ module.exports = {
     res.set({
       'content-type': 'text/html; charset=utf-8'
     });
-    res.write('<!doctype>' + html);
+    res.write('<!DOCTYPE html>' + html);
     res.end();
   },
   md2html: function(md){
