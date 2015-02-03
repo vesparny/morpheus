@@ -1,0 +1,20 @@
+
+/* Morpheus branding variables. */
+
+// Brand fonts
+$brand-font: "Ubuntu Condensed", "Avenir Next Condensed", sans-serif;
+$header-font: "Source Sans Pro", "Open Sans", "Avenir Next", sans-serif;
+$body-font: "Source Serif Pro", "Merriweather", "Georgia", serif;
+$code-font: "Source Code Pro", "Input Sans", "Inconsolata", monospace;
+
+// Brand colors
+$brand-red: #EC5334;
+$brand-blue: #81426E;
+$brand-purple: #81426E;
+$brand-dark: #434343;
+$brand-light: #FCFCF5;
+
+// UI colors
+$font-color: $brand-dark;
+$quiet-font-color: #999;
+$background-color: $brand-light;
