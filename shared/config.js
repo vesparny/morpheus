@@ -2,22 +2,10 @@
 
 var assign = require('object-assign');
 var defaultConfig = require('../config/default');
-var envConfig;
+var env = process.env.NODE_ENV || 'development';
+var envConfig = require('../config/' + env);
 var path = require('path');
 var pkg = require('../package.json');
-
-//this if waterfall sucks, but it's needed for browserify
-if (process.env.NODE_ENV === 'development') {
-  envConfig = require('../config/development');
-}
-
-if (process.env.NODE_ENV === 'test') {
-  envConfig = require('../config/test');
-}
-
-if (process.env.NODE_ENV === 'production') {
-  envConfig = require('../config/production');
-}
 
 function buildConfig(isNode) {
   var data = assign(defaultConfig, envConfig);

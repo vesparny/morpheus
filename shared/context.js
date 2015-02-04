@@ -6,14 +6,8 @@ var routrPlugin = require('fluxible-plugin-routr');
 var fetchrPlugin = require('fluxible-plugin-fetchr');
 var routes = require('../client/client-routes');
 var config = require('./config');
-var appComponent;
+var appComponent = React.createFactory(require('../content/themes/' + config.theme + '/App'));
 
-if (typeof window === 'undefined') {
-  appComponent = React.createFactory(require('../content/themes/' + config.theme + '/App'));
-} else {
-  //this is necessary and it will be replaced by a gulp task
-  appComponent = React.createFactory(require('../content/themes/THEMETOBEREPLACED/App'));
-}
 var context = new FluxibleApp({
   appComponent: appComponent
 });

@@ -2,32 +2,14 @@
 
 var gulp = require('gulp');
 var $ = require('gulp-load-plugins')();
-var browserify = require('browserify');
-var source = require('vinyl-source-stream');
-var buffer = require('vinyl-buffer');
-var reactify = require('reactify');
-var envify = require('envify');
 var del = require('del');
-var watchify = require('watchify');
 var runSequence = require('run-sequence');
 var argv = require('minimist')(process.argv.slice(2));
-var through = require('through2');
 var moment = require('moment');
+var webpack = require('webpack');
+
 process.env.NODE_ENV = argv.env || 'development';
 var configuration = require('./shared/config');
-
-function replaceTheme(file) {
-  function isRoutingFile(file) {
-    return /context.js/.test(file);
-  }
-  if (!isRoutingFile(file)) {
-    return through();
-  }
-  return through(function(buf, enc, next) {
-    this.push(buf.toString('utf8').replace(/THEMETOBEREPLACED/g, configuration.theme));
-    next();
-  });
-}
 
 var config = {
   draft: './content/drafts/welcome-to-morpheus.md',
@@ -36,31 +18,12 @@ var config = {
   mainScss: './content/themes/' + configuration.theme + '/assets/scss/main.scss',
   scss: './content/themes/' + configuration.theme + '/assets/scss/**/*.scss',
   bundle: 'bundle.js',
-  dist: './content/themes/' + configuration.theme + '/assets/dist'
+  dist: './content/themes/' + configuration.theme + '/assets/dist',
+  clientFiles: ['./client/**', './shared/**', './content/**']
 };
 
 gulp.task('clean', function(cb) {
   del([config.dist], cb);
-});
-
-gulp.task('browserify', function() {
-  return browserify(config.client)
-    .transform(envify)
-    .transform(replaceTheme)
-    .transform(reactify)
-    .bundle()
-    .pipe(source(config.bundle))
-    .pipe(buffer())
-    .pipe($.if(argv.env === 'production', $.uglify()))
-    .pipe($.rev())
-    .pipe($.if(argv.env === 'production', $.rename(function(path) {
-      path.basename += '.min';
-    })))
-    .pipe(gulp.dest(config.dist))
-    .pipe($.rev.manifest({
-      path: 'manifest-js.json'
-    }))
-    .pipe(gulp.dest(config.dist));
 });
 
 gulp.task('replace', function() {
@@ -77,25 +40,6 @@ gulp.task('replaceDev', function() {
     .pipe($.replace(/bundle.*\.js/, 'bundle.js'))
     .pipe($.replace(/main.*\.css/, 'main.css'))
     .pipe(gulp.dest('./content/themes/' + configuration.theme));
-});
-
-gulp.task('watchify', function() {
-  var bundler = watchify(browserify(config.client, watchify.args));
-
-  function rebundle() {
-    return bundler
-      .bundle()
-      .on('error', $.notify.onError())
-      .pipe(source(config.bundle))
-      .pipe(buffer())
-      .pipe(gulp.dest(config.dist));
-  }
-
-  bundler.transform(envify)
-    .transform(replaceTheme)
-    .transform(reactify)
-    .on('update', rebundle);
-  return rebundle();
 });
 
 gulp.task('styles', function() {
@@ -121,13 +65,34 @@ gulp.task('styles', function() {
 
 gulp.task('watchers', function() {
   gulp.watch(config.scss, ['styles']);
+  gulp.watch(config.clientFiles, ['webpack']);
 });
 
+var task =   webpack(require('./webpack.config.' + process.env.NODE_ENV));
+gulp.task('webpack', function(cb) {
+  task.run(function(err, stats) {
+    if (err) {
+      throw new $.util.PluginError('webpack', err);
+    }
+    $.util.log('[webpack]', stats.toString({
+      colors: true,
+      hash: false,
+      timings: false,
+      assets: true,
+      chunks: false,
+      chunkModules: false,
+      modules: false,
+      children: true
+    }));
+    cb();
+  });
+});
 
 gulp.task('server', function() {
   $.nodemon({
       script: 'server.js',
-      ext: 'js'
+      ext: 'js',
+      ignore: ['client/*', 'content/*'],
     })
     .on('restart', function() {
       $.util.log($.util.colors.red('restarted'));
@@ -154,11 +119,11 @@ gulp.task('install', function() {
 });
 
 gulp.task('build', ['clean'], function(cb) {
-  runSequence('styles', 'browserify', 'replace', 'server', 'watchers', cb);
+  runSequence('styles', 'webpack', 'replace', 'server', cb);
 });
 
 gulp.task('watch', ['clean'], function(cb) {
-  runSequence('styles', 'watchify', 'replaceDev', 'server', 'watchers', cb);
+  runSequence('styles', 'webpack', 'replaceDev', 'server', 'watchers', cb);
 });
 
 gulp.task('default', function() {
