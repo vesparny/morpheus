@@ -79,10 +79,12 @@
     "json-loader": "^0.5.1",
     "minimist": "~1.1.0",
     "mocha": "~2.1.0",
+    "react-hot-loader": "^1.1.4",
     "run-sequence": "~1.0.2",
     "should": "~4.6.3",
     "sinon": "~1.12.2",
     "supertest": "~0.15.0",
-    "webpack": "^1.5.3"
+    "webpack": "^1.5.3",
+    "webpack-dev-server": "^1.7.0"
   }
 }

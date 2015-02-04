@@ -7,9 +7,13 @@ var runSequence = require('run-sequence');
 var argv = require('minimist')(process.argv.slice(2));
 var moment = require('moment');
 var webpack = require('webpack');
+var WebpackDevServer = require('webpack-dev-server');
 
 process.env.NODE_ENV = argv.env || 'development';
 var configuration = require('./shared/config');
+
+var webpackConfig = require('./webpack.config.' + process.env.NODE_ENV);
+var wp = webpack(webpackConfig);
 
 var config = {
   draft: './content/drafts/welcome-to-morpheus.md',
@@ -65,12 +69,10 @@ gulp.task('styles', function() {
 
 gulp.task('watchers', function() {
   gulp.watch(config.scss, ['styles']);
-  gulp.watch(config.clientFiles, ['webpack']);
 });
 
-var task =   webpack(require('./webpack.config.' + process.env.NODE_ENV));
 gulp.task('webpack', function(cb) {
-  task.run(function(err, stats) {
+  wp.run(function(err, stats) {
     if (err) {
       throw new $.util.PluginError('webpack', err);
     }
@@ -87,6 +89,25 @@ gulp.task('webpack', function(cb) {
     cb();
   });
 });
+
+gulp.task('webpack-dev-server', function(cb) {
+  new WebpackDevServer(wp, {
+    publicPath: webpackConfig.output.publicPath,
+    contentBase: 'http://localhost:3000',
+    noInfo: true,
+    hot: true,
+    headers: {
+    'Access-Control-Allow-Origin': '*'
+  }
+  }).listen(3001, 'localhost', function (err) {
+    if (err){
+      return console.log(err);
+    }
+    console.log('Webpack server listening on port 3001');
+    cb();
+  });
+});
+
 
 gulp.task('server', function() {
   $.nodemon({
@@ -123,7 +144,7 @@ gulp.task('build', ['clean'], function(cb) {
 });
 
 gulp.task('watch', ['clean'], function(cb) {
-  runSequence('styles', 'webpack', 'replaceDev', 'server', 'watchers', cb);
+  runSequence('styles', 'webpack-dev-server', 'replaceDev', 'server', 'watchers', cb);
 });
 
 gulp.task('default', function() {

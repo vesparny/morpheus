@@ -1,26 +1,38 @@
 'use strict';
 
+var webpack = require('webpack');
 var path = require('path');
 process.env.NODE_ENV = 'development';
 var configuration = require('./shared/config');
 
 module.exports = {
-  entry: './client/client.js',
+  entry: [
+    'webpack-dev-server/client?http://localhost:3001',
+    'webpack/hot/dev-server',
+    './client/client.js'
+  ],
   output: {
     filename: 'bundle.js',
-    path: path.join(__dirname, 'content/themes/'+ configuration.theme +'/assets/dist')
+    path: path.join(__dirname, 'content/themes/'+ configuration.theme +'/assets/dist'),
+    publicPath: 'http://localhost:3001/assets/dist/'
   },
-  watch: true,
   module: {
     loaders: [{
       test: /\.js$/,
       exclude: /node_modules/,
-      loader: '6to5-loader'
+      loaders: ['react-hot', '6to5-loader']
     },
     {
       test: /\.json$/,
       exclude: /node_modules/,
       loader: 'json-loader'
     }]
-  }
+  },
+  resolve: {
+    extensions: ['', '.js']
+  },
+  plugins: [
+    new webpack.HotModuleReplacementPlugin(),
+    new webpack.NoErrorsPlugin()
+  ]
 };

@@ -13,6 +13,7 @@ module.exports = function() {
   var sslRedirection = require('./middlewares/ssl-redirection');
   var sanitize = require('./middlewares/sanitize');
   var requestLogger = require('./middlewares/request-logger');
+  var reactHotLoaderRedirect = require('./middlewares/react-hot-loader-redirect');
   var fluxibleContext = require('./middlewares/fluxible-context');
   var robotstxt = require('./middlewares/robots');
   var navigation = require('./middlewares/navigation');
@@ -32,6 +33,9 @@ module.exports = function() {
   server.use(bodyParser.urlencoded({
     extended: true
   }));
+
+  server.use('/assets/dist/bundle.js', reactHotLoaderRedirect);
+
   server.use(multer());
   server.use('/content/images', express.static(path.join(morpheus.config.appRoot, '/content/images/')));
   server.use(favicon(path.join(morpheus.config.appRoot, 'content/favicon.ico')));
