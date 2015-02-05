@@ -25,11 +25,22 @@ var App = React.createClass({
   onChange: function () {
     this.setState(assign(this.getStore(ApplicationStore).getState(), this.getStore(MetaStore).getState()));
   },
-  componentDidMount: function() {
+  sendGoogleAnalytics: function() {
     if (this.state.globals.googleAnalytics) {
       //ga
       window.ga('send', 'pageview', window.location.pathname);
     }
+  },
+  highlightBlock: function() {
+    //hljs
+    var aCodes = document.getElementsByTagName('code');
+    for (var i=0; i < aCodes.length; i+=1) {
+      window.hljs.highlightBlock(aCodes[i]);
+    }
+  },
+  componentDidMount: function() {
+    this.highlightBlock();
+    this.sendGoogleAnalytics();
   },
   componentDidUpdate: function(prevProps, prevState) {// jshint ignore:line
     var newState = this.state;
@@ -45,16 +56,8 @@ var App = React.createClass({
         }
       }.bind(this));
 
-      //hljs
-      var aCodes = document.getElementsByTagName('code');
-      for (var i=0; i < aCodes.length; i+=1) {
-        window.hljs.highlightBlock(aCodes[i]);
-      }
-
-      if (this.state.globals.googleAnalytics) {
-        //ga
-        window.ga('send', 'pageview', window.location.pathname);
-      }
+      this.highlightBlock();
+      this.sendGoogleAnalytics();
     }
   },
   render: function(){
