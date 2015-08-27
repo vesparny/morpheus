@@ -1,7 +1,6 @@
 'use strict';
 
 var RSS = require('rss');
-var Promise = require('es6-promise').Promise; // jshint ignore:line
 var config = require('../../shared/config');
 var path = require('path');
 var repositories = require(path.resolve(config.appRoot, 'server', config.repositoryStrategy.type))();

@@ -13,15 +13,11 @@ module.exports = function() {
   var sslRedirection = require('./middlewares/ssl-redirection');
   var sanitize = require('./middlewares/sanitize');
   var requestLogger = require('./middlewares/request-logger');
-  var fluxibleContext = require('./middlewares/fluxible-context');
   var robotstxt = require('./middlewares/robots');
-  var navigation = require('./middlewares/navigation');
   var notFound = require('./middlewares/not-found');
   var helmet = require('helmet');
-  var appContext = require('../shared/context');
   var morpheus = require('../morpheus');
   var server = express();
-  var fetchrPlugin = appContext.getPlugin('FetchrPlugin');
 
   morpheus.logger.info('creating express application');
   server.enable('strict routing');
@@ -49,18 +45,11 @@ module.exports = function() {
 
   server.use(sslRedirection);
 
-  server.use(fluxibleContext.call(null, appContext));
-
-  fetchrPlugin.registerService(morpheus.services.content);
-  server.use(fetchrPlugin.getXhrPath(), fetchrPlugin.getMiddleware());
-
   server.use(sanitize);
 
   server.use(slashes());
 
   server.use(sslRedirection);
-
-  server.use(navigation);
 
   routes(server);
 

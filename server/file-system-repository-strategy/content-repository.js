@@ -1,7 +1,6 @@
 'use strict';
 
 var AbstractRepository = require('../abstract-repository');
-var Promise = require('es6-promise').Promise; // jshint ignore:line
 var glob = require('glob');
 var path = require('path');
 var fs = require('fs');

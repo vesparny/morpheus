@@ -1,11 +1,9 @@
 'use strict';
 
-var Promise = require('es6-promise').Promise; //jshint ignore:line
 var _s = require('underscore.string');
 var serverUtils = require('../../server/utils');
 var assign = require('object-assign');
 var path = require('path');
-var Promise = require('es6-promise').Promise; // jshint ignore:line
 
 function buildContent(item, siteUrl) {
     return new Promise(function(resolve, reject) {

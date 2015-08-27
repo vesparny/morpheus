@@ -1,17 +1,22 @@
-'use strict';
-
-var React = require('react');
-var appContext = require('../shared/context');
-var dehydratedState = window.Morpheus; // Sent from the server
+import 'babel-core/polyfill';
+import React from 'react';
+import BrowserHistory from 'react-router/lib/BrowserHistory';
+import { Provider } from 'react-redux';
+import { Router } from 'react-router';
+import configureStore from '../store/configureStore';
+import routesFactory from '../createRoutes'
+const store = configureStore();
 
 window.React = React; // For chrome dev tool support
-appContext.rehydrate(dehydratedState, function(err, context) {
-  if (err) {
-    throw err;
-  }
-  var mountNode = document.body;
-  React.render(appContext.getAppComponent()({
-    context: context.getComponentContext(),
-    enableScroll: false
-  }), mountNode, function() {});
-});
+
+React.render(
+  <Provider store={store}>
+    {() =>
+      <Router
+        children={routesFactory()}
+        history={new BrowserHistory()}
+      />
+    }
+  </Provider>,
+  document.getElementById('root')
+);
