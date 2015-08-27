@@ -8,9 +8,10 @@
   },
   "keywords": [
     "react",
-    "browserify",
     "blog",
-    "isomorphic"
+    "isomorphic",
+    "universal",
+    "markdown"
   ],
   "author": "Alessandro Arnodo",
   "license": "MIT",
@@ -19,8 +20,7 @@
   },
   "homepage": "https://github.com/vesparny/morpheus",
   "scripts": {
-    "start": "node server.js",
-    "test": "./node_modules/.bin/gulp test"
+    "start": "nodemon server.js"
   },
   "main": "server.js",
   "dependencies": {
@@ -31,8 +31,6 @@
     "connect-slashes": "~1.3.0",
     "debug": "~2.1.1",
     "downsize": "~0.0.8",
-    "envify": "~3.2.0",
-    "es6-promise": "~2.0.1",
     "express": "~4.11.2",
     "flux-router-component": "~0.5.3",
     "fluxible": "~0.1.5",
@@ -47,9 +45,11 @@
     "method-override": "~2.3.1",
     "moment": "~2.9.0",
     "multer": "~0.1.7",
-    "node-jsx": "~0.12.4",
     "object-assign": "~2.0.0",
-    "react": "~0.12.2",
+    "react": "~0.13.3",
+    "react-redux": "^1.0.1",
+    "react-router": "^0.13.3",
+    "redux": "^1.0.1",
     "rss": "~1.1.1",
     "serialize-javascript": "~1.0.0",
     "serve-favicon": "~2.2.0",
@@ -57,32 +57,15 @@
     "validator": "~3.28.0"
   },
   "devDependencies": {
-    "6to5-core": "^3.3.9",
-    "6to5-loader": "^3.0.0",
-    "del": "~1.1.1",
-    "gulp": "~3.8.10",
-    "gulp-changed": "~1.1.0",
-    "gulp-cssmin": "~0.1.6",
-    "gulp-if": "~1.2.5",
-    "gulp-load-plugins": "~0.8.0",
-    "gulp-mocha": "~2.0.0",
-    "gulp-nodemon": "~1.0.5",
-    "gulp-notify": "~2.2.0",
-    "gulp-rename": "~1.2.0",
-    "gulp-replace": "~0.5.2",
-    "gulp-rev": "~3.0.0",
-    "gulp-ruby-sass": "~0.7.1",
-    "gulp-uglify": "~1.1.0",
-    "gulp-util": "~3.0.3",
-    "gulp-webpack": "^1.2.0",
-    "jest-cli": "^0.2.2",
-    "json-loader": "^0.5.1",
-    "minimist": "~1.1.0",
-    "mocha": "~2.1.0",
-    "run-sequence": "~1.0.2",
-    "should": "~4.6.3",
-    "sinon": "~1.12.2",
-    "supertest": "~0.15.0",
-    "webpack": "^1.5.3"
+    "babel": "^5.8.21",
+    "babel-core": "^5.8.22",
+    "babel-loader": "^5.3.2",
+    "extract-text-webpack-plugin": "^0.8.2",
+    "json-loader": "^0.5.2",
+    "network-address": "^1.0.0",
+    "nodemon": "^1.4.1",
+    "react-hot-loader": "^1.2.9",
+    "webpack": "^1.12.0",
+    "webpack-dev-server": "^1.10.1"
   }
 }
